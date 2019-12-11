@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="resources/css/global.css">
     <!-- Title -->
     <title></title>
     <!-- Angular JS -->
@@ -19,24 +20,49 @@
   </head>
   <!-- <body  ng-app="ResumeApp"> -->
   <body class="bg-light">
-    <section id="" class="row justify-content-center">
+    <div id="" class="row justify-content-center">
       <div class="col-12 col-md-10">
+        <!-- Resume Area -->
         <div class="row my-4 shadow-lg rounded">
-          <!-- Profile -->
-          <article id="profile-column" class="col-12 col-md-4 bg-warning">
-            <div class="card-body">
-              <div id="image-container" class="text-center">
-                <img src="resources/img/picture.png" class="card-img-top rounded-circle" width="200px" style="max-width: 200px">
-                <h5 class="card-title">John Doe</h5>
+          <!-- Profile Column -->
+          <section id="profile-column" class="col-12 col-md-4 px-0">
+            <!-- Picture -->
+            <article class="card-body" style="background-color:#ecc651!important">
+              <div id="picture-container" class="text-center">
+                <img src="resources/img/picture.png" class="card-img-top rounded-circle"
+                  width="200px" style="max-width: 200px">
+                <h3 class="card-title mt-3">John Doe</h3>
+                <h5 class="card-title mt-3">Software Developer</h5>
               </div>
+            </article>
+            <!-- Bio -->
+            <article class="card-body" style="background-color:#ffc10794!important">
               <div id="bio-container" class="text-justify">
                 <p class="card-text">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </p>
               </div>
-            </div>
-          </article>
-          <!-- Resume -->
+            </article>
+            <!-- contact -->
+            <article class="card-body" style="background-color:#9e7d1994!important">
+              <p class="card-text">
+                <ul class="p-0">
+                  <li><i class="fas fa-envelope"></i><span class="ml-2">Email</span></li>
+                  <li><i class="fas fa-phone"></i><span class="ml-2">Phone</span></li>
+                  <li><i class="fas fa-map-marker-alt"></i><span class="ml-2">Location</span></li>
+                  <li><i class="fas fa-globe"></i><span class="ml-2">Web Page</span></li>
+                  <li><i class="fab fa-github"></i><span class="ml-2">github</span></li>
+                  <li><i class="fab fa-linkedin"></i><span class="ml-2">linkedin</span></li>
+                  <li><i class="fab fa-twitter"></i><span class="ml-2">twitter</span></li>
+                  <li><i class="fab fa-facebook-f"></i><span class="ml-2">facebook</span></li>
+                  <li><i class="fab fa-instagram"></i><span class="ml-2">instagram</span></li>
+                  <li><i class="fab fa-whatsapp"></i><span class="ml-2">whatsapp</span></li>
+                  <li><i class="fab fa-snapchat-ghost"></i><span class="ml-2">snapchat</span></li>
+                </ul>
+              </p>
+            </article>
+          </section>
+          <!-- Resume Column -->
           <article id="resume-details" class="col-12 col-md-8 px-0">
             <div class="">
               <div class="card-body">
@@ -48,7 +74,7 @@
           </article>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Bootstrap JS: jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
