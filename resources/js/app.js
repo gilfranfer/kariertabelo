@@ -2,6 +2,10 @@ let app = angular.module('Kariertabelo', []);
 
 app.controller('KariertabeloCtrl', function($scope) {
 
+  $scope.order = {
+    profile:2,
+    resume:1
+  };
   $scope.colors = {
     profile:{
       column:"#2d7788",

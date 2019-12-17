@@ -27,7 +27,7 @@
         <div class="row my-4 shadow-lg rounded">
 
           <!-- Profile Column -->
-          <section id="profile-column" class="col-12 col-md-4 px-0"  style="background-color:{{colors.profile.column}}!important; color:{{colors.profile.text}}">
+          <section id="profile-column" class="col-12 col-md-4 order-{{order.profile}} px-0"  style="background-color:{{colors.profile.column}}!important; color:{{colors.profile.text}}">
             <!-- Picture -->
             <article class="card-body" style="background-color:{{colors.profile.profile}}!important" ng-if="data.profile">
               <div id="picture-container" class="text-center">
@@ -150,7 +150,7 @@
           </section>
 
           <!-- Resume Column -->
-          <article id="resume-details" class="col-12 col-md-8 px-0">
+          <article id="resume-details" class="col-12 col-md-8 order-{{order.resume}} px-0">
             <div class="card-body">
               <!-- Career Profile -->
               <div class="my-5" ng-if="data.resume.summary">
