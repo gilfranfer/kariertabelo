@@ -3,8 +3,8 @@ let app = angular.module('Kariertabelo', []);
 app.controller('KariertabeloCtrl', function($scope) {
 
   $scope.order = {
-    profile:2,
-    resume:1
+    profile:1,
+    resume:2
   };
   $scope.colors = {
     profile:{
@@ -44,13 +44,13 @@ app.controller('KariertabeloCtrl', function($scope) {
   $scope.data = {
     profile:{
       name:"Francisco Gil",
-      position:"IT Project Manager",
-      location:"San Antonio"
+      position:"Project Manager",
+      location:"Veracruz, México"
     },
     bio:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     contact:{
       email:"gil.franfer@gmail.com",
-      phone:"+1 2104195536",
+      phone:"+52 2211000011",
       webpage:"gillab.netlify.com",
       github:"github.com/gilfranfer",
       linkedin:"linkedin.com/in/gilfranfer/",
@@ -60,28 +60,30 @@ app.controller('KariertabeloCtrl', function($scope) {
       /*,whatsapp:"",snapchat:""*/
     },
     education:[
-      {recordId:2, degree:"Master in IT Management", school:"IEU Puebla", period:"2017 - 2019"},
-      {recordId:1, degree:"Software Engineering", school:"ITS Xalapa", period:"2008 - 2012"}
+      {recordId:1, degree:"Ingeniería de Software", school:"Universidad", period:"2008 - 2012"},
+      {recordId:2, degree:"Administración de Software", school:"Universidad", period:"2017 - 2019"},
     ],
     languages:[
-      {recordId:2, language:"Spanish", level:"Native"},
-      {recordId:1, language:"English", level:"Advanced"}
+      {recordId:1, language:"Español", level:"Nativo"},
+      {recordId:2, language:"Inglés", level:"Avanzado"},
+      {recordId:3, language:"Alemán", level:"Básico"},
+      {recordId:4, language:"Portugués", level:"Básico"}
     ],
     interests:[
-      {recordId:1, interest:"Photography", level:"Native"},
-      {recordId:2, interest:"Coding", level:"Advanced"},
-      {recordId:3, interest:"Traveling", level:"Advanced"}
+      {recordId:1, interest:"Fotografía"},
+      {recordId:2, interest:"Programación"},
+      {recordId:3, interest:"Viajes"}
     ],
     resume:{
       summary:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       work:[
-        {recordId:1, role:"Software Developer", employer:"Softtek", location:"", period:"Agosto 2011 - Junio 2014", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."},
-        {recordId:2, role:"Technical Lead", employer:"TCS America", location:"", period:"Junio 2014 - Marzo 2017", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."},
-        {recordId:3, role:"IT Manager", employer:"TCS America", location:"", period:"Abril 2017 - Presente", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
+        {recordId:1, role:"Desarrollador de Software", employer:"Softtek", location:"Monterrey, México", period:"Agosto 2011 - Junio 2014", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."},
+        {recordId:2, role:"Líder Técnico", employer:"TCS México", location:"Guadalajara, México", period:"Junio 2014 - Marzo 2017", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."},
+        {recordId:3, role:"Project Manager", employer:"TCS America", location:"San Antonio, Texas", period:"Abril 2017 - Presente", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
       ],
       projects:[
         {recordId:1, name:"Okulus", url:"http://okulus.netlify.com", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."},
-        {recordId:2, name:"Kariertabelo", url:"http://Kariertabelo.netlify.com", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
+        {recordId:2, name:"Kariertabelo", url:"http://kariertabelo.netlify.com", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
       ],
       skillsBar:[
         {recordId:1, skill:"Python", level:70},
@@ -96,10 +98,10 @@ app.controller('KariertabeloCtrl', function($scope) {
         {recordId:4, skill:"React"},
         {recordId:5, skill:"Flex"},
         {recordId:6, skill:"Foundation"},
-        {recordId:7, skill:"Sax"},
+        {recordId:7, skill:"Oracle"},
         {recordId:8, skill:"Couch DB"},
         {recordId:9, skill:"Kafka"},
-        {recordId:10, skill:"Eclipse IDE"}
+        {recordId:10, skill:"Splunk"}
       ]
     }
   };
