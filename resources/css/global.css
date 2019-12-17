@@ -28,3 +28,8 @@ body{
 .icon-circle > i{
   margin-top: 6px;
 }
+
+#picture-container > img {
+   width: 200px;
+   max-width: 200px;
+}
