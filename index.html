@@ -27,9 +27,9 @@
         <div class="row my-4 shadow-lg rounded">
 
           <!-- Profile Column -->
-          <section id="profile-column" class="col-12 col-md-4 px-0 text-light"  style="background-color:#2d7788!important">
+          <section id="profile-column" class="col-12 col-md-4 px-0"  style="background-color:{{colors.profile.column}}!important; color:{{colors.profile.text}}">
             <!-- Picture -->
-            <article class="card-body" style="background-color:#2d7788!important" ng-if="data.profile">
+            <article class="card-body" style="background-color:{{colors.profile.profile}}!important" ng-if="data.profile">
               <div id="picture-container" class="text-center">
                 <img src="resources/img/picture.png" class="card-img-top rounded-circle">
                 <h4 class="card-title mt-3 mb-0 font-weight-bold">{{data.profile.name}}</h4>
@@ -38,24 +38,24 @@
               </div>
             </article>
             <!-- Bio -->
-            <article class="card-body pt-0 pb-3" style="background-color:#2d7788!important" ng-if="data.bio">
+            <article class="card-body pt-0 pb-3" style="background-color:{{colors.profile.bio}}!important" ng-if="data.bio">
               <div class="text-justify">
                 <p class="card-text font-weight-normal">{{data.bio}}</p>
               </div>
             </article>
             <!-- Contact -->
-            <article class="card-body" style="background-color:#2d6088!important" ng-if="data.contact">
+            <article class="card-body" style="background-color:{{colors.profile.contact}}!important" ng-if="data.contact">
               <div class="row row-cols-2 row-cols-md-1">
                 <div class="col" ng-if="data.contact.email">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fas fa-envelope"></i>
-                    <a href="mailto:{{data.contact.email}}" style="color:#ddd">{{data.contact.email}}</a>
+                    <a href="mailto:{{data.contact.email}}" style="color:{{colors.profile.link}}">{{data.contact.email}}</a>
                   </span>
                 </div>
                 <div class="col" ng-if="data.contact.phone">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fas fa-phone"></i>
-                    <a href="tel:{{data.contact.phone}}" style="color:#ddd">{{data.contact.phone}}</a>
+                    <a href="tel:{{data.contact.phone}}" style="color:{{colors.profile.link}}">{{data.contact.phone}}</a>
                   </span>
                 </div>
                 <!-- <div class="col" ng-if="data.contact.whatsapp">
@@ -71,37 +71,37 @@
                 <div class="col" ng-if="data.contact.webpage">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fas fa-globe"></i>
-                    <a href="https://{{data.contact.webpage}}" target="_blank" style="color:#ddd">{{data.contact.webpage}}</a>
+                    <a href="https://{{data.contact.webpage}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.webpage}}</a>
                   </span>
                 </div>
                 <div class="col" ng-if="data.contact.github">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fab fa-github"></i>
-                    <a ng-href="https://{{data.contact.github}}" target="_blank" style="color:#ddd">{{data.contact.github}}</a>
+                    <a ng-href="https://{{data.contact.github}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.github}}</a>
                   </span>
                 </div>
                 <div class="col" ng-if="data.contact.linkedin">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fab fa-linkedin"></i>
-                    <a ng-href="https://{{data.contact.linkedin}}" target="_blank" style="color:#ddd">{{data.contact.linkedin}}</a>
+                    <a ng-href="https://{{data.contact.linkedin}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.linkedin}}</a>
                   </span>
                 </div>
                 <div class="col" ng-if="data.contact.twitter">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fab fa-twitter"></i>
-                    <a ng-href="https://{{data.contact.twitter}}" target="_blank" style="color:#ddd">{{data.contact.twitter}}</a>
+                    <a ng-href="https://{{data.contact.twitter}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.twitter}}</a>
                   </span>
                 </div>
                 <div class="col" ng-if="data.contact.facebook">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fab fa-facebook-f"></i>
-                    <a ng-href="https://{{data.contact.facebook}}" target="_blank" style="color:#ddd">{{data.contact.facebook}}</a>
+                    <a ng-href="https://{{data.contact.facebook}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.facebook}}</a>
                   </span>
                 </div>
                 <div class="col" ng-if="data.contact.instagram">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fab fa-instagram"></i>
-                    <a ng-href="https://{{data.contact.instagram}}" target="_blank" style="color:#ddd">{{data.contact.instagram}}</a>
+                    <a ng-href="https://{{data.contact.instagram}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.instagram}}</a>
                   </span>
                 </div>
                 <!-- <div class="col" ng-if="data.contact.snapchat">
@@ -112,7 +112,7 @@
               </div>
             </article>
             <!-- Education -->
-            <article class="card-body" style="background-color:#2d6088!important" ng-if="data.education">
+            <article class="card-body" style="background-color:{{colors.profile.education}}!important" ng-if="data.education">
               <div class="text-justify">
                 <h5 class="card-title font-weight-bold text-uppercase">
                   {{titles.education}}
@@ -125,7 +125,7 @@
               </div>
             </article>
             <!-- Languages -->
-            <article class="card-body" style="background-color:#2d6088!important" ng-if="data.languages">
+            <article class="card-body" style="background-color:{{colors.profile.languages}}!important" ng-if="data.languages">
               <div class="text-justify">
                 <h5 class="card-title font-weight-bold text-uppercase">
                   {{titles.languages}}
@@ -137,7 +137,7 @@
               </div>
             </article>
             <!-- Interests -->
-            <article class="card-body" style="background-color:#2d6088!important" ng-if="data.interests">
+            <article class="card-body" style="background-color:{{colors.profile.interest}}!important" ng-if="data.interests">
               <div class="text-justify">
                 <h5 class="card-title font-weight-bold text-uppercase">
                   {{titles.interests}}
@@ -155,28 +155,28 @@
               <!-- Career Profile -->
               <div class="my-5" ng-if="data.resume.summary">
                 <h5 class="card-title mb-5">
-                  <span class="icon-circle" style="background: #2d7788">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
                     <i class="fas fa-user"></i>
                   </span>
-                  <span class="text-uppercase" style="color: #2d7788">
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
                     {{titles.summary}}
                   </span>
                 </h5>
-                <p class="card-text text-justify">
+                <p class="card-text text-justify" style="color:{{colors.resume.text}}">
                   {{data.resume.summary}}
                 </p>
               </div>
               <!-- Job Experience -->
               <div class="my-5" ng-if="data.resume.work.length>0">
                 <h5 class="card-title mb-5">
-                  <span class="icon-circle" style="background: #2d7788">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
                     <i class="fas fa-briefcase"></i>
                   </span>
-                  <span class="text-uppercase" style="color: #2d7788">
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
                     {{titles.work}}
                   </span>
                 </h5>
-                <div class="mb-4" ng-repeat="record in data.resume.work | orderBy:'recordId':true track by record.recordId">
+                <div class="mb-4" ng-repeat="record in data.resume.work | orderBy:'recordId':true track by record.recordId" style="color:{{colors.resume.text}}">
                   <!-- Header -->
                   <div class="row mb-2">
                     <!-- Role -->
@@ -211,14 +211,14 @@
               <!-- Projects -->
               <div class="my-5" ng-if="data.resume.projects.length>0">
                 <h5 class="card-title mb-5">
-                  <span class="icon-circle" style="background: #2d7788">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
                     <i class="fas fa-pencil-alt"></i>
                   </span>
-                  <span class="text-uppercase" style="color: #2d7788">
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
                     {{titles.projects}}
                   </span>
                 </h5>
-                <div class="mb-4" ng-repeat="record in data.resume.projects | orderBy:'recordId':true track by record.recordId">
+                <div class="mb-4" ng-repeat="record in data.resume.projects | orderBy:'recordId':true track by record.recordId" style="color:{{colors.resume.text}}">
                   <div class="row mb-3">
                     <div class="col">
                       <span class="font-weight-bold">
@@ -228,7 +228,7 @@
                         {{record.description}}
                       </span>
                       <br>
-                      <a class="card-text font-weight-light mt-3" href="{{record.url}}" target="_blank">
+                      <a class="card-text font-weight-light mt-3" href="{{record.url}}" target="_blank" style="color:{{colors.resume.link}}">
                         {{record.url}}
                       </a>
                     </div>
@@ -238,33 +238,33 @@
               <!-- Skilss -->
               <div class="my-5" ng-if="data.resume.skillsBar.length>0 || data.resume.skillsTag.length>0 ">
                 <h5 class="card-title mb-5">
-                  <span class="icon-circle" style="background: #2d7788">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
                     <i class="fas fa-tools"></i>
                   </span>
-                  <span class="text-uppercase" style="color: #2d7788">
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
                     {{titles.skills}}
                   </span>
                 </h5>
                 <!-- Skills with bar -->
-                <div class="mb-4" ng-repeat="record in data.resume.skillsBar | orderBy:'recordId':true track by record.recordId">
+                <div class="mb-4" ng-repeat="record in data.resume.skillsBar | orderBy:'recordId':true track by record.recordId" style="color:{{colors.resume.text}}">
                   <div class="row mb-3">
                     <div class="col">
                       <span class="font-weight-normal">
                         {{record.skill}}
                       </span>
                       <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-primary" role="progressbar"
-                          style="width: {{record.level}}%" aria-valuenow="{{record.level}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar progress-bar-striped" role="progressbar"
+                          style="width: {{record.level}}%; background-color:{{colors.resume.bar}}" aria-valuenow="{{record.level}}" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <!-- Skills tags -->
-                <h3 class="badge badge-secondary p-2 mr-2" ng-repeat="record in data.resume.skillsTag | orderBy:'recordId':true track by record.recordId">
+                <h3 ng-repeat="record in data.resume.skillsTag | orderBy:'recordId':true track by record.recordId"
+                   class="badge badge-secondary p-2 mr-2" style="color:{{colors.resume.skillText}};background-color:{{colors.resume.skillBadge}}">
                   {{record.skill}}
                 </h3>
               </div>
-              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
             </div>
           </article>
 

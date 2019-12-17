@@ -2,6 +2,30 @@ let app = angular.module('Kariertabelo', []);
 
 app.controller('KariertabeloCtrl', function($scope) {
 
+  $scope.colors = {
+    profile:{
+      column:"#2d7788",
+      profile:"#2d7788",
+      bio:"#2d7788",
+      contact:"#2d7788",
+      education:"#2d7788",
+      languages:"#2d7788",
+      interests:"#2d7788",
+      text:"#fff",
+      link:"#ddd"
+    },
+    resume:{
+      title:"#2d7788",
+      circle:"#2d7788",
+      icon:"#fff",
+      text:"#444",
+      link:"#2d7788",
+      bar:"#2d7788",
+      skillText:"#fff",
+      skillBadge:"#2d7788"
+    }
+  };
+
   $scope.titles = {
     education:"Educación",
     languages:"Idiomas",
