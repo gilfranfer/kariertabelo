@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" ng-app="Kariertabelo">
   <head>
     <!-- Meta -->
     <meta charset="utf-8">
@@ -17,9 +17,10 @@
     <title></title>
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="resources/js/app.js"></script>
   </head>
   <!-- <body  ng-app="ResumeApp"> -->
-  <body class="bg-light">
+  <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl">
     <div id="" class="row justify-content-center">
       <div class="col-11 col-lg-10">
         <!-- Resume Area -->
@@ -28,117 +29,121 @@
           <!-- Profile Column -->
           <section id="profile-column" class="col-12 col-md-4 px-0 text-light">
             <!-- Picture -->
-            <article class="card-body" style="background-color:#2d7788!important">
+            <article class="card-body" style="background-color:#2d7788!important" ng-if="data.profile">
               <div id="picture-container" class="text-center">
                 <img src="resources/img/picture.png" class="card-img-top rounded-circle">
-                <h4 class="card-title mt-3 mb-0 font-weight-bold">John Doe</h4>
-                <span class="card-title mb-0 font-weight-light">Software Developer</span><br>
-                <span class="font-weight-lighter"><i class="fas fa-map-marker-alt mr-2"></i>Location</span>
+                <h4 class="card-title mt-3 mb-0 font-weight-bold">{{data.profile.name}}</h4>
+                <span class="card-title mb-0 font-weight-light">{{data.profile.position}}</span><br>
+                <span class="font-weight-lighter"><i class="fas fa-map-marker-alt mr-2"></i>{{data.profile.location}}</span>
               </div>
             </article>
             <!-- Bio -->
-            <article class="card-body" style="background-color:#2d7788!important">
+            <article class="card-body py-0" style="background-color:#2d7788!important" ng-if="data.bio">
               <div class="text-justify">
-                <p class="card-text font-weight-normal">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+                <p class="card-text font-weight-normal">{{data.bio}}</p>
               </div>
             </article>
             <!-- Contact -->
-            <article class="card-body" style="background-color:#2d7788!important">
+            <article class="card-body" style="background-color:#2d7788!important" ng-if="data.contact">
               <div class="row row-cols-2 row-cols-md-1">
-                <div class="col">
+                <div class="col" ng-if="data.contact.email">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fas fa-envelope"></i>Email
+                    <i class="mr-2 fas fa-envelope"></i>
+                    <a href="mailto:{{data.contact.email}}" style="color:#ddd">{{data.contact.email}}</a>
                   </span>
                 </div>
-                <div class="col">
+                <div class="col" ng-if="data.contact.phone">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fas fa-phone"></i>Phone
+                    <i class="mr-2 fas fa-phone"></i>
+                    <a href="tel:{{data.contact.phone}}" style="color:#ddd">{{data.contact.phone}}</a>
                   </span>
                 </div>
+                <!-- <div class="col" ng-if="data.contact.whatsapp">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-whatsapp"></i>whatsapp
+                  </span>
+                </div> -->
                 <!-- <div class="col">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fas fa-map-marker-alt"></i>Location
                   </span>
                 </div> -->
-                <div class="col">
+                <div class="col" ng-if="data.contact.webpage">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fas fa-globe"></i>Web Page
+                    <i class="mr-2 fas fa-globe"></i>
+                    <a href="https://{{data.contact.webpage}}" target="_blank" style="color:#ddd">{{data.contact.webpage}}</a>
                   </span>
                 </div>
-                <div class="col">
+                <div class="col" ng-if="data.contact.github">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fab fa-github"></i>github
+                    <i class="mr-2 fab fa-github"></i>
+                    <a ng-href="https://{{data.contact.github}}" target="_blank" style="color:#ddd">{{data.contact.github}}</a>
                   </span>
                 </div>
-                <div class="col">
+                <div class="col" ng-if="data.contact.linkedin">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fab fa-linkedin"></i>linkedin
+                    <i class="mr-2 fab fa-linkedin"></i>
+                    <a ng-href="https://{{data.contact.linkedin}}" target="_blank" style="color:#ddd">{{data.contact.linkedin}}</a>
                   </span>
                 </div>
-                <div class="col">
+                <div class="col" ng-if="data.contact.twitter">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fab fa-twitter"></i>twitter
+                    <i class="mr-2 fab fa-twitter"></i>
+                    <a ng-href="https://{{data.contact.twitter}}" target="_blank" style="color:#ddd">{{data.contact.twitter}}</a>
                   </span>
                 </div>
-                <div class="col">
+                <div class="col" ng-if="data.contact.facebook">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fab fa-facebook-f"></i>facebook
+                    <i class="mr-2 fab fa-facebook-f"></i>
+                    <a ng-href="https://{{data.contact.facebook}}" target="_blank" style="color:#ddd">{{data.contact.facebook}}</a>
                   </span>
                 </div>
-                <div class="col">
+                <div class="col" ng-if="data.contact.instagram">
                   <span class="font-weight-lighter">
-                    <i class="mr-2 fab fa-instagram"></i>instagram
+                    <i class="mr-2 fab fa-instagram"></i>
+                    <a ng-href="https://{{data.contact.instagram}}" target="_blank" style="color:#ddd">{{data.contact.instagram}}</a>
                   </span>
                 </div>
-                <div class="col">
-                  <span class="font-weight-lighter">
-                    <i class="mr-2 fab fa-whatsapp"></i>whatsapp
-                  </span>
-                </div>
-                <div class="col">
+                <!-- <div class="col" ng-if="data.contact.snapchat">
                   <span class="font-weight-lighter">
                     <i class="mr-2 fab fa-snapchat-ghost"></i>snapchat
                   </span>
-                </div>
+                </div> -->
               </div>
             </article>
             <!-- Education -->
-            <article class="card-body" style="background-color:#2d7788!important">
+            <article class="card-body" style="background-color:#2d7788!important" ng-if="data.education">
               <div class="text-justify">
                 <h5 class="card-title font-weight-bold text-uppercase">
-                  Education
+                  {{titles.education}}
                 </h5>
-                <div class="mt-3">
-                  <span class="font-weight-bold">MSc in Computer Science</span><br>
-                  <span class="font-weight-light">University of London</span><br>
-                  <span class="font-weight-lighter">2011 - 2012</span><br>
+                <div class="mt-3" ng-repeat="record in data.education | orderBy:'orderId' track by record.orderId">
+                  <span class="font-weight-bold">{{record.degree}}</span><br>
+                  <span class="font-weight-light">{{record.school}}</span><br>
+                  <span class="font-weight-lighter">{{record.period}}</span><br>
                 </div>
               </div>
             </article>
             <!-- Languages -->
-            <article class="card-body" style="background-color:#2d7788!important">
+            <article class="card-body" style="background-color:#2d7788!important" ng-if="data.languages">
               <div class="text-justify">
                 <h5 class="card-title font-weight-bold text-uppercase">
-                  Languages
+                  {{titles.languages}}
                 </h5>
-                <div class="mt-3">
-                  <span class="font-weight-normal">English</span>
-                  <span class="font-weight-lighter font-italic">(Native)</span>
+                <div class="mt-1" ng-repeat="record in data.languages | orderBy:'orderId' track by record.orderId">
+                  <span class="font-weight-normal">{{record.language}}</span>
+                  <span class="font-weight-lighter font-italic">({{record.level}})</span>
                 </div>
               </div>
             </article>
             <!-- Interests -->
-            <article class="card-body" style="background-color:#2d7788!important">
+            <article class="card-body" style="background-color:#2d7788!important" ng-if="data.interests">
               <div class="text-justify">
                 <h5 class="card-title font-weight-bold text-uppercase">
-                  Interests
+                  {{titles.interests}}
                 </h5>
-                <div class="mt-3">
-                  <span class="font-weight-normal">English</span><br>
-                  <span class="font-weight-normal">English</span><br>
-                  <span class="font-weight-normal">English</span><br>
+                <div class="mt-1" ng-repeat="record in data.interests | orderBy:'orderId' track by record.orderId">
+                  <span class="font-weight-normal">{{record.interest}}</span><br>
                 </div>
               </div>
             </article>
