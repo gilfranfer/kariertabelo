@@ -27,7 +27,7 @@
         <div class="row my-4 shadow-lg rounded">
 
           <!-- Profile Column -->
-          <section id="profile-column" class="col-12 col-md-4 px-0 text-light">
+          <section id="profile-column" class="col-12 col-md-4 px-0 text-light"  style="background-color:#2d7788!important">
             <!-- Picture -->
             <article class="card-body" style="background-color:#2d7788!important" ng-if="data.profile">
               <div id="picture-container" class="text-center">
@@ -117,7 +117,7 @@
                 <h5 class="card-title font-weight-bold text-uppercase">
                   {{titles.education}}
                 </h5>
-                <div class="mt-3" ng-repeat="record in data.education | orderBy:'orderId' track by record.orderId">
+                <div class="mt-3" ng-repeat="record in data.education | orderBy:'recordId':true track by record.recordId">
                   <span class="font-weight-bold">{{record.degree}}</span><br>
                   <span class="font-weight-light">{{record.school}}</span><br>
                   <span class="font-weight-lighter">{{record.period}}</span><br>
@@ -130,7 +130,7 @@
                 <h5 class="card-title font-weight-bold text-uppercase">
                   {{titles.languages}}
                 </h5>
-                <div class="mt-1" ng-repeat="record in data.languages | orderBy:'orderId' track by record.orderId">
+                <div class="mt-1" ng-repeat="record in data.languages | orderBy:'recordId':true track by record.recordId">
                   <span class="font-weight-normal">{{record.language}}</span>
                   <span class="font-weight-lighter font-italic">({{record.level}})</span>
                 </div>
@@ -142,7 +142,7 @@
                 <h5 class="card-title font-weight-bold text-uppercase">
                   {{titles.interests}}
                 </h5>
-                <div class="mt-1" ng-repeat="record in data.interests | orderBy:'orderId' track by record.orderId">
+                <div class="mt-1" ng-repeat="record in data.interests | orderBy:'recordId':true track by record.recordId">
                   <span class="font-weight-normal">{{record.interest}}</span><br>
                 </div>
               </div>
@@ -153,111 +153,116 @@
           <article id="resume-details" class="col-12 col-md-8 px-0">
             <div class="card-body">
               <!-- Career Profile -->
-              <div class="my-5">
-                <h5 class="card-title section-title">
+              <div class="my-5" ng-if="data.resume.summary">
+                <h5 class="card-title mb-5">
                   <span class="icon-circle" style="background: #2d7788">
                     <i class="fas fa-user"></i>
                   </span>
                   <span class="text-uppercase" style="color: #2d7788">
-                    Career Profile
+                    {{titles.summary}}
                   </span>
                 </h5>
-                <p class="card-text text-justify mt-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                <p class="card-text text-justify">
+                  {{data.resume.summary}}
                 </p>
               </div>
               <!-- Job Experience -->
-              <div class="my-5">
-                <h5 class="card-title section-title">
+              <div class="my-5" ng-if="data.resume.work.length>0">
+                <h5 class="card-title mb-5">
                   <span class="icon-circle" style="background: #2d7788">
                     <i class="fas fa-briefcase"></i>
                   </span>
                   <span class="text-uppercase" style="color: #2d7788">
-                    Work Experience
+                    {{titles.work}}
                   </span>
                 </h5>
-                <div class="mt-4">
+                <div class="mb-4" ng-repeat="record in data.resume.work | orderBy:'recordId':true track by record.recordId">
                   <!-- Header -->
-                  <div class="row">
+                  <div class="row mb-2">
                     <!-- Role -->
                     <div class="col-md-8">
                       <span class="font-weight-bold">
-                        Lead Developer
+                        {{record.role}}
                       </span>
                     </div>
                     <!-- Period -->
                     <div class="col-md-4  text-md-right">
                       <span class="font-weight-light">
-                        2015 - Present
+                        {{record.period}}
                       </span>
                     </div>
                     <!-- Company -->
                     <div class="col-12">
                       <span class="font-weight-light">
-                        Gillab, San Antonio Tx
+                        {{record.employer}}, {{record.location}}
                       </span>
                     </div>
                   </div>
                   <!-- Description -->
                   <div class="row">
                     <div class="col">
-                      <p class="card-text text-justify mt-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      <p class="card-text text-justify">
+                        {{record.description}}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- Projects -->
-              <div class="my-5">
-                <h5 class="card-title section-title">
+              <div class="my-5" ng-if="data.resume.projects.length>0">
+                <h5 class="card-title mb-5">
                   <span class="icon-circle" style="background: #2d7788">
                     <i class="fas fa-pencil-alt"></i>
                   </span>
                   <span class="text-uppercase" style="color: #2d7788">
-                    Projects
+                    {{titles.projects}}
                   </span>
                 </h5>
-                <div class="mt-4">
+                <div class="mb-4" ng-repeat="record in data.resume.projects | orderBy:'recordId':true track by record.recordId">
                   <div class="row mb-3">
                     <div class="col">
                       <span class="font-weight-bold">
-                        Project Name -
+                        {{record.name}} -
                       </span>
                       <span class="card-text text-justify mt-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        {{record.description}}
                       </span>
                       <br>
-                      <a class="card-text font-weight-light mt-3" href="http://projec-url.com">
-                        http://projec-url.com
+                      <a class="card-text font-weight-light mt-3" href="{{record.url}}" target="_blank">
+                        {{record.url}}
                       </a>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- Skilss -->
-              <div class="my-5">
-                <h5 class="card-title section-title">
+              <div class="my-5" ng-if="data.resume.skillsBar.length>0 || data.resume.skillsTag.length>0 ">
+                <h5 class="card-title mb-5">
                   <span class="icon-circle" style="background: #2d7788">
                     <i class="fas fa-tools"></i>
                   </span>
                   <span class="text-uppercase" style="color: #2d7788">
-                    Skills
+                    {{titles.skills}}
                   </span>
                 </h5>
-                <div class="mt-4">
+                <!-- Skills with bar -->
+                <div class="mb-4" ng-repeat="record in data.resume.skillsBar | orderBy:'recordId':true track by record.recordId">
                   <div class="row mb-3">
                     <div class="col">
                       <span class="font-weight-normal">
-                        Skill Name
+                        {{record.skill}}
                       </span>
                       <div class="progress">
                         <div class="progress-bar progress-bar-striped bg-primary" role="progressbar"
-                          style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                          style="width: {{record.level}}%" aria-valuenow="{{record.level}}" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- Skills tags -->
+                <h3 class="badge badge-secondary p-2 mr-2" ng-repeat="record in data.resume.skillsTag | orderBy:'recordId':true track by record.recordId">
+                  {{record.skill}}
+                </h3>
               </div>
               <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
             </div>
