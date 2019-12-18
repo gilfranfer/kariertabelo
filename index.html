@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Kariertabelo">
   <head>
+    <!-- Title -->
+    <title>Kariertabelo!</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,18 +13,18 @@
     <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="resources/favicon/favicon-16x16.png">
     <link rel="manifest" href="resources/favicon/site.webmanifest">
-    <!-- Title -->
-    <title>Kariertabelo!</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/kariertabelo-site.css">
-    <!-- Angular JS -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
-    <script src="resources/js/kariertabelo-site.js"></script> -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+
+    <!-- Injected in hosting -->
+    <script>
+      var firebaseConfig = {};
+    </script>
+
   </head>
   <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl">
     <nav class="navbar navbar-dark bg-dark sticky-top py-3">
@@ -113,6 +115,15 @@
         Powered with <i class="fas fa-heart"></i> by Gillab
       </a>
     </footer>
+
+    <!-- AngularJS and Firebase -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script> firebase.initializeApp(firebaseConfig); </script>
+    <script src="resources/js/kariertabelo-site.js"></script>
+
     <!-- Bootstrap JS: jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
