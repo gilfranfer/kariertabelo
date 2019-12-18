@@ -8,25 +8,25 @@ app.controller('KariertabeloCtrl', function($scope) {
   };
   $scope.colors = {
     profile:{
-      column:"#2d7788",
-      profile:"#2d7788",
-      bio:"#2d7788",
-      contact:"#2d7788",
-      education:"#2d7788",
-      languages:"#2d7788",
-      interests:"#2d7788",
+      column:"#28a745",
+      profile:"#28a745",
+      bio:"#28a745",
+      contact:"#28a745",
+      education:"#28a745",
+      languages:"#28a745",
+      interests:"#28a745",
       text:"#fff",
       link:"#ddd"
     },
     resume:{
-      title:"#2d7788",
-      circle:"#2d7788",
+      title:"#28a745",
+      circle:"#28a745",
       icon:"#fff",
       text:"#444",
-      link:"#2d7788",
-      bar:"#2d7788",
+      link:"#28a745",
+      bar:"#28a745",
       skillText:"#fff",
-      skillBadge:"#2d7788"
+      skillBadge:"#28a745"
     }
   };
 

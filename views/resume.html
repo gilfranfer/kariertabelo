@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/css/global.css">
+    <link rel="stylesheet" href="../resources/css/global.css">
     <!-- Title -->
     <title></title>
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
-    <script src="resources/js/app.js"></script>
+    <script src="../resources/js/app.js"></script>
   </head>
   <!-- <body  ng-app="ResumeApp"> -->
   <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl">
@@ -31,7 +31,7 @@
             <!-- Picture -->
             <article class="card-body" style="background-color:{{colors.profile.profile}}!important" ng-if="data.profile">
               <div id="picture-container" class="text-center">
-                <img src="resources/img/picture.png" class="card-img-top rounded-circle">
+                <img src="../resources/img/picture.png" class="card-img-top rounded-circle">
                 <h4 class="card-title mt-3 mb-0 font-weight-bold">{{data.profile.name}}</h4>
                 <span class="card-title mb-0 font-weight-light">{{data.profile.position}}</span><br>
                 <span class="font-weight-lighter"><i class="fas fa-map-marker-alt mr-2"></i>{{data.profile.location}}</span>
