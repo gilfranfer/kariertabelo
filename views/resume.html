@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Kariertabelo">
+  <head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Resume Page">
+    <meta name="author" content="Fernando Gil">
+    <!-- <link rel="shortcut icon" href="favicon.ico"> -->
+    <!-- Fonts -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Sulphur+Point&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../resources/css/global.css">
+    <!-- Title -->
+    <title></title>
+    <!-- Angular JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="../resources/js/app.js"></script>
+  </head>
+  <!-- <body  ng-app="ResumeApp"> -->
+  <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl">
+    <div id="" class="row justify-content-center">
+      <div class="col-11 col-lg-10">
+        <!-- Resume Area -->
+        <div class="row my-4 shadow-lg rounded">
+
+          <!-- Profile Column -->
+          <section id="profile-column" class="col-12 col-md-4 order-md-{{order.profile}} px-0"  style="background-color:{{colors.profile.column}}!important; color:{{colors.profile.text}}">
+            <!-- Picture -->
+            <article class="card-body" style="background-color:{{colors.profile.profile}}!important" ng-if="data.profile">
+              <div id="picture-container" class="text-center">
+                <img src="../resources/img/picture.png" class="card-img-top rounded-circle">
+                <h4 class="card-title mt-3 mb-0 font-weight-bold">{{data.profile.name}}</h4>
+                <span class="card-title mb-0 font-weight-light">{{data.profile.position}}</span><br>
+                <span class="font-weight-lighter"><i class="fas fa-map-marker-alt mr-2"></i>{{data.profile.location}}</span>
+              </div>
+            </article>
+            <!-- Bio -->
+            <article class="card-body pt-0 pb-3" style="background-color:{{colors.profile.bio}}!important" ng-if="data.bio">
+              <div class="text-justify">
+                <p class="card-text font-weight-normal">{{data.bio}}</p>
+              </div>
+            </article>
+            <!-- Contact -->
+            <article class="card-body" style="background-color:{{colors.profile.contact}}!important" ng-if="data.contact">
+              <div class="row row-cols-2 row-cols-md-1">
+                <div class="col" ng-if="data.contact.email">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fas fa-envelope"></i>
+                    <a href="mailto:{{data.contact.email}}" style="color:{{colors.profile.link}}">{{data.contact.email}}</a>
+                  </span>
+                </div>
+                <div class="col" ng-if="data.contact.phone">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fas fa-phone"></i>
+                    <a href="tel:{{data.contact.phone}}" style="color:{{colors.profile.link}}">{{data.contact.phone}}</a>
+                  </span>
+                </div>
+                <!-- <div class="col" ng-if="data.contact.whatsapp">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-whatsapp"></i>whatsapp
+                  </span>
+                </div> -->
+                <!-- <div class="col">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fas fa-map-marker-alt"></i>Location
+                  </span>
+                </div> -->
+                <div class="col" ng-if="data.contact.webpage">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fas fa-globe"></i>
+                    <a href="https://{{data.contact.webpage}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.webpage}}</a>
+                  </span>
+                </div>
+                <div class="col" ng-if="data.contact.github">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-github"></i>
+                    <a ng-href="https://{{data.contact.github}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.github}}</a>
+                  </span>
+                </div>
+                <div class="col" ng-if="data.contact.linkedin">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-linkedin"></i>
+                    <a ng-href="https://{{data.contact.linkedin}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.linkedin}}</a>
+                  </span>
+                </div>
+                <div class="col" ng-if="data.contact.twitter">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-twitter"></i>
+                    <a ng-href="https://{{data.contact.twitter}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.twitter}}</a>
+                  </span>
+                </div>
+                <div class="col" ng-if="data.contact.facebook">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-facebook-f"></i>
+                    <a ng-href="https://{{data.contact.facebook}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.facebook}}</a>
+                  </span>
+                </div>
+                <div class="col" ng-if="data.contact.instagram">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-instagram"></i>
+                    <a ng-href="https://{{data.contact.instagram}}" target="_blank" style="color:{{colors.profile.link}}">{{data.contact.instagram}}</a>
+                  </span>
+                </div>
+                <!-- <div class="col" ng-if="data.contact.snapchat">
+                  <span class="font-weight-lighter">
+                    <i class="mr-2 fab fa-snapchat-ghost"></i>snapchat
+                  </span>
+                </div> -->
+              </div>
+            </article>
+            <!-- Education -->
+            <article class="card-body" style="background-color:{{colors.profile.education}}!important" ng-if="data.education">
+              <div class="text-justify">
+                <h5 class="card-title font-weight-bold text-uppercase">
+                  {{titles.education}}
+                </h5>
+                <div class="mt-3" ng-repeat="record in data.education | orderBy:'recordId':true track by record.recordId">
+                  <span class="font-weight-bold">{{record.degree}}</span><br>
+                  <span class="font-weight-light">{{record.school}}</span><br>
+                  <span class="font-weight-lighter">{{record.period}}</span><br>
+                </div>
+              </div>
+            </article>
+            <!-- Languages -->
+            <article class="card-body" style="background-color:{{colors.profile.languages}}!important" ng-if="data.languages">
+              <div class="text-justify">
+                <h5 class="card-title font-weight-bold text-uppercase">
+                  {{titles.languages}}
+                </h5>
+                <div class="mt-1" ng-repeat="record in data.languages | orderBy:'recordId':true track by record.recordId">
+                  <span class="font-weight-normal">{{record.language}}</span>
+                  <span class="font-weight-lighter font-italic">({{record.level}})</span>
+                </div>
+              </div>
+            </article>
+            <!-- Interests -->
+            <article class="card-body" style="background-color:{{colors.profile.interest}}!important" ng-if="data.interests">
+              <div class="text-justify">
+                <h5 class="card-title font-weight-bold text-uppercase">
+                  {{titles.interests}}
+                </h5>
+                <div class="mt-1" ng-repeat="record in data.interests | orderBy:'recordId':true track by record.recordId">
+                  <span class="font-weight-normal">{{record.interest}}</span><br>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <!-- Resume Column -->
+          <article id="resume-details" class="col-12 col-md-8 order-md-{{order.resume}} px-0">
+            <div class="card-body">
+              <!-- Career Profile -->
+              <div class="my-5" ng-if="data.resume.summary">
+                <h5 class="card-title mb-5">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
+                    {{titles.summary}}
+                  </span>
+                </h5>
+                <p class="card-text text-justify" style="color:{{colors.resume.text}}">
+                  {{data.resume.summary}}
+                </p>
+              </div>
+              <!-- Job Experience -->
+              <div class="my-5" ng-if="data.resume.work.length>0">
+                <h5 class="card-title mb-5">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
+                    <i class="fas fa-briefcase"></i>
+                  </span>
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
+                    {{titles.work}}
+                  </span>
+                </h5>
+                <div class="mb-4" ng-repeat="record in data.resume.work | orderBy:'recordId':true track by record.recordId" style="color:{{colors.resume.text}}">
+                  <!-- Header -->
+                  <div class="row mb-2">
+                    <!-- Role -->
+                    <div class="col-md-8">
+                      <span class="font-weight-bold">
+                        {{record.role}}
+                      </span>
+                    </div>
+                    <!-- Period -->
+                    <div class="col-md-4  text-md-right">
+                      <span class="font-weight-light">
+                        {{record.period}}
+                      </span>
+                    </div>
+                    <!-- Company -->
+                    <div class="col-12">
+                      <span class="font-weight-light">
+                        {{record.employer}}, {{record.location}}
+                      </span>
+                    </div>
+                  </div>
+                  <!-- Description -->
+                  <div class="row">
+                    <div class="col">
+                      <p class="card-text text-justify">
+                        {{record.description}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Projects -->
+              <div class="my-5" ng-if="data.resume.projects.length>0">
+                <h5 class="card-title mb-5">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
+                    <i class="fas fa-pencil-alt"></i>
+                  </span>
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
+                    {{titles.projects}}
+                  </span>
+                </h5>
+                <div class="mb-4" ng-repeat="record in data.resume.projects | orderBy:'recordId':true track by record.recordId" style="color:{{colors.resume.text}}">
+                  <div class="row mb-3">
+                    <div class="col">
+                      <span class="font-weight-bold">
+                        {{record.name}} -
+                      </span>
+                      <span class="card-text text-justify mt-3">
+                        {{record.description}}
+                      </span>
+                      <br>
+                      <a class="card-text font-weight-light mt-3" href="{{record.url}}" target="_blank" style="color:{{colors.resume.link}}">
+                        {{record.url}}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Skilss -->
+              <div class="my-5" ng-if="data.resume.skillsBar.length>0 || data.resume.skillsTag.length>0 ">
+                <h5 class="card-title mb-5">
+                  <span class="icon-circle" style="background-color:{{colors.resume.circle}}!important; color:{{colors.resume.icon}}">
+                    <i class="fas fa-tools"></i>
+                  </span>
+                  <span class="text-uppercase" style="color:{{colors.resume.title}}">
+                    {{titles.skills}}
+                  </span>
+                </h5>
+                <!-- Skills with bar -->
+                <div class="mb-4" ng-repeat="record in data.resume.skillsBar | orderBy:'recordId':true track by record.recordId" style="color:{{colors.resume.text}}">
+                  <div class="row mb-3">
+                    <div class="col">
+                      <span class="font-weight-normal">
+                        {{record.skill}}
+                      </span>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar"
+                          style="width: {{record.level}}%; background-color:{{colors.resume.bar}}" aria-valuenow="{{record.level}}" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Skills tags -->
+                <h3 ng-repeat="record in data.resume.skillsTag | orderBy:'recordId':true track by record.recordId"
+                   class="badge badge-secondary p-2 mr-2" style="color:{{colors.resume.skillText}};background-color:{{colors.resume.skillBadge}}">
+                  {{record.skill}}
+                </h3>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center">
+      <a class="text-decoration-none text-danger" href="https://gillab.netlify.com">
+        Powered with <i class="fas fa-heart"></i> by Gillab
+      </a>
+    </footer>
+    <!-- Bootstrap JS: jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+  </body>
+</html>
