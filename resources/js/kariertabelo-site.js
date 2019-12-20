@@ -10,13 +10,37 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'views/resume_example.html',
     controller: 'ExampleResumeCtrl'
   })
+  .when('/register', {
+    templateUrl: 'views/register.html',
+    controller: 'RegisterCtrl'
+  })
+  .when('/login', {
+    templateUrl: 'views/login.html',
+    controller: 'LoginCtrl'
+  })
   .otherwise({
     redirectTo: '/home'
   });
   $locationProvider.html5Mode(false);
 });
 
-app.controller('KariertabeloCtrl', function($scope) {});
+app.controller('KariertabeloCtrl', function($scope, $location) {
+  $scope.moveToRoute = function(route){
+      $location.path(route);
+  }
+});
+
+app.controller('RegisterCtrl', function($scope){
+  $scope.registerUser = function() {
+    console.log($scope.registration);
+  };
+});
+
+app.controller('LoginCtrl', function($scope){
+  $scope.loginUser = function() {
+    console.log($scope.registration);
+  };
+});
 
 app.controller('ExampleResumeCtrl', function($scope) {
 

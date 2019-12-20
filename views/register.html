@@ -1,0 +1,53 @@
+<article id="register-container" class="row justify-content-center">
+  <div class="col-11 col-lg-10">
+    <div class="card my-4 shadow-lg rounded">
+      <div class="card-body">
+        <h2 class="card-title bold-center-title">Register now!</h2>
+    		<hr>
+        <form name="registerForm" novalidate ng-submit="registerUser()">
+          <!-- Email -->
+          <div class="form-row my-2">
+            <div class="col form-group">
+              <input id="email" type="email" name="email" autocomplete="username" class="form-control form-control-lg"
+                placeholder="Provide your email" ng-model="registration.email" ng-required="true"/>
+              <small class="form-text text-danger" ng-show="registerForm.email.$invalid && registerForm.email.$dirty">
+                Invalid Email
+              </small>
+            </div>
+          </div>
+          <!-- Password row -->
+          <div class="form-row my-2">
+            <div class="col form-group">
+              <input id="pwd" type="password" name="password" autocomplete="new-password" class="form-control form-control-lg"
+                placeholder="Set a top secret password" ng-model="registration.password" ng-required="true" ng-minlength="8"/>
+              <small class="form-text text-danger" ng-show="registerForm.password.$invalid && registerForm.password.$dirty">
+                Password must be 8+ characters
+              </small>
+            </div>
+          </div>
+          <div class="form-row my-2">
+            <div class="col form-group">
+              <input id="cpwd" type="password" name="passwordConfirm" autocomplete="new-password" class="form-control form-control-lg"
+                placeholder="Confirm your top secret password" ng-model="registration.passwordConf" ng-required="true" ng-pattern="registration.password"/>
+              <small class="form-text text-danger" ng-show="registerForm.passwordConfirm.$invalid && registerForm.passwordConfirm.$dirty">
+                Passwords must match
+              </small>
+            </div>
+          </div>
+          <!-- Alert -->
+          <div class="alert alert-{{registerResponse.type}} my-2" role="alert" ng-show="registerResponse" >
+            {{registerResponse.message}}
+          </div>
+          <!-- Buttons row -->
+          <div class="form-row my-2">
+            <div class="form-group col">
+              <button type="submit" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="registerForm.$invalid">
+                Register
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</article>

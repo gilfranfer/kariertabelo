@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="resources/css/landing.css">
     <link rel="stylesheet" href="resources/css/resume.css">
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Montserrat:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
 
     <!-- Injected in hosting -->
@@ -27,15 +27,16 @@
     </script>
 
   </head>
-  <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl">
+  <body class="bg-light">
+  <!-- <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl"> -->
     <nav class="navbar navbar-dark bg-dark sticky-top py-3">
       <a class="navbar-brand text-light" href="#!/home">
         <img src="resources/favicon/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Kariertabelo!
       </a>
       <div class="">
-        <button class="btn btn-outline-success my-2 my-sm-0">Sign up</button>
-        <button class="btn btn-outline-light my-2 my-sm-0">Log in</button>
+        <a class="btn btn-outline-success my-2 my-sm-0" href="#!/register">Sign up</a>
+        <a class="btn btn-outline-light my-2 my-sm-0" href="#!/login">Log in</a>
       </div>
     </nav>
 
