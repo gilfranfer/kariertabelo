@@ -1,7 +1,7 @@
 <article id="login-container" class="row justify-content-center">
   <div class="col-11 col-lg-10">
     <div class="card my-4 shadow-lg rounded">
-      <div class="card-body">
+      <div class="card-body" ng-show="!loggedUser">
         <h2 class="card-title bold-center-title">Let's login First!</h2>
     		<hr>
         <form name="loginForm" novalidate ng-submit="loginUser()">
@@ -9,7 +9,7 @@
           <div class="form-row my-2">
             <div class="col form-group">
               <input id="email" type="email" name="email" autocomplete="username" class="form-control form-control-lg"
-                placeholder="Provide your email" ng-model="registration.email" ng-required="true"/>
+                placeholder="Provide your email" ng-model="login.email" ng-required="true"/>
               <small class="form-text text-danger" ng-show="loginForm.email.$invalid && loginForm.email.$dirty">
                 Invalid Email
               </small>
@@ -19,7 +19,7 @@
           <div class="form-row my-2">
             <div class="col form-group">
               <input id="pwd" type="password" name="password" autocomplete="new-password" class="form-control form-control-lg"
-                placeholder="Put your top secret password" ng-model="registration.password" ng-required="true" ng-pattern="pwdRegex"/>
+                placeholder="Put your top secret password" ng-model="login.password" ng-required="true" ng-pattern="pwdRegex"/>
               <small class="form-text text-danger" ng-show="loginForm.password.$invalid && loginForm.password.$dirty">
                 Password must contain numbers, lower and upper case letters, and be 8+ characters.
               </small>
@@ -39,6 +39,8 @@
           </div>
         </form>
       </div>
+      <!-- When a user is already logged -->
+      <div class="card-body" ng-show="loggedUser" ng-include="'views/userLogged.html'"></div>
     </div>
   </div>
 </article>

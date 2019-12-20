@@ -27,16 +27,19 @@
     </script>
 
   </head>
-  <body class="bg-light">
+  <body class="bg-light" ng-controller="KariertabeloCtrl">
   <!-- <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl"> -->
     <nav class="navbar navbar-dark bg-dark sticky-top py-3">
       <a class="navbar-brand text-light" href="#!/home">
         <img src="resources/favicon/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Kariertabelo!
       </a>
-      <div class="">
+      <div class="" ng-if="!loggedUser">
         <a class="btn btn-outline-success my-2 my-sm-0" href="#!/register">Sign up</a>
         <a class="btn btn-outline-light my-2 my-sm-0" href="#!/login">Log in</a>
+      </div>
+      <div class="" ng-if="loggedUser">
+        <button class="btn btn-outline-light my-2 my-sm-0" ng-click="logout()">Log out</button>
       </div>
     </nav>
 
@@ -52,6 +55,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
     <script> firebase.initializeApp(firebaseConfig); </script>

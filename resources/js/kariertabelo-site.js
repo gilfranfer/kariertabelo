@@ -1,22 +1,40 @@
-let app = angular.module('Kariertabelo', ['ngRoute']);
+const values = {
+  paths:{
+    home:"/home",
+    profile:"/profile",
+  }
+};
+
+const messages = {
+  registration:{
+    error:"Error during User creation:",
+    working:"Registering User ..."
+  },
+  login:{
+    working:"Login in progress ...",
+    incorrectCredentials:"Incorrect email or password",
+    genericError:"Login failed. Try again later."
+  }
+};
+
+let app = angular.module('Kariertabelo', ['ngRoute','firebase']);
 
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
   .when('/home', {
-    templateUrl: 'views/landing.html',
-    controller: 'KariertabeloCtrl'
+    templateUrl: 'views/landing.html'
+  })
+  .when('/register', {
+    templateUrl: 'views/register.html',
+    controller: 'SignUpCtrl'
+  })
+  .when('/login', {
+    templateUrl: 'views/login.html',
+    controller: 'SignUpCtrl'
   })
   .when('/example', {
     templateUrl: 'views/resume_example.html',
     controller: 'ExampleResumeCtrl'
-  })
-  .when('/register', {
-    templateUrl: 'views/register.html',
-    controller: 'RegisterCtrl'
-  })
-  .when('/login', {
-    templateUrl: 'views/login.html',
-    controller: 'LoginCtrl'
   })
   .otherwise({
     redirectTo: '/home'
@@ -24,26 +42,83 @@ app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(false);
 });
 
-app.controller('KariertabeloCtrl', function($scope, $location) {
+app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
+
+  $firebaseAuth().$onAuthStateChanged(function(user) {
+    console.debug("$onAuthStateChanged KariertabeloCtrl");
+    $rootScope.loggedUser = user;
+  });
+
+  $scope.logout = function() {
+    $firebaseAuth().$signOut().then(function() {
+      $location.path(values.paths.home);
+    }).catch(function(error) {
+      console.error(error);
+    });
+  };
+
   $scope.moveToRoute = function(route){
       $location.path(route);
   }
+
 });
 
-app.controller('RegisterCtrl', function($scope){
+app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
+
   $scope.pwdRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
-  $scope.registerUser = function() {
+
+  $scope.registerUser = function(){
+    let email = $scope.registration.email;
+    let passwd = $scope.registration.password;
+
+    $scope.registerResponse = {type:"info", message: messages.registration.working };
+    $firebaseAuth().$createUserWithEmailAndPassword(email, passwd)
+      .then(function(regUser){
+        //User is automatically logged-in after registration
+        console.debug(regUser);
+        $location.path(values.paths.profile);
+      }).catch(function(error) {
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // auth/email-already-in-use: Thrown if there already exists an account with the given email address.
+        // auth/invalid-email: Thrown if the email address is not valid.
+        // auth/operation-not-allowed: Thrown if email/password accounts are not enabled. Enable email/password accounts in the Firebase Console, under the Auth tab.
+        // auth/weak-password: Thrown if the password is not strong enough.
+        console.error(error);
+        $scope.registerResponse = {type:"danger", message: messages.registration.error+" "+error.message};
+    });
+
     console.log($scope.registration);
   };
-});
 
-app.controller('LoginCtrl', function($scope){
-  $scope.pwdRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
   $scope.loginUser = function() {
-    console.log($scope.registration);
+    let email = $scope.login.email;
+    let passwd = $scope.login.password;
+
+    $scope.loginResponse = {type:"info", message: messages.login.working };
+    $firebaseAuth().$signInWithEmailAndPassword(email,passwd).then(function(user){
+      console.debug(user);
+      $location.path(values.paths.profile);
+    })
+    /* Catching unsuccessful login attempts */
+    .catch( function(error){
+      let errorMessage = undefined;
+      switch(error.code) {
+        case "auth/wrong-password":
+        case "auth/user-not-found":
+          errorMessage = messages.login.incorrectCredentials;
+          break;
+        default:
+          errorMessage = messages.login.genericError;
+      }
+      $scope.loginResponse = {type:"danger", message: errorMessage };
+    });;
+
   };
+
 });
 
+/* Controller for the Example Resume */
 app.controller('ExampleResumeCtrl', function($scope) {
 
   $scope.updateResumeColor = function(color){
