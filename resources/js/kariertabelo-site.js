@@ -1,7 +1,6 @@
 const values = {
   paths:{
-    home:"/home",
-    profile:"/profile",
+    home:"/home", profile:"/profile", login:"/login"
   }
 };
 
@@ -19,6 +18,7 @@ const messages = {
 
 let app = angular.module('Kariertabelo', ['ngRoute','firebase']);
 
+/* Configure application routes */
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
   .when('/home', {
@@ -32,6 +32,15 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'views/login.html',
     controller: 'SignUpCtrl'
   })
+  .when('/profile', {
+    templateUrl: 'views/user-profile.html',
+    controller: 'UserProfileCtrl',
+    resolve: {
+      currentAuth: function(AuthenticationSvc){
+        return AuthenticationSvc.isUserLoggedIn();
+      }
+    }
+  })
   .when('/example', {
     templateUrl: 'views/resume_example.html',
     controller: 'ExampleResumeCtrl'
@@ -40,6 +49,18 @@ app.config(function($routeProvider, $locationProvider) {
     redirectTo: '/home'
   });
   $locationProvider.html5Mode(false);
+});
+
+/* Catch routeChangeErrors from $routeProvider when a route has a resolve. */
+app.run(function($rootScope,$location){
+	$rootScope.$on('$routeChangeError', function(event, next, previous, error){
+		if(error == 'AUTH_REQUIRED'){
+      //User is not logged in.
+		}else{
+			// $rootScope.response = {error:true, message: error};
+		}
+		$location.path( values.paths.login );
+	});
 });
 
 app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
@@ -116,6 +137,14 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
 
   };
 
+});
+
+app.factory('SignUpSvc', function($firebaseAuth){
+		return{
+			isUserLoggedIn: function(){
+				return $firebaseAuth().$requireSignIn();
+			}
+		};
 });
 
 /* Controller for the Example Resume */
