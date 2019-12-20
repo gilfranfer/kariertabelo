@@ -20,10 +20,40 @@ app.controller('KariertabeloCtrl', function($scope) {});
 
 app.controller('ExampleResumeCtrl', function($scope) {
 
+  $scope.updateResumeColor = function(color){
+    $scope.colors.profile.column = color;
+    $scope.colors.profile.profile = color;
+    $scope.colors.profile.bio = color;
+    $scope.colors.profile.contact = color;
+    $scope.colors.profile.education = color;
+    $scope.colors.profile.languages = color;
+    $scope.colors.profile.interests = color;
+
+    $scope.colors.profile.interests = color;
+    $scope.colors.resume.title = color;
+    $scope.colors.resume.circle = color;
+    $scope.colors.resume.link = color;
+    $scope.colors.resume.bar = color;
+    $scope.colors.resume.skillBadge = color;
+  };
+
+  $scope.setProfileColSide = function(side){
+      if(side == "left"){
+        $scope.order = {
+          profile:1, resume:2
+        };
+      }else{
+        $scope.order = {
+          profile:2, resume:1
+        };
+      }
+  };
+
   $scope.order = {
     profile:1,
     resume:2
   };
+
   $scope.colors = {
     profile:{
       column:"#28a745",

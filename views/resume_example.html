@@ -1,5 +1,35 @@
+<!-- Configurations -->
+<div class="row justify-content-center mt-3">
+  <div class="col-11 col-lg-10">
+    <button class="btn btn-outline-secondary text-center" type="button" data-toggle="collapse" data-target="#collapseConfigs" aria-expanded="false" aria-controls="collapseConfigs">
+      <i class="fas fa-tools"></i>
+    </button>
+    <div class="collapse" id="collapseConfigs">
+      <div class="card card-body">
+        <!-- Column side -->
+        <div class="row">
+          <div class="btn-group m-1" role="group" aria-label="Column Side">
+            <button type="button" class="btn btn-secondary" ng-click="setProfileColSide('left')">Profile Left</button>
+            <button type="button" class="btn btn-secondary" ng-click="setProfileColSide('rigth')">Profile Rigth</button>
+          </div>
+        </div>
+        <!-- Color -->
+        <div class="row">
+          <button type="button" name="button" class="m-1 btn btn-primary" ng-click="updateResumeColor('#007bff')">Blue</button>
+          <button type="button" name="button" class="m-1 btn btn-secondary" ng-click="updateResumeColor('#6c757d')">Gray</button>
+          <button type="button" name="button" class="m-1 btn btn-success" ng-click="updateResumeColor('#28a745')">Green</button>
+          <button type="button" name="button" class="m-1 btn btn-danger" ng-click="updateResumeColor('#dc3545')">Red</button>
+          <button type="button" name="button" class="m-1 btn btn-warning" ng-click="updateResumeColor('#ffc107')">Yellow</button>
+          <button type="button" name="button" class="m-1 btn btn-info" ng-click="updateResumeColor('#17a2b8')">Light Blue</button>
+          <button type="button" name="button" class="m-1 btn btn-dark" ng-click="updateResumeColor('#343a40')">Black</button>
+          <button type="button" name="button" class="m-1 btn btn-danger" style="background-color: var(--pink); border-color: var(--pink);"
+          ng-click="updateResumeColor('#e83e8c')">Pink</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <!-- <body  ng-app="ResumeApp"> -->
 <div id="resume-container" class="row justify-content-center">
   <div class="col-11 col-lg-10">
     <!-- Resume Area -->
