@@ -31,12 +31,14 @@ app.controller('KariertabeloCtrl', function($scope, $location) {
 });
 
 app.controller('RegisterCtrl', function($scope){
+  $scope.pwdRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
   $scope.registerUser = function() {
     console.log($scope.registration);
   };
 });
 
 app.controller('LoginCtrl', function($scope){
+  $scope.pwdRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
   $scope.loginUser = function() {
     console.log($scope.registration);
   };
