@@ -74,8 +74,12 @@ app.run(function($rootScope,$location){
 app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
 
   $firebaseAuth().$onAuthStateChanged(function(user) {
-    console.debug("$onAuthStateChanged KariertabeloCtrl");
-    $rootScope.currentSession = {authUser:user};
+    console.debug("$onAuthStateChanged KariertabeloCtrl",user);
+    if(user){
+      $rootScope.currentSession = {authUser:user};
+    }else{
+      $rootScope.currentSession = null;
+    }
   });
 
   $scope.logout = function() {
