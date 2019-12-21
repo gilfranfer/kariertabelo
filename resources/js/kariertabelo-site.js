@@ -111,6 +111,7 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 
 app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
   $firebaseAuth().$onAuthStateChanged(function(user) {
+    if(!user)return;
     var customsRef = firebase.firestore().collection("customs").doc(user.uid);
     customsRef.get().then(function(doc) {
       if (doc.exists) {
@@ -200,6 +201,7 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
   $scope.registerUser = function(){
     let email = $scope.registration.email;
     let passwd = $scope.registration.password;
+    let newUserId;
 
     $scope.registerResponse = {type:"info", message: messages.registration.working };
     $firebaseAuth().$createUserWithEmailAndPassword(email, passwd)
@@ -207,13 +209,21 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
         $location.path(values.paths.profile);
         //User is automatically logged-in after registration
         //Create User Document
-        var userRef = firebase.firestore().collection("users").doc(regUser.user.uid);
+        newUserId = regUser.user.uid;
+        var userRef = firebase.firestore().collection("users").doc(newUserId);
         return userRef.set({
           email: regUser.user.email,
           since: firebase.firestore.FieldValue.serverTimestamp()
         })
       }).then(function() {
-
+        //Set default customs
+        var customsRef = firebase.firestore().collection("customs").doc(newUserId);
+        customsRef.set({
+          baseColor: "#007bff",
+          order: {profile:1, resume:2 },
+          labels:{ education:"Estudios", interests:"Pasatiempos", languages:"Idiomas",
+            projects:"Proyectos", skills:"Habilidades", summary:"Resumen", work:"Experiencia"}
+        }).then(function() {});
       }).catch(function(error) {
         // var errorCode = error.code;
         // var errorMessage = error.message;
