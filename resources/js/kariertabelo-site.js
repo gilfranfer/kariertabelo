@@ -44,8 +44,8 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'views/user-profile.html',
     controller: 'UserProfileCtrl',
     resolve: {
-      currentAuth: function(AuthenticationSvc){
-        return AuthenticationSvc.isUserLoggedIn();
+      currentAuth: function(SignUpSvc){
+        return SignUpSvc.isUserLoggedIn();
       }
     }
   })
