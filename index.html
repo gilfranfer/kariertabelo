@@ -42,11 +42,11 @@
         </span>
       </button>
       <div id="appMenu" class="collapse navbar-collapse justify-content-end">
-        <div ng-if="!loggedUser">
+        <div ng-if="!currentSession">
           <a class="btn btn-outline-success my-2 my-sm-0" href="#!/register">Sign up</a>
           <a class="btn btn-outline-light my-2 my-sm-0" href="#!/login">Log in</a>
         </div>
-        <div class="" ng-if="loggedUser">
+        <div class="" ng-if="currentSession">
           <button class="btn btn-outline-light my-2 my-sm-0" ng-click="logout()">Log out</button>
         </div>
       </div>

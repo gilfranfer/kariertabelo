@@ -75,7 +75,7 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 
   $firebaseAuth().$onAuthStateChanged(function(user) {
     console.debug("$onAuthStateChanged KariertabeloCtrl");
-    $rootScope.loggedUser = user;
+    $rootScope.currentSession = {authUser:user};
   });
 
   $scope.logout = function() {
@@ -108,7 +108,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
         });
       }else{
         return pathRef.set({
-          userId: $rootScope.loggedUser.uid,
+          userId: $rootScope.currentSession.authUser.uid,
           since: firebase.firestore.FieldValue.serverTimestamp()
         });
       }
