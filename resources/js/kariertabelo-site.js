@@ -19,6 +19,10 @@ const messages = {
     error:"The path is not available. Please select a different one.",
     success:"Your resume path has been set!"
   },
+  customs:{
+    working:"Saving preferences ...",
+    success:"Preferences saved",
+  },
   generic:{
     dbError:"Error with database. Try again."
   }
@@ -42,6 +46,15 @@ app.config(function($routeProvider, $locationProvider) {
   })
   .when('/profile', {
     templateUrl: 'views/user-profile.html',
+    controller: 'UserProfileCtrl',
+    resolve: {
+      currentAuth: function(SignUpSvc){
+        return SignUpSvc.isUserLoggedIn();
+      }
+    }
+  })
+  .when('/customize', {
+    templateUrl: 'views/customize.html',
     controller: 'UserProfileCtrl',
     resolve: {
       currentAuth: function(SignUpSvc){
@@ -97,6 +110,22 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 });
 
 app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
+  $firebaseAuth().$onAuthStateChanged(function(user) {
+    var customsRef = firebase.firestore().collection("customs").doc(user.uid);
+    customsRef.get().then(function(doc) {
+      if (doc.exists) {
+        $scope.$apply(function(){
+          $scope.customs = doc.data();
+          console.log($scope.customs);
+        });
+      }else{
+        $scope.$apply(function(){
+          $scope.customsResponse = {type:"danger", message: messages.generic.dbError };
+        });
+      }
+    })
+  });
+
   $scope.pathRegex = new RegExp("^[a-zA-Z0-9]{3,}$");
 
   $scope.saveResumePath = function(){
@@ -129,6 +158,37 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
       console.error("Error getting document:", error);
     });
+  };
+
+  $scope.saveCustoms = function(){
+    $scope.customsResponse = {type:"info", message: messages.customs.working };
+    var customsRef = firebase.firestore().collection("customs").doc($rootScope.currentSession.authUser.uid);
+    customsRef.update($scope.customs)
+    .then(function() {
+      $scope.$apply(function(){
+        $scope.customsResponse = {type:"success", message: messages.customs.success };
+      });
+    })
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        $scope.$apply(function(){
+          $scope.customsResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error updating document: ", error);
+    });
+  };
+
+});
+
+app.controller('CusromizeCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
+
+  $firebaseAuth().$onAuthStateChanged(function(user) {
+    console.debug("CusromizeCtrl");
+
+  });
+
+  $scope.saveCustoms = function(){
+
   };
 
 });
@@ -312,7 +372,7 @@ app.controller('ExampleResumeCtrl', function($scope) {
       {order:3, role:"Project Manager", employer:"TCS America", location:"San Antonio, Texas", period:"Abril 2017 - Presente", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
     ],
     projects:[
-      {order:1, name:"Okulus", url:"http://okulus.netlify.com", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."},
+      {order:1, name:"Okulus", url:"http://okulusapp.netlify.com", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."},
       {order:2, name:"Kariertabelo", url:"http://kariertabelo.netlify.com", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
     ],
     skills:[

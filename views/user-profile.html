@@ -2,11 +2,15 @@
   <!-- <div class="bg-shapes-top"></div>
   <div class="bg-shapes-top"></div> -->
   <!-- Welcome -->
-  <article id="" class="px-4 py-4 bg-success">
+  <article id="" class="px-4 py-4 bg-success" style="background-color:{{customs.baseColor}}!important">
     <div id="picture-container" class="text-center">
       <img src="../resources/img/picture.png" class="card-img-top rounded-circle">
     </div>
-    <h1 class="display-4 text-center text-light">Welcome</h1>
+    <h1 class="display-4 text-center text-light" ng-if="!currentSession.userData.firstname">Welcome</h1>
+    <h1 class="display-4 text-center text-light" ng-if="currentSession.userData.firstname">
+      {{currentSession.userData.firstname}} {{currentSession.userData.lastname}}
+    </h1>
+    <h5 class="text-center text-light">{{currentSession.authUser.email}}</h5>
   </article>
   <!-- Path -->
   <article id="register-container" class="row justify-content-center">
@@ -51,4 +55,26 @@
       </div>
     </div>
   </article>
+  <!-- Customize -->
+  <article id="register-container" class="row justify-content-center">
+    <div class="col-11 col-lg-10">
+      <div class="card my-4 shadow-lg rounded">
+        <div class="card-body">
+          <h3 class="card-title">Customize Resume</h3>
+      		<hr>
+          <div class="form-row my-2">
+            You can change the color, the titles and order of some elements in the template.
+          </div>
+          <div class="form-row my-2">
+            <div class="col">
+              <a class="btn btn-lg btn-block btn-success clickable" role="button" href="#!/customize">
+                Customize now!
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
 </section>

@@ -1,0 +1,141 @@
+<!-- Resume View -->
+<article id="" class="">
+  <div class="row m-0">
+    <div class="col-md-4 p-2 order-md-{{customs.order.profile}}" style="background-color:{{customs.baseColor}}!important">
+      <div class="text-center mt-2">
+        <img src="../resources/img/picture.png" class="card-img-top rounded-circle w-25 h-25">
+      </div>
+      <label class="font-weight-bold text-light text-uppercase">{{customs.labels.education}}</label><br>
+      <label class="font-weight-bold text-light text-uppercase">{{customs.labels.languages}}</label><br>
+      <label class="font-weight-bold text-light text-uppercase">{{customs.labels.interests}}</label><br>
+    </div>
+    <div class="col-md-8 p-2 order-md-{{customs.order.resume}} bg-white">
+      <div class="mt-2 mb-4">
+        <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:#fff">
+          <i class="fas fa-user"></i>
+        </span>
+        <span class="text-uppercase" style="color:{{customs.baseColor}}">
+          {{customs.labels.summary}}
+        </span>
+      </div>
+      <div class="mt-2 mb-4">
+        <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:#fff">
+          <i class="fas fa-briefcase"></i>
+        </span>
+        <span class="text-uppercase" style="color:{{customs.baseColor}}">
+          {{customs.labels.work}}
+        </span>
+      </div>
+      <div class="mt-2 mb-4">
+        <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:#fff">
+          <i class="fas fa-pencil-alt"></i>
+        </span>
+        <span class="text-uppercase" style="color:{{customs.baseColor}}">
+          {{customs.labels.projects}}
+        </span>
+      </div>
+      <div class="mt-2 mb-4">
+        <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:#fff">
+          <i class="fas fa-tools"></i>
+        </span>
+        <span class="text-uppercase" style="color:{{customs.baseColor}}">
+          {{customs.labels.skills}}
+        </span>
+      </div>
+    </div>
+  </div>
+</article>
+<div class="row ml-3 mt-1">
+  <div class="col">
+    <span class="small text-muted">Section above shows how your resume will look. </span>
+  </div>
+</div>
+<!-- Configurations -->
+<article id="configs-container" class="row justify-content-center">
+  <div class="col-11 col-lg-10">
+    <div class="card my-4 shadow-lg rounded">
+      <div class="card-body">
+        <!-- <h3 class="card-title">Customize</h3>
+        <hr> -->
+        <!-- Column side and Color -->
+        <h3 class="card-title mt-4">Design and Color</h3>
+        <div class="row">
+          <!-- Column side -->
+          <div class="col-sm-4 my-3">
+            <label for="colSide" class="font-weight-normal">Profile column:</label> <br>
+            <div id="colSide" class="btn-group ml-2" role="group" aria-label="Column Side">
+              <button type="button" class="btn btn-secondary" ng-click="customs.order={profile:1,resume:2}">Left</button>
+              <button type="button" class="btn btn-secondary" ng-click="customs.order={profile:2,resume:1}">Rigth</button>
+            </div>
+          </div>
+          <!-- Color -->
+          <div class="col-sm-8 my-3">
+            <label for="" class="font-weight-normal">Resume Color:</label> <br>
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 ">
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-primary" ng-click="customs.baseColor='#007bff'">Blue</button></div>
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-secondary" ng-click="customs.baseColor='#6c757d'">Gray</button></div>
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-success" ng-click="customs.baseColor='#28a745'">Green</button></div>
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-danger" ng-click="customs.baseColor='#dc3545'">Red</button></div>
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-warning" ng-click="customs.baseColor='#ffc107'">Yellow</button></div>
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-dark" ng-click="customs.baseColor='#343a40'">Black</button></div>
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-danger" style="background-color: var(--pink); border-color: var(--pink);"
+              ng-click="customs.baseColor='#e83e8c'">Pink</button></div>
+              <div class="col"><button type="button" name="button" class="col my-1 btn btn-info" ng-click="customs.baseColor='#17a2b8'">Light Blue</button></div>
+            </div>
+          </div>
+        </div>
+        <!-- Titles -->
+        <h3 class="card-title mt-4">Section Labels</h3>
+        <form name="customizeForm" novalidate ng-submit="saveCustoms()">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-">
+          <div class="col my-3">
+            <label for="educationLbl" class="font-weight-normal">Education:</label> <br>
+            <input id="educationLbl" type="text" name="educationLbl" class="form-control form-control-lg"
+              placeholder="" ng-model="customs.labels.education" ng-required="true"/>
+          </div>
+          <div class="col my-3">
+            <label for="languagesLbl" class="font-weight-normal">Languages:</label> <br>
+            <input id="languagesLbl" type="text" name="languagesLbl" class="form-control form-control-lg"
+              placeholder="" ng-model="customs.labels.languages" ng-required="true"/>
+          </div>
+          <div class="col my-3">
+            <label for="interestsLbl" class="font-weight-normal">Interests:</label> <br>
+            <input id="interestsLbl" type="text" name="interestsLbl" class="form-control form-control-lg"
+              placeholder="" ng-model="customs.labels.interests" ng-required="true"/>
+          </div>
+          <div class="col my-3">
+            <label for="summaryLbl" class="font-weight-normal">Experience Summary:</label> <br>
+            <input id="summaryLbl" type="text" name="summaryLbl" class="form-control form-control-lg"
+              placeholder="" ng-model="customs.labels.summary" ng-required="true"/>
+          </div>
+          <div class="col my-3">
+            <label for="workLbl" class="font-weight-normal">Work History:</label> <br>
+            <input id="workLbl" type="text" name="workLbl" class="form-control form-control-lg"
+              placeholder="" ng-model="customs.labels.work" ng-required="true"/>
+          </div>
+          <div class="col my-3">
+            <label for="projectsLbl" class="font-weight-normal">Projects:</label> <br>
+            <input id="projectsLbl" type="text" name="projectsLbl" class="form-control form-control-lg"
+              placeholder="" ng-model="customs.labels.projects" ng-required="true"/>
+          </div>
+          <div class="col my-3">
+            <label for="skillsLbl" class="font-weight-normal">Skills:</label> <br>
+            <input id="skillsLbl" type="text" name="skillsLbl" class="form-control form-control-lg"
+              placeholder="" ng-model="customs.labels.skills" ng-required="true"/>
+          </div>
+        </div>
+        <div class="alert alert-{{customsResponse.type}} my-2" role="alert" ng-show="customsResponse" >
+          {{customsResponse.message}}
+        </div>
+        <div class="row">
+          <div class="col my-3">
+            <button type="submit" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="customizeForm.$invalid">
+              Save
+            </button>
+          </div>
+        </div>
+        </form>
+    </div>
+    </div>
+  </div>
+</article>
