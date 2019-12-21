@@ -144,9 +144,16 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
     $scope.registerResponse = {type:"info", message: messages.registration.working };
     $firebaseAuth().$createUserWithEmailAndPassword(email, passwd)
       .then(function(regUser){
-        //User is automatically logged-in after registration
-        console.debug(regUser);
         $location.path(values.paths.profile);
+        //User is automatically logged-in after registration
+        //Create User Document
+        var userRef = firebase.firestore().collection("users").doc(regUser.user.uid);
+        return userRef.set({
+          email: regUser.user.email,
+          since: firebase.firestore.FieldValue.serverTimestamp()
+        })
+      }).then(function() {
+
       }).catch(function(error) {
         // var errorCode = error.code;
         // var errorMessage = error.message;
@@ -157,8 +164,6 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
         console.error(error);
         $scope.registerResponse = {type:"danger", message: messages.registration.error+" "+error.message};
     });
-
-    console.log($scope.registration);
   };
 
   $scope.loginUser = function() {
