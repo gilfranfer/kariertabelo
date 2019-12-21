@@ -1,0 +1,54 @@
+<section>
+  <!-- <div class="bg-shapes-top"></div>
+  <div class="bg-shapes-top"></div> -->
+  <!-- Welcome -->
+  <article id="" class="px-4 py-4 bg-success">
+    <div id="picture-container" class="text-center">
+      <img src="../resources/img/picture.png" class="card-img-top rounded-circle">
+    </div>
+    <h1 class="display-4 text-center text-light">Welcome</h1>
+  </article>
+  <!-- Path -->
+  <article id="register-container" class="row justify-content-center">
+    <div class="col-11 col-lg-10">
+      <div class="card my-4 shadow-lg rounded">
+        <div class="card-body">
+          <h3 class="card-title">Resume Path</h3>
+      		<hr>
+          <form name="pathForm" novalidate ng-submit="saveResumePath()">
+            <!-- Path -->
+            <div class="form-row my-2">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">resume/</span>
+                  </div>
+                  <input id="path" type="text" name="path" class="form-control form-control-lg"
+                    placeholder="franfergil" ng-model="resumePath" ng-required="true" ng-pattern="pathRegex"/>
+                </div>
+                <small class="form-text text-danger" ng-show="pathForm.path.$invalid && pathForm.path.$dirty">
+                  Minimum 3 letters and numbers combination.
+                </small>
+                <small class="form-text text-muted">
+                  This path will be used to accees your resume onlin
+                </small>
+              </div>
+            </div>
+            <!-- Alert -->
+            <div class="alert alert-{{pathResponse.type}} my-2" role="alert" ng-show="pathResponse" >
+              {{pathResponse.message}}
+            </div>
+            <!-- Buttons row -->
+            <div class="form-row my-2">
+              <div class="col">
+                <button type="submit" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="pathForm.$invalid">
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

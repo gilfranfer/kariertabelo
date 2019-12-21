@@ -13,6 +13,14 @@ const messages = {
     working:"Login in progress ...",
     incorrectCredentials:"Incorrect email or password",
     genericError:"Login failed. Try again later."
+  },
+  resumePath:{
+    working:"Checking availability ...",
+    error:"The path is not available. Please select a different one.",
+    success:"Your resume path has been set!"
+  },
+  generic:{
+    dbError:"Error with database. Try again."
   }
 };
 
@@ -81,6 +89,43 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
   $scope.moveToRoute = function(route){
       $location.path(route);
   }
+
+});
+
+app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
+  $scope.pathRegex = new RegExp("^[a-zA-Z0-9]{3,}$");
+
+  $scope.saveResumePath = function(){
+    $scope.pathResponse = {type:"info", message: messages.resumePath.working };
+    //Check if Path is available
+    var existingPath = false;
+    var pathRef = firebase.firestore().collection("paths").doc($scope.resumePath);
+    pathRef.get().then(function(doc) {
+      existingPath = doc.exists;
+      if (doc.exists) {
+        $scope.$apply(function(){
+          $scope.pathResponse = {type:"danger", message: messages.resumePath.error };
+        });
+      }else{
+        return pathRef.set({
+          userId: $rootScope.loggedUser.uid,
+          since: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+    })
+    .then(function() {
+      if(existingPath) return;
+      $scope.$apply(function(){
+        $scope.pathResponse = {type:"success", message: messages.resumePath.success };
+      });
+    })
+    .catch(function(error) {
+      $scope.$apply(function(){
+        $scope.pathResponse = {type:"danger", message: messages.generic.dbError };
+      });
+      console.error("Error getting document:", error);
+    });
+  };
 
 });
 
