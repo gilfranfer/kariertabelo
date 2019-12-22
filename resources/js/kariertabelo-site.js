@@ -112,19 +112,17 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
   $firebaseAuth().$onAuthStateChanged(function(user) {
     if(!user)return;
-    var customsRef = firebase.firestore().collection("customs").doc(user.uid);
-    customsRef.get().then(function(doc) {
+    //Load User's path
+    var pathRef = firebase.firestore().collection("paths").doc(user.uid);
+    pathRef.get().then(function(doc) {
       if (doc.exists) {
         $scope.$apply(function(){
-          $scope.customs = doc.data();
-          console.log($scope.customs);
-        });
-      }else{
-        $scope.$apply(function(){
-          $scope.customsResponse = {type:"danger", message: messages.generic.dbError };
+          $scope.resumePath = doc.data().path;
         });
       }
-    })
+    }).catch(function(error) {
+      console.error("Error getting document:", error);
+    });
   });
 
   $scope.pathRegex = new RegExp("^[a-zA-Z0-9]{3,}$");
@@ -133,20 +131,24 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.pathResponse = {type:"info", message: messages.resumePath.working };
     //Check if Path is available
     var existingPath = false;
-    var pathRef = firebase.firestore().collection("paths").doc($scope.resumePath);
-    pathRef.get().then(function(doc) {
-      existingPath = doc.exists;
-      if (doc.exists) {
+    var pathRef = firebase.firestore().collection("paths");
+    var pathQuery = pathRef.where("path", "==", $scope.resumePath).limit(1);
+    pathQuery.get().then(function(querySnapshot){
+      querySnapshot.forEach(function(doc){ existingPath = true; });
+      if(existingPath){
         $scope.$apply(function(){
           $scope.pathResponse = {type:"danger", message: messages.resumePath.error };
         });
       }else{
-        return pathRef.set({
+        //Update the path value in the user's document, inside paths collection
+        return pathRef.doc($rootScope.currentSession.authUser.uid).set({
           userId: $rootScope.currentSession.authUser.uid,
+          path: $scope.resumePath,
           since: firebase.firestore.FieldValue.serverTimestamp()
         });
       }
     })
+    //After setting path
     .then(function() {
       if(existingPath) return;
       $scope.$apply(function(){
@@ -216,13 +218,17 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
           since: firebase.firestore.FieldValue.serverTimestamp()
         })
       }).then(function() {
-        //Set default customs
+        //Set default customs and path
         var customsRef = firebase.firestore().collection("customs").doc(newUserId);
         customsRef.set({
           baseColor: "#007bff",
           order: {profile:1, resume:2 },
           labels:{ education:"Estudios", interests:"Pasatiempos", languages:"Idiomas",
             projects:"Proyectos", skills:"Habilidades", summary:"Resumen", work:"Experiencia"}
+        }).then(function() {});
+        var pathRef = firebase.firestore().collection("paths").doc(newUserId);
+        pathRef.set({
+          path:newUserId, since: firebase.firestore.FieldValue.serverTimestamp()
         }).then(function() {});
       }).catch(function(error) {
         // var errorCode = error.code;
