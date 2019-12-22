@@ -55,6 +55,374 @@
       </div>
     </div>
   </article>
+  <!-- Resume Data -->
+  <article id="register-container" class="row justify-content-center">
+    <div class="col-11 col-lg-10">
+      <div class="card my-4 shadow-lg rounded">
+        <div class="card-body">
+          <h3 class="card-title">Resume Data</h3>
+      		<hr>
+          <form name="dataForm" novalidate ng-submit="saveResumeData()">
+            <div class="form-row row-cols-1 row-cols-sm-2">
+              <div class="col mt-2">
+                <label for="firstname">Firstname</label><span class="text-danger">*</span>
+                <input type="text" id="firstname" name="firstname" ng-model="data.profile.firstname" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="lastname">Lastname</label><span class="text-danger">*</span>
+                <input type="text" id="lastname" name="lastname" ng-model="data.profile.lastname" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="position">Title</label><span class="text-danger">*</span>
+                <input type="text" id="position" name="position" ng-model="data.profile.position" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="location">Location</label><span class="text-danger">*</span>
+                <input type="text" id="location" name="location" ng-model="data.profile.location" ng-required="true" class="form-control form-control-lg">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col mt-2">
+                <label for="bio">Biography</label>
+                <textarea id="bio" name="bio" ng-model="data.profile.bio" ng-required="false" class="form-control form-control-lg">
+                </textarea>
+              </div>
+            </div>
+            <h4 class="mt-5 mb-3">Contact Details</h4>
+            <div class="form-row row-cols-1 row-cols-sm-2">
+              <div class="col mt-2">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" ng-model="data.contact.email" ng-required="false" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" ng-model="data.contact.phone" ng-required="false" pattern="[0-9+-]{3,}" class="form-control form-control-lg">
+                <small class="form-text text-muted">
+                  Only numbers, dash (-) and plus (+) allowed
+                </small>
+              </div>
+              <div class="col mt-2">
+                <label for="webpage">Webpage</label>
+                <input type="text" id="webpage" name="webpage" ng-model="data.contact.webpage" ng-required="false" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="github">Github</label>
+                <input type="text" id="github" name="github" ng-model="data.contact.github" ng-required="false" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="linkedin">Linkedin</label>
+                <input type="text" id="linkedin" name="linkedin" ng-model="data.contact.linkedin" ng-required="false" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="twitter">Twitter</label>
+                <input type="text" id="twitter" name="twitter" ng-model="data.contact.twitter" ng-required="false" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="facebook">Facebook</label>
+                <input type="text" id="facebook" name="facebook" ng-model="data.contact.facebook" ng-required="false" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="instagram">Instagram</label>
+                <input type="text" id="instagram" name="instagram" ng-model="data.contact.instagram" ng-required="false" class="form-control form-control-lg">
+              </div>
+            </div>
+            <h4 class="mt-5 mb-3">Career Summary</h4>
+            <div class="form-row">
+              <div class="col mt-2">
+                <!-- <label for="bio">Biography</label> -->
+                <textarea id="summary" name="summary" ng-model="data.summary" ng-required="false" class="form-control form-control-lg">
+                </textarea>
+              </div>
+            </div>
+            <!-- Alert -->
+            <div class="alert alert-{{dataResponse.type}} my-2" role="alert" ng-show="dataResponse" >
+              {{dataResponse.message}}
+            </div>
+            <!-- Buttons row -->
+            <div class="form-row my-2">
+              <div class="col">
+                <button type="submit" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="dataForm.$invalid">
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+          <form name="educationForm" novalidate>
+            <h4 class="mt-5 mb-3">Education</h4>
+            <!-- Add Education form -->
+            <div class="form-row row-cols-1 row-cols-sm-2">
+              <div class="col mt-2">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" ng-model="newEducation.title" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="school">School</label>
+                <input type="text" id="school" name="school" ng-model="newEducation.school" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="from">From</label>
+                <input type="month" id="from" name="from" ng-model="newEducation.from" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="to">To</label>
+                <input type="month" id="to" name="to" ng-model="newEducation.to" ng-required="false" class="form-control form-control-lg">
+              </div>
+            </div>
+            <!-- Add Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="educationForm.$invalid">
+                  Save Education
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="row mb-3" ng-repeat="record in data.education | orderBy:'from':true track by record.id">
+              <div class="col-7 col-sm-9 pl-4">
+                <span class="font-weight-bold">{{record.title}}</span><br>
+                <span class="font-weight-light">{{record.school}}</span><br>
+                <span class="font-weight-lighter">
+                  {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
+                </span><br>
+              </div>
+              <div class="col-5 col-sm-3 ">
+                <button type="button" class="btn btn-outline-primary" ng-click="editEducation(record.id)">
+                  <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" ng-click="removeEducation(record.id)">
+                  <i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          </form>
+          <form name="languagesForm" novalidate>
+            <h4 class="mt-5 mb-3">Languages</h4>
+            <!-- Add language form -->
+            <div class="form-row row-cols-1 row-cols-sm-2">
+              <div class="col mt-2">
+                <label for="language">Language</label>
+                <input type="text" id="language" name="language" ng-model="newLanguage.language" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="level">Level</label>
+                <input type="text" id="level" name="level" ng-model="newLanguage.level" ng-required="true" class="form-control form-control-lg">
+              </div>
+            </div>
+            <!-- Save Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="languagesForm.$invalid">
+                  Save Language
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="row mb-3" ng-repeat="record in data.languages | orderBy:'order' track by record.id">
+              <div class="col-7 col-sm-9 pl-4">
+                <span class="font-weight-normal">{{record.language}}</span>
+                <span class="font-weight-lighter font-italic">({{record.level}})</span>
+              </div>
+              <div class="col-5 col-sm-3 ">
+                <button type="button" class="btn btn-outline-primary" ng-click="editLanguage(record.id)">
+                  <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" ng-click="removeLanguage(record.id)">
+                  <i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          </form>
+          <form name="interestsForm" novalidate>
+            <h4 class="mt-5 mb-3">Interests</h4>
+            <!-- Add interest form -->
+            <div class="form-row row-cols-1">
+              <div class="col mt-2">
+                <label for="interest">Interest</label>
+                <input type="text" id="interest" name="interest" ng-model="newLanguage.interest" ng-required="true" class="form-control form-control-lg">
+              </div>
+            </div>
+            <!-- Save Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="interestsForm.$invalid">
+                  Save Interest
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="row mb-3" ng-repeat="record in data.interests | orderBy:'order' track by record.id">
+              <div class="col-7 col-sm-9 pl-4">
+                <span class="font-weight-normal">{{record.interest}}</span>
+              </div>
+              <div class="col-5 col-sm-3 ">
+                <button type="button" class="btn btn-outline-primary" ng-click="editLanguage(record.id)">
+                  <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" ng-click="removeLanguage(record.id)">
+                  <i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          </form>
+          <form name="workForm" novalidate>
+            <h4 class="mt-5 mb-3">Work</h4>
+            <!-- Add Work form -->
+            <div class="form-row row-cols-1 row-cols-sm-3">
+              <div class="col mt-2">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" ng-model="newWork.title" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="employer">Employer</label>
+                <input type="text" id="employer" name="employer" ng-model="newWork.employer" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" ng-model="newWork.location" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="from">From</label>
+                <input type="month" id="from" name="from" ng-model="newWork.from" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="to">To</label>
+                <input type="month" id="to" name="to" ng-model="newWork.to" ng-required="false" class="form-control form-control-lg">
+              </div>
+            </div>
+            <div class="form-row row-cols-1">
+              <div class="col mt-2">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" ng-model="newWork.description" ng-required="false" class="form-control form-control-lg">
+                </textarea>
+              </div>
+            </div>
+            <!-- Add Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="workForm.$invalid">
+                  Save Work
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="mb-3" ng-repeat="record in data.work | orderBy:'from':true track by record.id">
+              <div class="row">
+                <div class="col-7 col-sm-9 pl-4">
+                  <span class="font-weight-bold">{{record.title}}</span><br>
+                  <span class="font-weight-light">{{record.employer}}</span><br>
+                  <span class="font-weight-light">{{record.location}}</span><br>
+                  <span class="font-weight-lighter">
+                    {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
+                  </span><br>
+                </div>
+                <div class="col-5 col-sm-3 ">
+                  <button type="button" class="btn btn-outline-primary" ng-click="editWork(record.id)">
+                    <i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-outline-danger" ng-click="removeWork(record.id)">
+                    <i class="fas fa-trash"></i></button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <textarea readonly ng-model="record.description" class="form-control form-control-lg">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+          <form name="projectsForm" novalidate>
+            <h4 class="mt-5 mb-3">Project</h4>
+            <!-- Add Project form -->
+            <div class="form-row row-cols-1 row-cols-sm-3">
+              <div class="col mt-2">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" ng-model="newProject.name" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="url">URL</label>
+                <input type="text" id="url" name="url" ng-model="newProject.url" ng-required="false" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="date">Date</label>
+                <input type="month" id="date" name="date" ng-model="newProject.date" ng-required="true" class="form-control form-control-lg">
+              </div>
+            </div>
+            <div class="form-row row-cols-1">
+              <div class="col mt-2">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" ng-model="newProject.description" ng-required="false" class="form-control form-control-lg">
+                </textarea>
+              </div>
+            </div>
+            <!-- Add Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="projectsForm.$invalid">
+                  Save Project
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="mb-3" ng-repeat="record in data.projects | orderBy:'date':true track by record.id">
+              <div class="row">
+                <div class="col-7 col-sm-9 pl-4">
+                  <span class="font-weight-bold">{{record.name}}</span><br>
+                  <a class="card-text font-weight-light" href="{{record.url}}" target="_blank">
+                    {{record.url}}
+                  </a><br>
+                  <span class="font-weight-lighter">
+                    {{record.from |  date: 'dd MMM yyyy'}}
+                  </span>
+                </div>
+                <div class="col-5 col-sm-3 ">
+                  <button type="button" class="btn btn-outline-primary" ng-click="editProject(record.id)">
+                    <i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-outline-danger" ng-click="removeProject(record.id)">
+                    <i class="fas fa-trash"></i></button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <textarea readonly ng-model="record.description" class="form-control form-control-lg">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+          <form name="skillsForm" novalidate>
+            <h4 class="mt-5 mb-3">Skills</h4>
+            <!-- Add skill form -->
+            <div class="form-row row-cols-1 row-cols-sm-2">
+              <div class="col mt-2">
+                <label for="skill">Skill</label>
+                <input type="text" id="skill" name="skill" ng-model="newSkill.skill" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="level">Level</label>
+                <input type="number" min="0" max="100" id="level" name="level" ng-model="newSkill.level" ng-required="false" class="form-control form-control-lg">
+              </div>
+            </div>
+            <!-- Save Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="skillsForm.$invalid">
+                  Save Skill
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="row mb-3" ng-repeat="record in data.skills | orderBy:'order' track by record.id">
+              <div class="col-7 col-sm-9 pl-4">
+                <span class="font-weight-normal">{{record.skill}}</span><br>
+                <span class="font-weight-lighter font-italic" ng-show="record.level">Level: {{record.level}}</span>
+              </div>
+              <div class="col-5 col-sm-3 ">
+                <button type="button" class="btn btn-outline-primary" ng-click="editSkill(record.id)">
+                  <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" ng-click="removeSkill(record.id)">
+                  <i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </article>
+
   <!-- Customize -->
   <article id="register-container" class="row justify-content-center">
     <div class="col-11 col-lg-10">
