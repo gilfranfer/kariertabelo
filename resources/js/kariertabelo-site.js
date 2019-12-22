@@ -22,6 +22,7 @@ const messages = {
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
+    error:"No preferences found"
   },
   generic:{
     dbError:"Error with database. Try again."
@@ -55,7 +56,7 @@ app.config(function($routeProvider, $locationProvider) {
   })
   .when('/customize', {
     templateUrl: 'views/customize.html',
-    controller: 'UserProfileCtrl',
+    controller: 'CustomizeCtrl',
     resolve: {
       currentAuth: function(SignUpSvc){
         return SignUpSvc.isUserLoggedIn();
@@ -87,7 +88,7 @@ app.run(function($rootScope,$location){
 app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
 
   $firebaseAuth().$onAuthStateChanged(function(user) {
-    console.debug("$onAuthStateChanged KariertabeloCtrl",user);
+    // console.debug("$onAuthStateChanged KariertabeloCtrl",user);
     if(user){
       $rootScope.currentSession = {authUser:user};
     }else{
@@ -163,6 +164,31 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     });
   };
 
+});
+
+app.controller('CustomizeCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
+
+  $firebaseAuth().$onAuthStateChanged(function(user) {
+    if(!user)return;
+    //Load User's Customs
+    var customsRef = firebase.firestore().collection("customs").doc(user.uid);
+    customsRef.get().then(function(doc) {
+      if (doc.exists) {
+        $scope.$apply(function(){
+          $scope.customs = doc.data();
+          // console.log($scope.customs);
+        });
+      }else{
+        $scope.$apply(function(){
+          $scope.customsResponse = {type:"danger", message: messages.customs.error };
+        });
+      }
+    }).catch(function(error) {
+      console.error("Error getting document:", error);
+    });
+
+  });
+
   $scope.saveCustoms = function(){
     $scope.customsResponse = {type:"info", message: messages.customs.working };
     var customsRef = firebase.firestore().collection("customs").doc($rootScope.currentSession.authUser.uid);
@@ -179,19 +205,6 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
         });
         console.error("Error updating document: ", error);
     });
-  };
-
-});
-
-app.controller('CusromizeCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
-
-  $firebaseAuth().$onAuthStateChanged(function(user) {
-    console.debug("CusromizeCtrl");
-
-  });
-
-  $scope.saveCustoms = function(){
-
   };
 
 });
