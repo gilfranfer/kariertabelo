@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Kariertabelo">
   <head>
+    <!-- Title -->
+    <title>Kariertabelo!</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,111 +13,79 @@
     <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="resources/favicon/favicon-16x16.png">
     <link rel="manifest" href="resources/favicon/site.webmanifest">
-    <!-- Title -->
-    <title>Kariertabelo!</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/css/kariertabelo-site.css">
-    <!-- Angular JS -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
-    <script src="resources/js/kariertabelo-site.js"></script> -->
+    <link rel="stylesheet" href="resources/css/landing.css">
+    <link rel="stylesheet" href="resources/css/resume.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Montserrat:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+
+    <!-- Injected in hosting -->
+    <script>
+      var firebaseConfig = {};
+    </script>
+
   </head>
-  <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl">
-    <nav class="navbar navbar-dark bg-dark sticky-top py-3">
-      <a class="navbar-brand text-light" href="#">
+  <body class="bg-light" ng-controller="KariertabeloCtrl">
+  <!-- <body class="bg-light" ng-controller="KariertabeloCtrl as KCtrl"> -->
+    <nav class="navbar navbar-dark bg-dark sticky-top py-3 navbar-expand-sm">
+      <a class="navbar-brand text-light" href="#!/home">
         <img src="resources/favicon/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Kariertabelo!
       </a>
-      <div class="">
-        <button class="btn btn-outline-success my-2 my-sm-0">Sign up</button>
-        <button class="btn btn-outline-light my-2 my-sm-0">Log in</button>
+
+      <button class="navbar-toggler clickable" type="button"
+          data-toggle="collapse" data-target="#appMenu"
+          aria-controls="appMenu" aria-expanded="false" aria-label="Navigation">
+        <span class="navbar-toggler-icon">
+        </span>
+      </button>
+      <div id="appMenu" class="collapse navbar-collapse justify-content-end">
+        <div ng-show="!currentSession">
+          <a class="btn btn-outline-success my-2 my-sm-0" href="#!/register">Sign up</a>
+          <a class="btn btn-outline-light my-2 my-sm-0" href="#!/login">Log in</a>
+        </div>
+        <div class="" ng-show="currentSession">
+          <a class="btn btn-outline-primary my-2 my-sm-0" href="#!/profile" data-toggle="tooltip" data-placement="bottom" title="Profile">
+            <i class="fas fa-user-edit"></i>
+          </a>
+          <button class="btn btn-outline-light my-2 my-sm-0" ng-click="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
       </div>
     </nav>
-    <main >
-      <div class="bg-shapes-left"></div>
-      <div class="bg-shapes-right"></div>
-      <!-- Welcome -->
-      <article id="welcome" class="px-4 py-4 bg-success">
-        <h1 class="display-4 text-center text-light mt-5">Your Resume Online!</h1>
-        <p class="lead px-5 mt-4 text-justify text-light">
-          Why having such important information only on paper?<br>
-          Get your resume available online with a couple of simple steps, and have it reay to share with anyone, anytime!
 
-        </p>
-        <hr class="my-4 mx-5 font-weight-bold">
-        <p class="text-center">
-          <a class="btn btn-lg btn-outline-light" href="views/resume.html" role="button">View Example</a>
-          <a class="btn btn-lg btn-outline-light" href="#" role="button">Get Started!</a>
-        </p>
-      </article>
-      <!-- Cards -->
-      <article class="bg-light m-4">
-        <h1 class="display-4 text-center text-dark my-5">How does it work?</h1>
-        <div class="row row-cols-2 row-cols-lg-4">
-          <div class="col my-3">
-            <div class="card shadow-lg card-hover h-100">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">Sign On</h5>
-                <hr>
-                <p class="card-text">
-                  Create your free account and choose the plan that fits your needs.
-                  Wait a second!, all current plans are <strong>free!</strong>
-                </p>
-                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-              </div>
-            </div>
-          </div>
-          <div class="col my-3">
-            <div class="card shadow-lg card-hover h-100">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">Select and Customize</h5>
-                <hr>
-                <p class="card-text">
-                  Pick one of the templates we have predefined, and configure it.
-                  You can change color, titles and order of some elements.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col my-3">
-            <div class="card shadow-lg card-hover h-100">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">Fill it up!</h5>
-                <hr>
-                <p class="card-text">
-                  Provide the data for each section of your resume.
-                  Add as much details as needed.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col my-3">
-            <div class="card shadow-lg card-hover h-100">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">Share!</h5>
-                <hr>
-                <p class="card-text">
-                  Now you have your resume online 24/7!
-                  What are you waiting for? Start sharing it!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-    </main>
-    <footer class="text-center my-3">
+    <main ng-view></main>
+
+    <footer class="text-center mt-5 mb-3">
       <a class="text-decoration-none text-danger" href="https://gillab.netlify.com">
         Powered with <i class="fas fa-heart"></i> by Gillab
       </a>
     </footer>
+
+    <!-- AngularJS and Firebase -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script> firebase.initializeApp(firebaseConfig); </script>
+    <script src="resources/js/kariertabelo-site.js"></script>
+
     <!-- Bootstrap JS: jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $.noConflict();
+      jQuery(document).ready(function(){
+        jQuery(function () {
+          jQuery('[data-toggle="tooltip"]').tooltip()
+        })
+      });
+    </script>
   </body>
 </html>

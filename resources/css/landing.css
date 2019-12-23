@@ -2,20 +2,37 @@
   font-family: 'Leckerli One', cursive;
 }
 
-#welcome{
+body{
   font-family: 'Montserrat', sans-serif;
 }
-
 
 .card-hover{
   cursor: pointer;
 }
+
 .card-hover:hover{
   box-shadow:0 0.75rem 1rem rgba(0,0,0,0.3) !important;
   background:#f4fcf6;
   top:-10px;
 }
 
+.bold-center-title{
+  font-weight: bold;
+  text-align: center!important;
+}
+
+/* Form related */
+input.ng-invalid{
+    border-color: var(--red);
+}
+input.ng-valid{
+    border-color: var(--green);
+}
+input.ng-pristine{
+    border-color: #ced4da;
+}
+
+/* Landing Page shapes */
 .bg-shapes-left .bg-shapes-right{
     position: absolute;
     height: 100%;
