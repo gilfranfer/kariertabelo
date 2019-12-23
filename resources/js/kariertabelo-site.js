@@ -228,6 +228,7 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
     let passwd = $scope.registration.password;
     let pathsCollection = firebase.firestore().collection("paths");
     let usersCollection = firebase.firestore().collection("users");
+    var autoId = pathsCollection.doc().id;
     let newUserId;
 
     $scope.registerResponse = {type:"info", message: messages.registration.working };
@@ -238,13 +239,13 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
       newUserId = regUser.user.uid;
       return usersCollection.doc(newUserId).set({
         email: regUser.user.email,
-        since: firebase.firestore.FieldValue.serverTimestamp()
+        since: firebase.firestore.FieldValue.serverTimestamp(),
+        resumeId: autoId
       })
     })
     //Create the first Resume, Customs and Path
     .then(function() {
       var resumesCollection = usersCollection.doc(newUserId).collection("resumes");
-      var autoId = resumesCollection.doc().id;
       resumesCollection.doc(autoId).set({
         contact:{email:email}
       }).then(function() {});
