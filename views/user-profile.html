@@ -28,7 +28,7 @@
                     <span class="input-group-text" id="basic-addon3">resume/</span>
                   </div>
                   <input id="path" type="text" name="path" class="form-control form-control-lg"
-                    placeholder="franfergil" ng-model="resumePathObj.path" ng-required="true" ng-pattern="pathRegex"/>
+                    placeholder="mypath" ng-model="resumePathObj.path" ng-required="true" ng-pattern="pathRegex"/>
                 </div>
                 <small class="form-text text-danger" ng-show="pathForm.path.$invalid && pathForm.path.$dirty">
                   Minimum 3 letters and numbers combination.
@@ -66,25 +66,25 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="firstname">Firstname</label><span class="text-danger">*</span>
-                <input type="text" id="firstname" name="firstname" ng-model="resumeData.profile.firstname" ng-required="true" class="form-control form-control-lg">
+                <input placeholder="Fernando" type="text" id="firstname" name="firstname" ng-model="resumeData.profile.firstname" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="lastname">Lastname</label><span class="text-danger">*</span>
-                <input type="text" id="lastname" name="lastname" ng-model="resumeData.profile.lastname" ng-required="true" class="form-control form-control-lg">
+                <input placeholder="Gil" type="text" id="lastname" name="lastname" ng-model="resumeData.profile.lastname" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="position">Title</label><span class="text-danger">*</span>
-                <input type="text" id="position" name="position" ng-model="resumeData.profile.position" ng-required="true" class="form-control form-control-lg">
+                <input placeholder="IT Manager" type="text" id="position" name="position" ng-model="resumeData.profile.position" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="location">Location</label><span class="text-danger">*</span>
-                <input type="text" id="location" name="location" ng-model="resumeData.profile.location" ng-required="true" class="form-control form-control-lg">
+                <input placeholder="San Antonio Tx" type="text" id="location" name="location" ng-model="resumeData.profile.location" ng-required="true" class="form-control form-control-lg">
               </div>
             </div>
             <div class="form-row">
               <div class="col mt-2">
                 <label for="bio">Biography</label>
-                <textarea id="bio" name="bio" ng-model="resumeData.profile.bio" ng-required="false" class="form-control form-control-lg">
+                <textarea placeholder="Some detaisl about myself" id="bio" name="bio" ng-model="resumeData.profile.bio" ng-required="false" class="form-control form-control-lg">
                 </textarea>
               </div>
             </div>
@@ -92,45 +92,45 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" ng-model="resumeData.contact.email" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="fernando.gil@kariertabelo.com" type="email" id="email" name="email" ng-model="resumeData.contact.email" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" ng-model="resumeData.contact.phone" ng-required="false" pattern="[0-9+-]{3,}" class="form-control form-control-lg">
+                <input placeholder="+1-210-0000-000" type="tel" id="phone" name="phone" ng-model="resumeData.contact.phone" ng-required="false" pattern="[0-9+-]{3,}" class="form-control form-control-lg">
                 <small class="form-text text-muted">
                   Only numbers, dash (-) and plus (+) allowed
                 </small>
               </div>
               <div class="col mt-2">
                 <label for="webpage">Webpage</label>
-                <input type="text" id="webpage" name="webpage" ng-model="resumeData.contact.webpage" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="gillab.netlify.com" type="text" id="webpage" name="webpage" ng-model="resumeData.contact.webpage" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="github">Github</label>
-                <input type="text" id="github" name="github" ng-model="resumeData.contact.github" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="github.com/myuser" type="text" id="github" name="github" ng-model="resumeData.contact.github" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="linkedin">Linkedin</label>
-                <input type="text" id="linkedin" name="linkedin" ng-model="resumeData.contact.linkedin" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="linkedin.com/in/myuser" type="text" id="linkedin" name="linkedin" ng-model="resumeData.contact.linkedin" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="twitter">Twitter</label>
-                <input type="text" id="twitter" name="twitter" ng-model="resumeData.contact.twitter" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="twitter.com/myuser" type="text" id="twitter" name="twitter" ng-model="resumeData.contact.twitter" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="facebook">Facebook</label>
-                <input type="text" id="facebook" name="facebook" ng-model="resumeData.contact.facebook" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="facebook.com/myuser" type="text" id="facebook" name="facebook" ng-model="resumeData.contact.facebook" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="instagram">Instagram</label>
-                <input type="text" id="instagram" name="instagram" ng-model="resumeData.contact.instagram" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="instagram.com/myuser" type="text" id="instagram" name="instagram" ng-model="resumeData.contact.instagram" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
             <h4 class="mt-5 mb-3">Career Summary</h4>
             <div class="form-row">
               <div class="col mt-2">
                 <!-- <label for="bio">Biography</label> -->
-                <textarea id="summary" name="summary" ng-model="resumeData.summary" ng-required="false" class="form-control form-control-lg">
+                <textarea placeholder="About my career" id="summary" name="summary" ng-model="resumeData.summary" ng-required="false" class="form-control form-control-lg">
                 </textarea>
               </div>
             </div>
