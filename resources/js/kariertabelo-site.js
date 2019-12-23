@@ -143,26 +143,32 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.pathResponse = {type:"info", message: messages.resumePath.working };
     //Check if Path is available
     var existingPath = false;
-    var pathRef = firebase.firestore().collection("paths");
-    var pathQuery = pathRef.where("path", "==", $scope.resumePath).limit(1);
-    pathQuery.get().then(function(querySnapshot){
-      querySnapshot.forEach(function(doc){ existingPath = true; });
-      if(existingPath){
+    let pathData = undefined;
+    var pathsCollection = firebase.firestore().collection("paths");
+
+    pathsCollection.where("path", "==", $scope.resumePathObj.path).limit(1).get().then(function(querySnapshot){
+      querySnapshot.forEach(function(doc){ pathData = doc.data(); });
+      if(pathData){
         $scope.$apply(function(){
-          $scope.pathResponse = {type:"danger", message: messages.resumePath.error };
+          console.log(pathData.userId,$rootScope.currentSession.authUser.uid);
+          if(pathData.userId == $rootScope.currentSession.authUser.uid){
+            $scope.pathResponse = {type:"success", message: messages.resumePath.success };
+          }else{
+            $scope.pathResponse = {type:"danger", message: messages.resumePath.error };
+          }
         });
       }else{
         //Update the path value in the user's document, inside paths collection
-        return pathRef.doc($rootScope.currentSession.authUser.uid).set({
+        return pathsCollection.doc($scope.resumePathObj.id).set({
           userId: $rootScope.currentSession.authUser.uid,
-          path: $scope.resumePath,
+          path: $scope.resumePathObj.path,
           since: firebase.firestore.FieldValue.serverTimestamp()
         });
       }
     })
     //After setting path
     .then(function() {
-      if(existingPath) return;
+      if(pathData) return;
       $scope.$apply(function(){
         $scope.pathResponse = {type:"success", message: messages.resumePath.success };
       });
