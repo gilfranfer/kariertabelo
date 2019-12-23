@@ -289,7 +289,12 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     });
   };
 
-  $scope.editEducation = function(recordId){
+  $scope.editEducation = function(record){
+    let newEducation = {id:record.id, title:record.title, school:record.school, from:new Date(record.from)};
+    if(record.to){
+      newEducation.to = new Date(record.to);
+    }
+    $scope.newEducation = newEducation;
   };
 
 });
