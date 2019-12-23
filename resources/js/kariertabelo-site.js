@@ -116,6 +116,38 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
       $location.path(route);
   }
 
+  $scope.resumeWorkExpanded = false;
+  $scope.resumeSkillsExpanded = false;
+  $scope.resumeProfileExpanded = false;
+  $scope.resumeInterstsExpanded = false;
+  $scope.resumeProjectsExpanded = false;
+  $scope.resumeLanguageExpanded = false;
+  $scope.resumeEducationExpanded = false;
+		$scope.expandSection = function(section, value) {
+			switch (section) {
+				case 'resumeWork':
+					$scope.resumeWorkExpanded = value;
+					break;
+				case 'resumeProfile':
+					$scope.resumeProfileExpanded = value;
+					break;
+				case 'resumeLanguage':
+					$scope.resumeLanguageExpanded = value;
+					break;
+          case 'resumeProjects':
+          $scope.resumeProjectsExpanded = value;
+					break;
+				case 'resumeSkills':
+					$scope.resumeSkillsExpanded = value;
+					break;
+				case 'resumeEducation':
+					$scope.resumeEducationExpanded = value;
+					break;
+				case 'resumeIntersts':
+					$scope.resumeInterstsExpanded = value;
+					break;
+			}
+		};
 });
 
 app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {

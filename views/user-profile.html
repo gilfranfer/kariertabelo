@@ -60,9 +60,19 @@
     <div class="col-11 col-lg-10">
       <div class="card my-4 shadow-lg rounded">
         <div class="card-body">
-          <h3 class="card-title">Resume Data</h3>
+          <h3 class="card-title clickable">Resume Data</h3>
       		<hr>
           <form name="dataForm" novalidate ng-submit="saveResumeData()">
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeProfile" aria-expanded="false" aria-controls="resumeProfile"
+              ng-if="resumeProfileExpanded" ng-click="expandSection('resumeProfile',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeProfile" aria-expanded="true" aria-controls="resumeProfile"
+              ng-if="!resumeProfileExpanded" ng-click="expandSection('resumeProfile',true)"></i>
+              Profile
+            </h4>
+            <div id="resumeProfile" class="collapse">
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="firstname">Firstname</label><span class="text-danger">*</span>
@@ -88,7 +98,8 @@
                 </textarea>
               </div>
             </div>
-            <h4 class="mt-5 mb-3">Contact Details</h4>
+
+            <h5 class="mt-5 mb-3">Contact Details</h5>
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="email">Email</label>
@@ -126,7 +137,8 @@
                 <input placeholder="instagram.com/myuser" type="text" id="instagram" name="instagram" ng-model="resumeData.contact.instagram" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
-            <h4 class="mt-5 mb-3">Career Summary</h4>
+
+            <h5 class="mt-5 mb-3">Career Summary</h5>
             <div class="form-row">
               <div class="col mt-2">
                 <!-- <label for="bio">Biography</label> -->
@@ -134,11 +146,12 @@
                 </textarea>
               </div>
             </div>
+
             <!-- Alert -->
             <div class="alert alert-{{dataResponse.type}} my-2" role="alert" ng-show="dataResponse" >
               {{dataResponse.message}}
             </div>
-            <!-- Buttons row -->
+            <!-- Save Button -->
             <div class="form-row my-2">
               <div class="col">
                 <button type="submit" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="dataForm.$invalid">
@@ -146,9 +159,19 @@
                 </button>
               </div>
             </div>
+            </div>
           </form>
           <form name="educationForm" novalidate>
-            <h4 class="mt-5 mb-3">Education</h4>
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeEducation" aria-expanded="false" aria-controls="resumeEducation"
+              ng-if="resumeEducationExpanded" ng-click="expandSection('resumeEducation',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeEducation" aria-expanded="true" aria-controls="resumeEducation"
+              ng-if="!resumeEducationExpanded" ng-click="expandSection('resumeEducation',true)"></i>
+              Education
+            </h4>
+            <div id="resumeEducation" class="collapse">
             <!-- Add Education form -->
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
@@ -196,74 +219,19 @@
                   <i class="fas fa-trash"></i></button>
               </div>
             </div>
-          </form>
-          <form name="languagesForm" novalidate>
-            <h4 class="mt-5 mb-3">Languages</h4>
-            <!-- Add language form -->
-            <div class="form-row row-cols-1 row-cols-sm-2">
-              <div class="col mt-2">
-                <label for="language">Language</label>
-                <input type="text" id="language" name="language" ng-model="newLanguage.language" ng-required="true" class="form-control form-control-lg">
-              </div>
-              <div class="col mt-2">
-                <label for="level">Level</label>
-                <input type="text" id="level" name="level" ng-model="newLanguage.level" ng-required="true" class="form-control form-control-lg">
-              </div>
-            </div>
-            <!-- Save Button -->
-            <div class="form-row mt-2 mb-5">
-              <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="languagesForm.$invalid">
-                  Save Language
-                </button>
-              </div>
-            </div>
-            <!-- List -->
-            <div class="row mb-3" ng-repeat="record in resumeData.languages | orderBy:'order' track by record.id">
-              <div class="col-7 col-sm-9 pl-4">
-                <span class="font-weight-normal">{{record.language}}</span>
-                <span class="font-weight-lighter font-italic">({{record.level}})</span>
-              </div>
-              <div class="col-5 col-sm-3 ">
-                <button type="button" class="btn btn-outline-primary" ng-click="editLanguage(record.id)">
-                  <i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-outline-danger" ng-click="removeLanguage(record.id)">
-                  <i class="fas fa-trash"></i></button>
-              </div>
-            </div>
-          </form>
-          <form name="interestsForm" novalidate>
-            <h4 class="mt-5 mb-3">Interests</h4>
-            <!-- Add interest form -->
-            <div class="form-row row-cols-1">
-              <div class="col mt-2">
-                <label for="interest">Interest</label>
-                <input type="text" id="interest" name="interest" ng-model="newLanguage.interest" ng-required="true" class="form-control form-control-lg">
-              </div>
-            </div>
-            <!-- Save Button -->
-            <div class="form-row mt-2 mb-5">
-              <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="interestsForm.$invalid">
-                  Save Interest
-                </button>
-              </div>
-            </div>
-            <!-- List -->
-            <div class="row mb-3" ng-repeat="record in resumeData.interests | orderBy:'order' track by record.id">
-              <div class="col-7 col-sm-9 pl-4">
-                <span class="font-weight-normal">{{record.interest}}</span>
-              </div>
-              <div class="col-5 col-sm-3 ">
-                <button type="button" class="btn btn-outline-primary" ng-click="editLanguage(record.id)">
-                  <i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-outline-danger" ng-click="removeLanguage(record.id)">
-                  <i class="fas fa-trash"></i></button>
-              </div>
             </div>
           </form>
           <form name="workForm" novalidate>
-            <h4 class="mt-5 mb-3">Work</h4>
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeWork" aria-expanded="false" aria-controls="resumeWork"
+              ng-if="resumeWorkExpanded" ng-click="expandSection('resumeWork',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeWork" aria-expanded="true" aria-controls="resumeWork"
+              ng-if="!resumeWorkExpanded" ng-click="expandSection('resumeWork',true)"></i>
+              Work
+            </h4>
+            <div id="resumeWork" class="collapse">
             <!-- Add Work form -->
             <div class="form-row row-cols-1 row-cols-sm-3">
               <div class="col mt-2">
@@ -297,7 +265,7 @@
             <!-- Add Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="workForm.$invalid">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="workForm.$invalid" ng-click="save()">
                   Save Work
                 </button>
               </div>
@@ -327,9 +295,19 @@
                 </div>
               </div>
             </div>
+            </div>
           </form>
           <form name="projectsForm" novalidate>
-            <h4 class="mt-5 mb-3">Project</h4>
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeProjects" aria-expanded="false" aria-controls="resumeProjects"
+              ng-if="resumeProjectsExpanded" ng-click="expandSection('resumeProjects',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeProjects" aria-expanded="true" aria-controls="resumeProjects"
+              ng-if="!resumeProjectsExpanded" ng-click="expandSection('resumeProjects',true)"></i>
+              Projects
+            </h4>
+            <div id="resumeProjects" class="collapse">
             <!-- Add Project form -->
             <div class="form-row row-cols-1 row-cols-sm-3">
               <div class="col mt-2">
@@ -355,7 +333,7 @@
             <!-- Add Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="projectsForm.$invalid">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="projectsForm.$invalid" ng-click="save()">
                   Save Project
                 </button>
               </div>
@@ -386,9 +364,19 @@
                 </div>
               </div>
             </div>
+            </div>
           </form>
           <form name="skillsForm" novalidate>
-            <h4 class="mt-5 mb-3">Skills</h4>
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeSkills" aria-expanded="false" aria-controls="resumeSkills"
+              ng-if="resumeSkillsExpanded" ng-click="expandSection('resumeSkills',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeSkills" aria-expanded="true" aria-controls="resumeSkills"
+              ng-if="!resumeSkillsExpanded" ng-click="expandSection('resumeSkills',true)"></i>
+              Skills
+            </h4>
+            <div id="resumeSkills" class="collapse">
             <!-- Add skill form -->
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
@@ -403,7 +391,7 @@
             <!-- Save Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="skillsForm.$invalid">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="skillsForm.$invalid" ng-click="save()">
                   Save Skill
                 </button>
               </div>
@@ -420,6 +408,92 @@
                 <button type="button" class="btn btn-outline-danger" ng-click="removeSkill(record.id)">
                   <i class="fas fa-trash"></i></button>
               </div>
+            </div>
+            </div>
+          </form>
+          <form name="languagesForm" novalidate>
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeLanguage" aria-expanded="false" aria-controls="resumeLanguage"
+              ng-if="resumeLanguageExpanded" ng-click="expandSection('resumeLanguage',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeLanguage" aria-expanded="true" aria-controls="resumeLanguage"
+              ng-if="!resumeLanguageExpanded" ng-click="expandSection('resumeLanguage',true)"></i>
+              Languages
+            </h4>
+            <div id="resumeLanguage" class="collapse">
+            <!-- Add language form -->
+            <div class="form-row row-cols-1 row-cols-sm-2">
+              <div class="col mt-2">
+                <label for="language">Language</label>
+                <input type="text" id="language" name="language" ng-model="newLanguage.language" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="level">Level</label>
+                <input type="text" id="level" name="level" ng-model="newLanguage.level" ng-required="true" class="form-control form-control-lg">
+              </div>
+            </div>
+            <!-- Save Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="languagesForm.$invalid" ng-click="save()">
+                  Save Language
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="row mb-3" ng-repeat="record in resumeData.languages | orderBy:'order' track by record.id">
+              <div class="col-7 col-sm-9 pl-4">
+                <span class="font-weight-normal">{{record.language}}</span>
+                <span class="font-weight-lighter font-italic">({{record.level}})</span>
+              </div>
+              <div class="col-5 col-sm-3 ">
+                <button type="button" class="btn btn-outline-primary" ng-click="editLanguage(record.id)">
+                  <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" ng-click="removeLanguage(record.id)">
+                  <i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+            </div>
+          </form>
+          <form name="interestsForm" novalidate>
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeIntersts" aria-expanded="false" aria-controls="resumeIntersts"
+              ng-if="resumeInterstsExpanded" ng-click="expandSection('resumeIntersts',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeIntersts" aria-expanded="true" aria-controls="resumeIntersts"
+              ng-if="!resumeInterstsExpanded" ng-click="expandSection('resumeIntersts',true)"></i>
+              Interests
+            </h4>
+            <div id="resumeIntersts" class="collapse">
+            <!-- Add interest form -->
+            <div class="form-row row-cols-1">
+              <div class="col mt-2">
+                <label for="interest">Interest</label>
+                <input type="text" id="interest" name="interest" ng-model="newLanguage.interest" ng-required="true" class="form-control form-control-lg">
+              </div>
+            </div>
+            <!-- Save Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="interestsForm.$invalid" ng-click="save()">
+                  Save Interest
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="row mb-3" ng-repeat="record in resumeData.interests | orderBy:'order' track by record.id">
+              <div class="col-7 col-sm-9 pl-4">
+                <span class="font-weight-normal">{{record.interest}}</span>
+              </div>
+              <div class="col-5 col-sm-3 ">
+                <button type="button" class="btn btn-outline-primary" ng-click="editLanguage(record.id)">
+                  <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" ng-click="removeLanguage(record.id)">
+                  <i class="fas fa-trash"></i></button>
+              </div>
+            </div>
             </div>
           </form>
         </div>
