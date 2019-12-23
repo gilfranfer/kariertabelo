@@ -23,6 +23,10 @@ const messages = {
     working:"Saving Data...",
     success:"Data updated!"
   },
+  educationData:{
+    working:"Saving Education...",
+    success:"Data saved!"
+  },
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
@@ -209,6 +213,31 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
       console.error("Error getting document:", error);
     });
+  };
+
+  $scope.saveEducation = function(){
+    $scope.educationResponse = {type:"info", message: messages.educationData.working };
+    let record = {
+      title: $scope.newEducation.title,
+      school: $scope.newEducation.school,
+      from: $scope.newEducation.from.getTime()
+    };
+    if($scope.newEducation.to){
+      record.to = $scope.newEducation.to.getTime();
+    }
+
+    let resumeDoc = usersCollection.doc($rootScope.currentSession.authUser.uid).collection("resumes").doc($scope.resumeId);
+    resumeDoc.collection("education").add(record).then(function(ref){
+      $scope.$apply(function(){
+        $scope.educationResponse = {type:"success", message: messages.educationData.success };
+      });
+    }).catch(function(error) {
+      $scope.$apply(function(){
+        $scope.educationResponse = {type:"danger", message: messages.generic.dbError };
+      });
+      console.error("Error saving document:", error);
+    });
+
   };
 
 });

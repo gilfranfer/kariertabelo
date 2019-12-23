@@ -168,10 +168,14 @@
                 <input type="month" id="to" name="to" ng-model="newEducation.to" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
+            <!-- Alert -->
+            <div class="alert alert-{{educationResponse.type}} my-2" role="alert" ng-show="educationResponse" >
+              {{educationResponse.message}}
+            </div>
             <!-- Add Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="educationForm.$invalid">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="educationForm.$invalid" ng-click="saveEducation()">
                   Save Education
                 </button>
               </div>
