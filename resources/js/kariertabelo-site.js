@@ -112,14 +112,14 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 
 app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
 
-  var pathsCollection = firebase.firestore().collection("paths");
-  var usersCollection = firebase.firestore().collection("users");
+  let pathsCollection = firebase.firestore().collection("paths");
+  let usersCollection = firebase.firestore().collection("users");
   $firebaseAuth().$onAuthStateChanged(function(user) {
     if(!user)return;
-    usersCollection.doc(user.uid).get().then(function(userDoc) {
+
+    let userDocument = usersCollection.doc(user.uid).get();
+    userDocument.then(function(userDoc) {
       if (!userDoc.exists) return null;
-      // $rootScope.currentSession.userData = userDoc.data();
-      //Get the Path for User's default resume
       return pathsCollection.doc(userDoc.data().resumeId).get();
     })
     .then(function(pathDoc){
@@ -133,6 +133,17 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     })
     .catch(function(error) {
       console.error("Error getting document:", error);
+    });
+
+    let resumesCollection = usersCollection.doc(user.uid).collection("resumes");
+    userDocument.then(function(userDoc) {
+      if (!userDoc.exists) return null;
+      return resumesCollection.doc(userDoc.data().resumeId).get();
+    })
+    .then(function(resumeDoc){
+      $scope.$apply(function(){
+        $scope.resumeData = resumeDoc.data();
+      });
     });
 
   });

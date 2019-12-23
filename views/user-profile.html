@@ -66,25 +66,25 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="firstname">Firstname</label><span class="text-danger">*</span>
-                <input type="text" id="firstname" name="firstname" ng-model="data.profile.firstname" ng-required="true" class="form-control form-control-lg">
+                <input type="text" id="firstname" name="firstname" ng-model="resumeData.profile.firstname" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="lastname">Lastname</label><span class="text-danger">*</span>
-                <input type="text" id="lastname" name="lastname" ng-model="data.profile.lastname" ng-required="true" class="form-control form-control-lg">
+                <input type="text" id="lastname" name="lastname" ng-model="resumeData.profile.lastname" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="position">Title</label><span class="text-danger">*</span>
-                <input type="text" id="position" name="position" ng-model="data.profile.position" ng-required="true" class="form-control form-control-lg">
+                <input type="text" id="position" name="position" ng-model="resumeData.profile.position" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="location">Location</label><span class="text-danger">*</span>
-                <input type="text" id="location" name="location" ng-model="data.profile.location" ng-required="true" class="form-control form-control-lg">
+                <input type="text" id="location" name="location" ng-model="resumeData.profile.location" ng-required="true" class="form-control form-control-lg">
               </div>
             </div>
             <div class="form-row">
               <div class="col mt-2">
                 <label for="bio">Biography</label>
-                <textarea id="bio" name="bio" ng-model="data.profile.bio" ng-required="false" class="form-control form-control-lg">
+                <textarea id="bio" name="bio" ng-model="resumeData.profile.bio" ng-required="false" class="form-control form-control-lg">
                 </textarea>
               </div>
             </div>
@@ -92,45 +92,45 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" ng-model="data.contact.email" ng-required="false" class="form-control form-control-lg">
+                <input type="email" id="email" name="email" ng-model="resumeData.contact.email" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" ng-model="data.contact.phone" ng-required="false" pattern="[0-9+-]{3,}" class="form-control form-control-lg">
+                <input type="tel" id="phone" name="phone" ng-model="resumeData.contact.phone" ng-required="false" pattern="[0-9+-]{3,}" class="form-control form-control-lg">
                 <small class="form-text text-muted">
                   Only numbers, dash (-) and plus (+) allowed
                 </small>
               </div>
               <div class="col mt-2">
                 <label for="webpage">Webpage</label>
-                <input type="text" id="webpage" name="webpage" ng-model="data.contact.webpage" ng-required="false" class="form-control form-control-lg">
+                <input type="text" id="webpage" name="webpage" ng-model="resumeData.contact.webpage" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="github">Github</label>
-                <input type="text" id="github" name="github" ng-model="data.contact.github" ng-required="false" class="form-control form-control-lg">
+                <input type="text" id="github" name="github" ng-model="resumeData.contact.github" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="linkedin">Linkedin</label>
-                <input type="text" id="linkedin" name="linkedin" ng-model="data.contact.linkedin" ng-required="false" class="form-control form-control-lg">
+                <input type="text" id="linkedin" name="linkedin" ng-model="resumeData.contact.linkedin" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="twitter">Twitter</label>
-                <input type="text" id="twitter" name="twitter" ng-model="data.contact.twitter" ng-required="false" class="form-control form-control-lg">
+                <input type="text" id="twitter" name="twitter" ng-model="resumeData.contact.twitter" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="facebook">Facebook</label>
-                <input type="text" id="facebook" name="facebook" ng-model="data.contact.facebook" ng-required="false" class="form-control form-control-lg">
+                <input type="text" id="facebook" name="facebook" ng-model="resumeData.contact.facebook" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="instagram">Instagram</label>
-                <input type="text" id="instagram" name="instagram" ng-model="data.contact.instagram" ng-required="false" class="form-control form-control-lg">
+                <input type="text" id="instagram" name="instagram" ng-model="resumeData.contact.instagram" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
             <h4 class="mt-5 mb-3">Career Summary</h4>
             <div class="form-row">
               <div class="col mt-2">
                 <!-- <label for="bio">Biography</label> -->
-                <textarea id="summary" name="summary" ng-model="data.summary" ng-required="false" class="form-control form-control-lg">
+                <textarea id="summary" name="summary" ng-model="resumeData.summary" ng-required="false" class="form-control form-control-lg">
                 </textarea>
               </div>
             </div>
@@ -177,7 +177,7 @@
               </div>
             </div>
             <!-- List -->
-            <div class="row mb-3" ng-repeat="record in data.education | orderBy:'from':true track by record.id">
+            <div class="row mb-3" ng-repeat="record in resumeData.education | orderBy:'from':true track by record.id">
               <div class="col-7 col-sm-9 pl-4">
                 <span class="font-weight-bold">{{record.title}}</span><br>
                 <span class="font-weight-light">{{record.school}}</span><br>
@@ -215,7 +215,7 @@
               </div>
             </div>
             <!-- List -->
-            <div class="row mb-3" ng-repeat="record in data.languages | orderBy:'order' track by record.id">
+            <div class="row mb-3" ng-repeat="record in resumeData.languages | orderBy:'order' track by record.id">
               <div class="col-7 col-sm-9 pl-4">
                 <span class="font-weight-normal">{{record.language}}</span>
                 <span class="font-weight-lighter font-italic">({{record.level}})</span>
@@ -246,7 +246,7 @@
               </div>
             </div>
             <!-- List -->
-            <div class="row mb-3" ng-repeat="record in data.interests | orderBy:'order' track by record.id">
+            <div class="row mb-3" ng-repeat="record in resumeData.interests | orderBy:'order' track by record.id">
               <div class="col-7 col-sm-9 pl-4">
                 <span class="font-weight-normal">{{record.interest}}</span>
               </div>
@@ -299,7 +299,7 @@
               </div>
             </div>
             <!-- List -->
-            <div class="mb-3" ng-repeat="record in data.work | orderBy:'from':true track by record.id">
+            <div class="mb-3" ng-repeat="record in resumeData.work | orderBy:'from':true track by record.id">
               <div class="row">
                 <div class="col-7 col-sm-9 pl-4">
                   <span class="font-weight-bold">{{record.title}}</span><br>
@@ -357,7 +357,7 @@
               </div>
             </div>
             <!-- List -->
-            <div class="mb-3" ng-repeat="record in data.projects | orderBy:'date':true track by record.id">
+            <div class="mb-3" ng-repeat="record in resumeData.projects | orderBy:'date':true track by record.id">
               <div class="row">
                 <div class="col-7 col-sm-9 pl-4">
                   <span class="font-weight-bold">{{record.name}}</span><br>
@@ -405,7 +405,7 @@
               </div>
             </div>
             <!-- List -->
-            <div class="row mb-3" ng-repeat="record in data.skills | orderBy:'order' track by record.id">
+            <div class="row mb-3" ng-repeat="record in resumeData.skills | orderBy:'order' track by record.id">
               <div class="col-7 col-sm-9 pl-4">
                 <span class="font-weight-normal">{{record.skill}}</span><br>
                 <span class="font-weight-lighter font-italic" ng-show="record.level">Level: {{record.level}}</span>
