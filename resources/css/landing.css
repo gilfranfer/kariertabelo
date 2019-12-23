@@ -6,6 +6,10 @@ body{
   font-family: 'Montserrat', sans-serif;
 }
 
+.clickable{
+	cursor: pointer;
+}
+
 .card-hover{
   cursor: pointer;
 }

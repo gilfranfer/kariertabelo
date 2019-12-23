@@ -154,9 +154,11 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
 
   let pathsCollection = firebase.firestore().collection("paths");
   let usersCollection = firebase.firestore().collection("users");
+  let currentResumeDoc = undefined;
+
   $firebaseAuth().$onAuthStateChanged(function(user) {
     if(!user)return;
-
+    // $scope.resumeId - to track in the view the current resume
     let userDocument = usersCollection.doc(user.uid).get();
     userDocument.then(function(userDoc) {
       if (!userDoc.exists) return null;
@@ -175,11 +177,11 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       console.error("Error getting document:", error);
     });
 
-    let resumesCollection = usersCollection.doc(user.uid).collection("resumes");
     userDocument.then(function(userDoc) {
       if (!userDoc.exists) return null;
       $scope.resumeId = userDoc.data().resumeId;
-      return resumesCollection.doc(userDoc.data().resumeId).get();
+      currentResumeDoc = usersCollection.doc(user.uid).collection("resumes").doc(userDoc.data().resumeId);
+      return currentResumeDoc.get();
     })
     .then(function(resumeDoc){
       $scope.$apply(function(){
@@ -270,6 +272,24 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       console.error("Error saving document:", error);
     });
 
+  };
+
+  $scope.getEducationList = function(recordId){
+    currentResumeDoc.collection("education").get().then(function(data) {
+      // console.log(data);
+      educationList = new Array();
+      data.forEach(function(doc) {
+        let record = doc.data();
+        record.id = doc.id;
+        educationList.push(record);
+      });
+      $scope.$apply(function() {
+        $scope.educationList = educationList;
+      });
+    });
+  };
+
+  $scope.editEducation = function(recordId){
   };
 
 });

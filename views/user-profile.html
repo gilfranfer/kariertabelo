@@ -168,7 +168,7 @@
               ng-if="resumeEducationExpanded" ng-click="expandSection('resumeEducation',false)"></i>
               <i class="clickable far fa-plus-square"
                data-toggle="collapse" data-target="#resumeEducation" aria-expanded="true" aria-controls="resumeEducation"
-              ng-if="!resumeEducationExpanded" ng-click="expandSection('resumeEducation',true)"></i>
+              ng-if="!resumeEducationExpanded" ng-click="expandSection('resumeEducation',true);getEducationList();"></i>
               Education
             </h4>
             <div id="resumeEducation" class="collapse">
@@ -204,7 +204,7 @@
               </div>
             </div>
             <!-- List -->
-            <div class="row mb-3" ng-repeat="record in resumeData.education | orderBy:'from':true track by record.id">
+            <div class="row mb-3" ng-repeat="record in educationList | orderBy:'from':true track by record.id">
               <div class="col-7 col-sm-9 pl-4">
                 <span class="font-weight-bold">{{record.title}}</span><br>
                 <span class="font-weight-light">{{record.school}}</span><br>
