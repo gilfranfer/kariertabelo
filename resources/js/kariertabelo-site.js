@@ -249,31 +249,6 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     });
   };
 
-  $scope.saveEducation = function(){
-    $scope.educationResponse = {type:"info", message: messages.educationData.working };
-    let record = {
-      title: $scope.newEducation.title,
-      school: $scope.newEducation.school,
-      from: $scope.newEducation.from.getTime()
-    };
-    if($scope.newEducation.to){
-      record.to = $scope.newEducation.to.getTime();
-    }
-
-    let resumeDoc = usersCollection.doc($rootScope.currentSession.authUser.uid).collection("resumes").doc($scope.resumeId);
-    resumeDoc.collection("education").add(record).then(function(ref){
-      $scope.$apply(function(){
-        $scope.educationResponse = {type:"success", message: messages.educationData.success };
-      });
-    }).catch(function(error) {
-      $scope.$apply(function(){
-        $scope.educationResponse = {type:"danger", message: messages.generic.dbError };
-      });
-      console.error("Error saving document:", error);
-    });
-
-  };
-
   $scope.getEducationList = function(recordId){
     currentResumeDoc.collection("education").get().then(function(data) {
       // console.log(data);
@@ -297,18 +272,69 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.newEducation = newEducation;
   };
 
+  $scope.saveEducation = function(){
+    $scope.educationResponse = {type:"info", message: messages.educationData.working };
+    let record = {
+      title: $scope.newEducation.title,
+      school: $scope.newEducation.school,
+      from: $scope.newEducation.from.getTime()
+    };
+    if($scope.newEducation.to){
+      record.to = $scope.newEducation.to.getTime();
+    }
+
+    if(!$scope.newEducation.id){
+      //Create new record
+      let newRecordId = currentResumeDoc.collection("education").doc().id;
+      currentResumeDoc.collection("education").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        $scope.$apply(function(){
+          $scope.educationList.push(record);
+          $scope.educationResponse = {type:"success", message: messages.educationData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.educationResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    //Updating existing record
+    else{
+      let newRecordId = $scope.newEducation.id;
+      currentResumeDoc.collection("education").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        removeEducationFromArray({id:newRecordId});
+        $scope.$apply(function(){
+          $scope.educationList.push(record);
+          $scope.educationResponse = {type:"success", message: messages.educationData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.educationResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    $scope.newEducation = undefined;
+  };
+
   $scope.removeEducation = function(record) {
     currentResumeDoc.collection("education").doc(record.id).delete().then(function() {
-      $scope.educationList.some(function(element, index) {
-        if(element.id === record.id){
-          $scope.$apply(function(){
-            $scope.educationList.splice(index,1);
-          });
-        }
-        return (element.id === record.id)
+      $scope.$apply(function(){
+        removeEducationFromArray(record);
       });
     }).catch(function(error) {
         console.error("Error removing document: ", error);
+    });
+  };
+
+  removeEducationFromArray = function(record) {
+    $scope.educationList.some(function(element, index) {
+      if(element.id === record.id){
+        $scope.educationList.splice(index,1);
+      }
+      return (element.id === record.id)
     });
   };
 
