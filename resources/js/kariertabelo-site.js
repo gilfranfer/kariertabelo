@@ -19,6 +19,10 @@ const messages = {
     error:"The path is not available. Please select a different one.",
     success:"Your resume path has been set!"
   },
+  resumeData:{
+    working:"Saving Data...",
+    success:"Data updated!"
+  },
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
@@ -138,6 +142,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     let resumesCollection = usersCollection.doc(user.uid).collection("resumes");
     userDocument.then(function(userDoc) {
       if (!userDoc.exists) return null;
+      $scope.resumeId = userDoc.data().resumeId;
       return resumesCollection.doc(userDoc.data().resumeId).get();
     })
     .then(function(resumeDoc){
@@ -161,7 +166,6 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       querySnapshot.forEach(function(doc){ pathData = doc.data(); });
       if(pathData){
         $scope.$apply(function(){
-          console.log(pathData.userId,$rootScope.currentSession.authUser.uid);
           if(pathData.userId == $rootScope.currentSession.authUser.uid){
             $scope.pathResponse = {type:"success", message: messages.resumePath.success };
           }else{
@@ -187,6 +191,21 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     .catch(function(error) {
       $scope.$apply(function(){
         $scope.pathResponse = {type:"danger", message: messages.generic.dbError };
+      });
+      console.error("Error getting document:", error);
+    });
+  };
+
+  $scope.saveResumeData = function(){
+    $scope.dataResponse = {type:"info", message: messages.resumeData.working };
+    let resumesCollection = usersCollection.doc($rootScope.currentSession.authUser.uid).collection("resumes");
+    resumesCollection.doc($scope.resumeId).update($scope.resumeData).then(function(ref){
+      $scope.$apply(function(){
+        $scope.dataResponse = {type:"success", message: messages.resumeData.success };
+      });
+    }).catch(function(error) {
+      $scope.$apply(function(){
+        $scope.dataResponse = {type:"danger", message: messages.generic.dbError };
       });
       console.error("Error getting document:", error);
     });
