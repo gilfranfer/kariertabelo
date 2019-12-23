@@ -228,7 +228,7 @@
               ng-if="resumeWorkExpanded" ng-click="expandSection('resumeWork',false)"></i>
               <i class="clickable far fa-plus-square"
                data-toggle="collapse" data-target="#resumeWork" aria-expanded="true" aria-controls="resumeWork"
-              ng-if="!resumeWorkExpanded" ng-click="expandSection('resumeWork',true)"></i>
+              ng-if="!resumeWorkExpanded" ng-click="expandSection('resumeWork',true);getWorkList()"></i>
               Work
             </h4>
             <div id="resumeWork" class="collapse">
@@ -265,13 +265,13 @@
             <!-- Add Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="workForm.$invalid" ng-click="save()">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="workForm.$invalid" ng-click="saveWork()">
                   Save Work
                 </button>
               </div>
             </div>
             <!-- List -->
-            <div class="mb-3" ng-repeat="record in resumeData.work | orderBy:'from':true track by record.id">
+            <div class="mb-3" ng-repeat="record in workList | orderBy:'from':true track by record.id">
               <div class="row">
                 <div class="col-7 col-sm-9 pl-4">
                   <span class="font-weight-bold">{{record.title}}</span><br>
@@ -282,9 +282,9 @@
                   </span><br>
                 </div>
                 <div class="col-5 col-sm-3 ">
-                  <button type="button" class="btn btn-outline-primary" ng-click="editWork(record.id)">
+                  <button type="button" class="btn btn-outline-primary" ng-click="editWork(record)">
                     <i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-outline-danger" ng-click="removeWork(record.id)">
+                  <button type="button" class="btn btn-outline-danger" ng-click="removeWork(record)">
                     <i class="fas fa-trash"></i></button>
                 </div>
               </div>

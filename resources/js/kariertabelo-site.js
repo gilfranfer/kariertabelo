@@ -249,7 +249,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     });
   };
 
-  $scope.getEducationList = function(recordId){
+  $scope.getEducationList = function(){
     currentResumeDoc.collection("education").get().then(function(data) {
       // console.log(data);
       educationList = new Array();
@@ -336,6 +336,28 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       }
       return (element.id === record.id)
     });
+  };
+
+  $scope.getWorkList = function(){
+    currentResumeDoc.collection("work").get().then(function(data) {
+      workList = new Array();
+      data.forEach(function(doc) {
+        let record = doc.data();
+        record.id = doc.id;
+        workList.push(record);
+      });
+      $scope.$apply(function() {
+        $scope.workList = workList;
+      });
+    });
+  };
+
+  $scope.editWork = function(record){
+    let newWork = {id:record.id, title:record.title, employer:record.employer, location:record.location, description:record.description, from:new Date(record.from)};
+    if(record.to){
+      newWork.to = new Date(record.to);
+    }
+    $scope.newWork = newWork;
   };
 
 });
