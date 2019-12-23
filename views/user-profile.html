@@ -28,7 +28,7 @@
                     <span class="input-group-text" id="basic-addon3">resume/</span>
                   </div>
                   <input id="path" type="text" name="path" class="form-control form-control-lg"
-                    placeholder="franfergil" ng-model="resumePath" ng-required="true" ng-pattern="pathRegex"/>
+                    placeholder="franfergil" ng-model="resumePathObj.path" ng-required="true" ng-pattern="pathRegex"/>
                 </div>
                 <small class="form-text text-danger" ng-show="pathForm.path.$invalid && pathForm.path.$dirty">
                   Minimum 3 letters and numbers combination.

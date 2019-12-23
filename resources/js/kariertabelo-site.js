@@ -118,13 +118,14 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     if(!user)return;
     usersCollection.doc(user.uid).get().then(function(userDoc) {
       if (!userDoc.exists) return null;
+      // $rootScope.currentSession.userData = userDoc.data();
       //Get the Path for User's default resume
       return pathsCollection.doc(userDoc.data().resumeId).get();
     })
     .then(function(pathDoc){
       if(pathDoc.exists) {
         $scope.$apply(function(){
-          $scope.resumePath = pathDoc.data().path;
+          $scope.resumePathObj = { id:pathDoc.id, path:pathDoc.data().path};
         });
       }else{
         console.error("Path not exising for user:",user.uid);
