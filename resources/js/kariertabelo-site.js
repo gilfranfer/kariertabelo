@@ -216,42 +216,51 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
   $scope.registerUser = function(){
     let email = $scope.registration.email;
     let passwd = $scope.registration.password;
+    let pathsCollection = firebase.firestore().collection("paths");
+    let usersCollection = firebase.firestore().collection("users");
     let newUserId;
 
     $scope.registerResponse = {type:"info", message: messages.registration.working };
     $firebaseAuth().$createUserWithEmailAndPassword(email, passwd)
-      .then(function(regUser){
-        $location.path(values.paths.profile);
-        //User is automatically logged-in after registration
-        //Create User Document
-        newUserId = regUser.user.uid;
-        var userRef = firebase.firestore().collection("users").doc(newUserId);
-        return userRef.set({
-          email: regUser.user.email,
-          since: firebase.firestore.FieldValue.serverTimestamp()
-        })
-      }).then(function() {
-        //Set default customs and path
-        var customsRef = firebase.firestore().collection("customs").doc(newUserId);
-        customsRef.set({
-          baseColor: "#007bff",
-          order: {profile:1, resume:2 },
-          labels:{ education:"Estudios", interests:"Pasatiempos", languages:"Idiomas",
-            projects:"Proyectos", skills:"Habilidades", summary:"Resumen", work:"Experiencia"}
-        }).then(function() {});
-        var pathRef = firebase.firestore().collection("paths").doc(newUserId);
-        pathRef.set({
-          path:newUserId, since: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(function() {});
-      }).catch(function(error) {
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
-        // auth/email-already-in-use: Thrown if there already exists an account with the given email address.
-        // auth/invalid-email: Thrown if the email address is not valid.
-        // auth/operation-not-allowed: Thrown if email/password accounts are not enabled. Enable email/password accounts in the Firebase Console, under the Auth tab.
-        // auth/weak-password: Thrown if the password is not strong enough.
-        console.error(error);
-        $scope.registerResponse = {type:"danger", message: messages.registration.error+" "+error.message};
+    //User is automatically logged-in after registration
+    .then(function(regUser){
+      $location.path(values.paths.profile);
+      newUserId = regUser.user.uid;
+      return usersCollection.doc(newUserId).set({
+        email: regUser.user.email,
+        since: firebase.firestore.FieldValue.serverTimestamp()
+      })
+    })
+    //Create the first Resume, Customs and Path
+    .then(function() {
+      var resumesCollection = usersCollection.doc(newUserId).collection("resumes");
+      var autoId = resumesCollection.doc().id;
+      resumesCollection.doc(autoId).set({
+        contact:{email:email}
+      }).then(function() {});
+
+      var customsCollection = usersCollection.doc(newUserId).collection("customs");
+      customsCollection.doc(autoId).set({
+        baseColor: "#007bff",
+        order: {profile:1, resume:2 },
+        labels:{ education:"Education", interests:"Hobbies", languages:"Languages",
+          projects:"Projects", skills:"Skills", summary:"Career Summary", work:"Work History"}
+      }).then(function() {});
+
+      pathsCollection.doc(autoId).set({
+        path:newUserId,
+        userId:newUserId,
+        since: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(function() {});
+    }).catch(function(error) {
+      // var errorCode = error.code;
+      // var errorMessage = error.message;
+      // auth/email-already-in-use: Thrown if there already exists an account with the given email address.
+      // auth/invalid-email: Thrown if the email address is not valid.
+      // auth/operation-not-allowed: Thrown if email/password accounts are not enabled. Enable email/password accounts in the Firebase Console, under the Auth tab.
+      // auth/weak-password: Thrown if the password is not strong enough.
+      console.error(error);
+      $scope.registerResponse = {type:"danger", message: messages.registration.error+" "+error.message};
     });
   };
 
