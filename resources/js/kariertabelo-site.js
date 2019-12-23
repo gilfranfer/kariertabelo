@@ -297,6 +297,21 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.newEducation = newEducation;
   };
 
+  $scope.removeEducation = function(record) {
+    currentResumeDoc.collection("education").doc(record.id).delete().then(function() {
+      $scope.educationList.some(function(element, index) {
+        if(element.id === record.id){
+          $scope.$apply(function(){
+            $scope.educationList.splice(index,1);
+          });
+        }
+        return (element.id === record.id)
+      });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  };
+
 });
 
 app.controller('CustomizeCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
