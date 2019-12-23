@@ -111,19 +111,29 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 });
 
 app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
+
+  var pathsCollection = firebase.firestore().collection("paths");
+  var usersCollection = firebase.firestore().collection("users");
   $firebaseAuth().$onAuthStateChanged(function(user) {
     if(!user)return;
-    //Load User's path
-    var pathRef = firebase.firestore().collection("paths").doc(user.uid);
-    pathRef.get().then(function(doc) {
-      if (doc.exists) {
+    usersCollection.doc(user.uid).get().then(function(userDoc) {
+      if (!userDoc.exists) return null;
+      //Get the Path for User's default resume
+      return pathsCollection.doc(userDoc.data().resumeId).get();
+    })
+    .then(function(pathDoc){
+      if(pathDoc.exists) {
         $scope.$apply(function(){
-          $scope.resumePath = doc.data().path;
+          $scope.resumePath = pathDoc.data().path;
         });
+      }else{
+        console.error("Path not exising for user:",user.uid);
       }
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
       console.error("Error getting document:", error);
     });
+
   });
 
   $scope.pathRegex = new RegExp("^[a-zA-Z0-9]{3,}$");
