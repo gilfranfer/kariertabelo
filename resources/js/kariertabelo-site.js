@@ -52,6 +52,10 @@ const messages = {
     success:"Preferences saved",
     error:"No preferences found"
   },
+  resumeView:{
+    searching:"Searching Resume...",
+    loading:"Loading Resume details..."
+  },
   generic:{
     dbError:"Error with database. Try again."
   }
@@ -861,12 +865,12 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
       $scope.resumeFound = false;
       $scope.resumeNotFound = false;
 
-      $scope.resumeResponse = {type:"info", message: "messages.resumeView.searching" };
+      $scope.resumeResponse = {type:"info", message: messages.resumeView.searching };
       pathsCollection.where("path", "==", $routeParams.pathId).limit(1).get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){ pathDoc = doc; });
         if(pathDoc && pathDoc.data()){
           $scope.$apply(function(){
-            $scope.resumeResponse = {type:"info", message: "messages.resumeView.loading" };
+            $scope.resumeResponse = {type:"info", message: messages.resumeView.loading };
           });
           loadResumeData(pathDoc.data().userId, pathDoc.id);
         }else{
@@ -904,8 +908,9 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
     currentResumeDoc = usersCollection.doc(userId).collection("resumes").doc(resumeId).get();
     currentResumeDoc.then(function(resumeDoc){
       $scope.$apply(function(){
-        $scope.resumeFound = true;
         $scope.resumeData = resumeDoc.data();
+        $scope.resumeFound = true;
+        $scope.resumeResponse = undefined;
       });
     });
 
