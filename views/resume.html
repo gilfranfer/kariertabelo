@@ -25,12 +25,12 @@
       <!-- Profile Column -->
       <section id="profile-column" class="col-12 col-md-4 order-md-{{customs.order.profile}} px-0"  style="background-color:{{customs.baseColor}}!important; color:{{customs.profileTextColor}}">
         <!-- Picture -->
-        <article class="card-body" style="background-color:{{customs.baseColor}}!important" ng-if="resumeData.profile">
+        <article class="card-body" style="background-color:{{customs.baseColor}}!important">
           <div id="picture-container" class="text-center">
             <img src="../resources/img/picture.png" class="card-img-top rounded-circle">
-            <h4 class="card-title mt-3 mb-0 font-weight-bold">{{resumeData.profile.firstname}} {{resumeData.profile.lastname}}</h4>
-            <span class="card-title mb-0 font-weight-light">{{resumeData.profile.position}}</span><br>
-            <span class="font-weight-lighter"><i class="fas fa-map-marker-alt mr-2"></i>{{resumeData.profile.location}}</span>
+            <h4 class="card-title mt-3 mb-0 font-weight-bold"  ng-show="resumeData.profile.firstname">{{resumeData.profile.firstname}} {{resumeData.profile.lastname}}</h4>
+            <span class="card-title mb-0 font-weight-light"  ng-show="resumeData.profile.lastname">{{resumeData.profile.position}}</span><br>
+            <span class="font-weight-lighter" ng-show="resumeData.profile.location"><i class="fas fa-map-marker-alt mr-2"></i>{{resumeData.profile.location}}</span>
           </div>
         </article>
         <!-- Bio -->
