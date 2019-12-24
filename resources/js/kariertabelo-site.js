@@ -35,6 +35,10 @@ const messages = {
     working:"Saving Project...",
     success:"Project saved!"
   },
+  skillsData:{
+    working:"Saving Skill...",
+    success:"Skill saved!"
+  },
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
@@ -526,6 +530,90 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.projectsList.some(function(element, index) {
       if(element.id === record.id){
         $scope.projectsList.splice(index,1);
+      }
+      return (element.id === record.id)
+    });
+  };
+
+  $scope.getSkillsList = function(){
+    currentResumeDoc.collection("skills").get().then(function(data) {
+      let skillsList = new Array();
+      data.forEach(function(doc) {
+        let record = doc.data();
+        record.id = doc.id;
+        skillsList.push(record);
+      });
+      $scope.$apply(function() {
+        $scope.skillsList = skillsList;
+      });
+    });
+  };
+
+  $scope.editSkill = function(record){
+    let newSkill = {id:record.id, skill:record.skill};
+    if(record.level){
+      newSkill.level = record.level;
+    }
+    $scope.newSkill = newSkill;
+  };
+
+  $scope.saveSkill = function(){
+    $scope.skillsResponse = {type:"info", message: messages.skillsData.working };
+    let record = { skill: $scope.newSkill.skill };
+    if($scope.newSkill.level){
+      record.level = $scope.newSkill.level;
+    }
+
+    if(!$scope.newSkill.id){
+      //Create new record
+      let newRecordId = currentResumeDoc.collection("skills").doc().id;
+      currentResumeDoc.collection("skills").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        $scope.$apply(function(){
+          $scope.skillsList.push(record);
+          $scope.skillsResponse = {type:"success", message: messages.skillsData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.skillsResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    //Updating existing record
+    else{
+      let newRecordId = $scope.newSkill.id;
+      currentResumeDoc.collection("skills").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        removeSkillFromArray({id:newRecordId});
+        $scope.$apply(function(){
+          $scope.skillsList.push(record);
+          $scope.skillsResponse = {type:"success", message: messages.skillsData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.skillsResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    $scope.newSkill = undefined;
+  };
+
+  $scope.removeSkill = function(record) {
+    currentResumeDoc.collection("skills").doc(record.id).delete().then(function() {
+      $scope.$apply(function(){
+        removeSkillFromArray(record);
+      });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  };
+
+  removeSkillFromArray = function(record) {
+    $scope.skillsList.some(function(element, index) {
+      if(element.id === record.id){
+        $scope.skillsList.splice(index,1);
       }
       return (element.id === record.id)
     });
