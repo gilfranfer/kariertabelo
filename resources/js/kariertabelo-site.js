@@ -1,6 +1,6 @@
 const values = {
   paths:{
-    home:"/home", profile:"/profile", login:"/login"
+    home:"/home", profile:"/profile", login:"/login", resume:"/resume"
   }
 };
 
@@ -92,6 +92,10 @@ app.config(function($routeProvider, $locationProvider) {
     }
   })
   .when('/view/:resumeId', {
+    templateUrl: 'views/resume.html',
+    controller: 'ResumeViewCtrl'
+  })
+  .when('/resume/:pathId', {
     templateUrl: 'views/resume.html',
     controller: 'ResumeViewCtrl'
   })
@@ -226,7 +230,6 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
   $scope.saveResumePath = function(){
     $scope.pathResponse = {type:"info", message: messages.resumePath.working };
     //Check if Path is available
-    var existingPath = false;
     let pathData = undefined;
     var pathsCollection = firebase.firestore().collection("paths");
 
@@ -846,13 +849,47 @@ app.controller('CustomizeCtrl', function($rootScope, $scope, $location, $firebas
 
 app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $firebaseAuth, $routeParams) {
 
+  let usersCollection = firebase.firestore().collection("users");
+  let pathsCollection = firebase.firestore().collection("paths");
   $firebaseAuth().$onAuthStateChanged(function(user) {
     if(!user)return;
 
-    let resumeId = $routeParams.resumeId;
-    console.log(resumeId);
-    return;
+    //Resume viewers would normally enter this way
+    if($routeParams.pathId){
+      /* In the path document we have the userId and the resumeId (doc id)  that we need to load the data */
+      console.log($routeParams.pathId);
+      let pathDoc = undefined;
+      $scope.resumeNotFound = false;
 
+      pathsCollection.where("path", "==", $routeParams.pathId).limit(1).get().then(function(querySnapshot){
+        querySnapshot.forEach(function(doc){ pathDoc = doc; });
+        if(pathDoc && pathDoc.data()){
+          let resumeId = pathDoc.id;
+          let userId = pathDoc.data().userId;
+          // console.log(resumeId,userId);
+
+          $scope.$apply(function(){
+            $scope.resumeNotFound = false;
+          });
+        }else{
+          $scope.$apply(function(){
+            $scope.resumeNotFound = true;
+          });
+        }
+      });
+
+    }
+    else if($routeParams.resumeId){
+      //Use resumeId to redirect to correct Path
+      let resumeId = $routeParams.resumeId;
+      pathsCollection.doc(resumeId).get().then(function(doc) {
+        if(doc.data()){
+          $scope.$apply(function(){
+            $location.path(values.paths.resume+"/"+doc.data().path);
+          });
+        }
+      });
+    }
   });
 
 });

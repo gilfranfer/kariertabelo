@@ -1,0 +1,16 @@
+<section class="" ng-if="resumeNotFound">
+  <article class="">
+    <div class="alert alert-danger">
+      <h3 class="py-3">Sorry. The resume you are looking for does not exist.</h3>
+    </div>
+    <div class="card m-5 shadow-lg">
+      <div class="card-body">
+        <h5 class="bold-center-title">Your own resume could be here!</h5>
+        <hr>
+        Check the Resume example below and
+        <a class="text-success text-bold clickable" href="#!/profile">Get Started now!</a>
+      </div>
+    </div>
+  </article>
+  <article ng-controller="ExampleResumeCtrl" ng-include="'views/resume_example.html'"></article>
+</section>
