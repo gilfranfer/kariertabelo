@@ -25,7 +25,11 @@ const messages = {
   },
   educationData:{
     working:"Saving Education...",
-    success:"Data saved!"
+    success:"Education saved!"
+  },
+  workData:{
+    working:"Saving Work...",
+    success:"Work saved!"
   },
   customs:{
     working:"Saving preferences ...",
@@ -340,7 +344,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
 
   $scope.getWorkList = function(){
     currentResumeDoc.collection("work").get().then(function(data) {
-      workList = new Array();
+      let workList = new Array();
       data.forEach(function(doc) {
         let record = doc.data();
         record.id = doc.id;
@@ -358,6 +362,76 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       newWork.to = new Date(record.to);
     }
     $scope.newWork = newWork;
+  };
+
+  $scope.saveWork = function(){
+    $scope.workResponse = {type:"info", message: messages.workData.working };
+    let record = {
+      title: $scope.newWork.title,
+      employer: $scope.newWork.employer,
+      location: $scope.newWork.location,
+      from: $scope.newWork.from.getTime()
+    };
+    if($scope.newWork.to){
+      record.to = $scope.newWork.to.getTime();
+    }
+    if($scope.newWork.description){
+      record.description = $scope.newWork.description;
+    }
+
+    if(!$scope.newWork.id){
+      //Create new record
+      let newRecordId = currentResumeDoc.collection("work").doc().id;
+      currentResumeDoc.collection("work").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        $scope.$apply(function(){
+          $scope.workList.push(record);
+          $scope.workResponse = {type:"success", message: messages.workData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.workResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    //Updating existing record
+    else{
+      let newRecordId = $scope.newWork.id;
+      currentResumeDoc.collection("work").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        removeWorkFromArray({id:newRecordId});
+        $scope.$apply(function(){
+          $scope.workList.push(record);
+          $scope.workResponse = {type:"success", message: messages.workData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.workResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    $scope.newWork = undefined;
+  };
+
+  $scope.removeWork = function(record) {
+    currentResumeDoc.collection("work").doc(record.id).delete().then(function() {
+      $scope.$apply(function(){
+        removeWorkFromArray(record);
+      });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  };
+
+  removeWorkFromArray = function(record) {
+    $scope.workList.some(function(element, index) {
+      if(element.id === record.id){
+        $scope.workList.splice(index,1);
+      }
+      return (element.id === record.id)
+    });
   };
 
 });
