@@ -108,37 +108,39 @@
           </div>
         </article>
         <!-- Education -->
-        <article class="card-body" style="background-color:{{customs.baseColor}}!important" ng-if="resumeData.education">
+        <article class="card-body" style="background-color:{{customs.baseColor}}!important" ng-if="educationList">
           <div class="text-justify">
             <h5 class="card-title font-weight-bold text-uppercase">
               {{customs.labels.education}}
             </h5>
-            <div class="mt-3" ng-repeat="record in resumeData.education | orderBy:'order':true track by record.order">
-              <span class="font-weight-bold">{{record.degree}}</span><br>
+            <div class="mt-3" ng-repeat="record in educationList | orderBy:'from':true track by record.id">
+              <span class="font-weight-bold">{{record.title}}</span><br>
               <span class="font-weight-light">{{record.school}}</span><br>
-              <span class="font-weight-lighter">{{record.period}}</span><br>
+              <span class="font-weight-lighter">
+                {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
+              </span><br>
             </div>
           </div>
         </article>
         <!-- Languages -->
-        <article class="card-body" style="background-color:{{customs.baseColor}}!important" ng-if="resumeData.languages">
+        <article class="card-body" style="background-color:{{customs.baseColor}}!important" ng-if="languagesList">
           <div class="text-justify">
             <h5 class="card-title font-weight-bold text-uppercase">
               {{customs.labels.languages}}
             </h5>
-            <div class="mt-1" ng-repeat="record in resumeData.languages | orderBy:'order':true track by record.order">
+            <div class="mt-1" ng-repeat="record in languagesList | orderBy:'id':true track by record.id">
               <span class="font-weight-normal">{{record.language}}</span>
               <span class="font-weight-lighter font-italic">({{record.level}})</span>
             </div>
           </div>
         </article>
         <!-- Interests -->
-        <article class="card-body" style="background-color:{{customs.baseColor}}!important" ng-if="resumeData.interests">
+        <article class="card-body" style="background-color:{{customs.baseColor}}!important" ng-if="interestsList">
           <div class="text-justify">
             <h5 class="card-title font-weight-bold text-uppercase">
               {{customs.labels.interests}}
             </h5>
-            <div class="mt-1" ng-repeat="record in resumeData.interests | orderBy:'order':true track by record.order">
+            <div class="mt-1" ng-repeat="record in interestsList | orderBy:'id':true track by record.id">
               <span class="font-weight-normal">{{record.interest}}</span><br>
             </div>
           </div>
@@ -163,7 +165,7 @@
             </p>
           </article>
           <!-- Job Experience -->
-          <article class="my-5" ng-if="resumeData.work.length>0">
+          <article class="my-5" ng-if="workList.length>0">
             <h5 class="card-title mb-5">
               <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:{{customs.profileTextColor}}">
                 <i class="fas fa-briefcase"></i>
@@ -172,19 +174,19 @@
                 {{customs.labels.work}}
               </span>
             </h5>
-            <div class="mb-4" ng-repeat="record in resumeData.work | orderBy:'order':true track by record.order" style="color:{{customs.textColor}}">
+            <div class="mb-4" ng-repeat="record in workList | orderBy:'from':true track by record.id" style="color:{{customs.textColor}}">
               <!-- Header -->
               <div class="row mb-2">
                 <!-- Role -->
                 <div class="col-md-8">
                   <span class="font-weight-bold">
-                    {{record.role}}
+                    {{record.title}}
                   </span>
                 </div>
                 <!-- Period -->
                 <div class="col-md-4  text-md-right">
                   <span class="font-weight-light">
-                    {{record.period}}
+                    {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
                   </span>
                 </div>
                 <!-- Company -->
@@ -205,7 +207,7 @@
             </div>
           </article>
           <!-- Projects -->
-          <article class="my-5" ng-if="resumeData.projects.length>0">
+          <article class="my-5" ng-if="projectsList.length>0">
             <h5 class="card-title mb-5">
               <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:{{customs.profileTextColor}}">
                 <i class="fas fa-pencil-alt"></i>
@@ -214,7 +216,7 @@
                 {{customs.labels.projects}}
               </span>
             </h5>
-            <div class="mb-4" ng-repeat="record in resumeData.projects | orderBy:'order':true track by record.order" style="color:{{customs.textColor}}">
+            <div class="mb-4" ng-repeat="record in projectsList | orderBy:'date':true track by record.id" style="color:{{customs.textColor}}">
               <div class="row mb-3">
                 <div class="col">
                   <span class="font-weight-bold">
@@ -222,17 +224,20 @@
                   </span>
                   <span class="card-text text-justify mt-3">
                     {{record.description}}
-                  </span>
-                  <br>
+                  </span><br>
                   <a class="card-text font-weight-light mt-3" href="{{record.url}}" target="_blank" style="color:{{customs.baseColor}}">
                     {{record.url}}
                   </a>
+                  <br>
+                  <span class="card-text font-weight-light">
+                    {{record.date |  date: 'MMM yyyy'}}
+                  </span>
                 </div>
               </div>
             </div>
           </article>
           <!-- Skilss -->
-          <article class="my-5" ng-if="resumeData.skills.length>0 || resumeData.skills.length>0 ">
+          <article class="my-5" ng-if="skillsList.length>0">
             <h5 class="card-title mb-5">
               <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:{{customs.profileTextColor}}">
                 <i class="fas fa-tools"></i>
@@ -242,7 +247,7 @@
               </span>
             </h5>
             <!-- Skills with bar -->
-            <div class="mb-4" ng-repeat="record in resumeData.skills | orderBy:'order':true track by record.order" style="color:{{customs.textColor}}">
+            <div class="mb-4" ng-repeat="record in skillsList | orderBy:'id':true track by record.id" style="color:{{customs.textColor}}">
               <div class="row mb-3" ng-if="record.level">
                 <div class="col">
                   <span class="font-weight-normal">
@@ -256,7 +261,7 @@
               </div>
             </div>
             <!-- Skills tags -->
-            <h3 ng-if="!record.level" ng-repeat="record in resumeData.skills | orderBy:'order':true track by record.order"
+            <h3 ng-if="!record.level" ng-repeat="record in skillsList | orderBy:'id':true track by record.id"
                class="badge badge-secondary p-2 mr-2" style="color:{{customs.profileTextColor}};background-color:{{customs.baseColor}}">
               {{record.skill}}
             </h3>

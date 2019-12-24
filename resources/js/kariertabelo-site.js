@@ -894,25 +894,67 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
     }
   });
 
+  collectionToArray = function (collectionData){
+    let list = new Array();
+    collectionData.forEach(function(doc) {
+      let record = doc.data();
+      record.id = doc.id;
+      list.push(record);
+    });
+    return list;
+  };
+
   loadResumeData = function (userId, resumeId) {
-    currentCustomsDoc = usersCollection.doc(userId).collection("customs").doc(resumeId).get();
-    currentCustomsDoc.then(function(customsDoc){
-      $scope.$apply(function(){
-        $scope.customs = customsDoc.data();
-        $scope.customs.textColor="#444";
-        $scope.customs.profileTextColor="#fff";
-        $scope.customs.profileLinkColor="#ddd";
+    let resumeReference = usersCollection.doc(userId).collection("resumes").doc(resumeId);
+    let resumeDoc = resumeReference.get();
+    let educationCollection = resumeReference.collection("education").get();
+    let interestsCollection = resumeReference.collection("interests").get();
+    let languagesCollection = resumeReference.collection("languages").get();
+    let projectsCollection = resumeReference.collection("projects").get();
+    let skillsCollection = resumeReference.collection("skills").get();
+    let workCollection = resumeReference.collection("work").get();
+    let customsDoc = usersCollection.doc(userId).collection("customs").doc(resumeId).get();
+
+    let promises =[customsDoc,resumeDoc,educationCollection,interestsCollection,
+        languagesCollection,projectsCollection,skillsCollection,workCollection];
+
+    Promise.all(promises).then(function(values) {
+      console.log("All loaded");
+      customsDoc.then(function(doc) {
+        $scope.$apply(function(){
+          $scope.customs = doc.data();
+          $scope.customs.textColor="#444";
+          $scope.customs.profileTextColor="#fff";
+          $scope.customs.profileLinkColor="#ddd";
+        });
+      });
+      resumeDoc.then(function(doc) {
+        $scope.$apply(function(){
+          $scope.resumeData = doc.data();
+          $scope.resumeFound = true;
+          $scope.resumeResponse = undefined;
+        });
+      });
+      educationCollection.then(function(data){
+        $scope.$apply(function(){ $scope.educationList = collectionToArray(data); });
+      });
+      interestsCollection.then(function(data){
+        $scope.$apply(function(){ $scope.interestsList = collectionToArray(data); });
+      });
+      languagesCollection.then(function(data){
+        $scope.$apply(function(){ $scope.languagesList = collectionToArray(data); });
+      });
+      projectsCollection.then(function(data){
+        $scope.$apply(function(){ $scope.projectsList = collectionToArray(data); });
+      });
+      skillsCollection.then(function(data){
+        $scope.$apply(function(){ $scope.skillsList = collectionToArray(data); });
+      });
+      workCollection.then(function(data){
+        $scope.$apply(function(){ $scope.workList = collectionToArray(data); });
       });
     });
 
-    currentResumeDoc = usersCollection.doc(userId).collection("resumes").doc(resumeId).get();
-    currentResumeDoc.then(function(resumeDoc){
-      $scope.$apply(function(){
-        $scope.resumeData = resumeDoc.data();
-        $scope.resumeFound = true;
-        $scope.resumeResponse = undefined;
-      });
-    });
 
   };
 
