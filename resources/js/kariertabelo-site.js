@@ -1020,7 +1020,6 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
 
     $scope.loginResponse = {type:"info", message: messages.login.working };
     $firebaseAuth().$signInWithEmailAndPassword(email,passwd).then(function(user){
-      console.debug(user);
       $location.path(values.paths.profile);
     })
     /* Catching unsuccessful login attempts */
