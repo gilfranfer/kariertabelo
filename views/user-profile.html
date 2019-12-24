@@ -46,8 +46,13 @@
             <div class="form-row my-2">
               <div class="col">
                 <button type="submit" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="pathForm.$invalid">
-                  Save
+                  Save Path
                 </button>
+              </div>
+              <div class="col">
+                <a class="btn btn-lg btn-block btn-success clickable" role="button" href="#!/resume/{{resumePathObj.path}}">
+                  View Resume!
+                </a>
               </div>
             </div>
           </form>
@@ -530,7 +535,7 @@
           <hr>
           <div class="form-row my-2">
             <div class="col">
-              <a class="btn btn-lg btn-block btn-success clickable" role="button" href="#!/view/{{resumeId}}">
+              <a class="btn btn-lg btn-block btn-success clickable" role="button" href="#!/resume/{{resumePathObj.path}}">
                 View now!
               </a>
             </div>
