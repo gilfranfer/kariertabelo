@@ -91,6 +91,10 @@ app.config(function($routeProvider, $locationProvider) {
       }
     }
   })
+  .when('/view/:resumeId', {
+    templateUrl: 'views/resume.html',
+    controller: 'ResumeViewCtrl'
+  })
   .when('/example', {
     templateUrl: 'views/resume_example.html',
     controller: 'ExampleResumeCtrl'
@@ -115,10 +119,16 @@ app.run(function($rootScope,$location){
 
 app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
 
+  let usersCollection = firebase.firestore().collection("users");
   $firebaseAuth().$onAuthStateChanged(function(user) {
     // console.debug("$onAuthStateChanged KariertabeloCtrl",user);
     if(user){
       $rootScope.currentSession = {authUser:user};
+      let userDocument = usersCollection.doc(user.uid).get();
+      userDocument.then(function(userDoc) {
+        if (!userDoc.exists) return null;
+        $rootScope.currentSession.userData = userDoc.data();
+      })
     }else{
       $rootScope.currentSession = null;
     }
@@ -825,6 +835,19 @@ app.controller('CustomizeCtrl', function($rootScope, $scope, $location, $firebas
         console.error("Error updating document: ", error);
     });
   };
+
+});
+
+app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $firebaseAuth, $routeParams) {
+
+  $firebaseAuth().$onAuthStateChanged(function(user) {
+    if(!user)return;
+
+    let resumeId = $routeParams.resumeId;
+    console.log(resumeId);
+    return;
+
+  });
 
 });
 

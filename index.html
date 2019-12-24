@@ -48,7 +48,7 @@
         </div>
         <div class="" ng-show="currentSession">
           <!-- Collapsed -->
-          <a class="d-sm-none btn btn-outline-success my-2 my-sm-0" href="#!/view/{{resumeId}}" data-toggle="collapse" data-target="#appMenu" title="Resume">
+          <a class="d-sm-none btn btn-outline-success my-2 my-sm-0" href="#!/view/{{currentSession.userData.resumeId}}" data-toggle="collapse" data-target="#appMenu" title="Resume">
             <i class="fas fa-file-alt"></i>
           </a>
           <a class="d-sm-none btn btn-outline-light my-2 my-sm-0" href="#!/profile" data-toggle="collapse" data-target="#appMenu" title="Profile">
@@ -58,7 +58,7 @@
             <i class="fas fa-sign-out-alt"></i>
           </button>
           <!-- Expanded -->
-          <a class="d-none d-sm-inline-block btn btn-outline-success my-2 my-sm-0" href="#!/view/{{resumeId}}" data-toggle="tooltip" data-placement="bottom" title="Resume">
+          <a class="d-none d-sm-inline-block btn btn-outline-success my-2 my-sm-0" href="#!/view/{{currentSession.userData.resumeId}}" data-toggle="tooltip" data-placement="bottom" title="Resume">
             <i class="fas fa-file-alt"></i>
           </a>
           <a class="d-none d-sm-inline-block btn btn-outline-light my-2 my-sm-0" href="#!/profile" data-toggle="tooltip" data-placement="bottom" title="Profile">
