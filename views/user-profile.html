@@ -463,7 +463,7 @@
               ng-if="resumeInterstsExpanded" ng-click="expandSection('resumeIntersts',false)"></i>
               <i class="clickable far fa-plus-square"
                data-toggle="collapse" data-target="#resumeIntersts" aria-expanded="true" aria-controls="resumeIntersts"
-              ng-if="!resumeInterstsExpanded" ng-click="expandSection('resumeIntersts',true)"></i>
+              ng-if="!resumeInterstsExpanded" ng-click="expandSection('resumeIntersts',true);getInterestsList()"></i>
               Interests
             </h4>
             <div id="resumeIntersts" class="collapse">
@@ -471,26 +471,26 @@
             <div class="form-row row-cols-1">
               <div class="col mt-2">
                 <label for="interest">Interest</label>
-                <input type="text" id="interest" name="interest" ng-model="newLanguage.interest" ng-required="true" class="form-control form-control-lg">
+                <input type="text" id="interest" name="interest" ng-model="newInterest.interest" ng-required="true" class="form-control form-control-lg">
               </div>
             </div>
             <!-- Save Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="interestsForm.$invalid" ng-click="save()">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="interestsForm.$invalid" ng-click="saveInterest()">
                   Save Interest
                 </button>
               </div>
             </div>
             <!-- List -->
-            <div class="row mb-3" ng-repeat="record in resumeData.interests | orderBy:'order' track by record.id">
+            <div class="row mb-3" ng-repeat="record in interestsList | orderBy:'order' track by record.id">
               <div class="col-7 col-sm-9 pl-4">
                 <span class="font-weight-normal">{{record.interest}}</span>
               </div>
               <div class="col-5 col-sm-3 ">
-                <button type="button" class="btn btn-outline-primary" ng-click="editLanguage(record.id)">
+                <button type="button" class="btn btn-outline-primary" ng-click="editInterest(record)">
                   <i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-outline-danger" ng-click="removeLanguage(record.id)">
+                <button type="button" class="btn btn-outline-danger" ng-click="removeInterest(record)">
                   <i class="fas fa-trash"></i></button>
               </div>
             </div>

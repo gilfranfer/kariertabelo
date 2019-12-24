@@ -43,6 +43,10 @@ const messages = {
     working:"Saving Language...",
     success:"Language saved!"
   },
+  interestsData:{
+    working:"Saving Interests...",
+    success:"Interests saved!"
+  },
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
@@ -696,6 +700,84 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.languagesList.some(function(element, index) {
       if(element.id === record.id){
         $scope.languagesList.splice(index,1);
+      }
+      return (element.id === record.id)
+    });
+  };
+
+  $scope.getInterestsList = function(){
+    currentResumeDoc.collection("interests").get().then(function(data) {
+      let interestsList = new Array();
+      data.forEach(function(doc) {
+        let record = doc.data();
+        record.id = doc.id;
+        interestsList.push(record);
+      });
+      $scope.$apply(function() {
+        $scope.interestsList = interestsList;
+      });
+    });
+  };
+
+  $scope.editInterest = function(record){
+    let newInterest = {id:record.id, interest:record.interest};
+    $scope.newInterest = newInterest;
+  };
+
+  $scope.saveInterest = function(){
+    $scope.interestsResponse = {type:"info", message: messages.interestsData.working };
+    let record = { interest: $scope.newInterest.interest };
+
+    if(!$scope.newInterest.id){
+      //Create new record
+      let newRecordId = currentResumeDoc.collection("interests").doc().id;
+      currentResumeDoc.collection("interests").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        $scope.$apply(function(){
+          $scope.interestsList.push(record);
+          $scope.interestsResponse = {type:"success", message: messages.interestsData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.interestsResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    //Updating existing record
+    else{
+      let newRecordId = $scope.newInterest.id;
+      currentResumeDoc.collection("interests").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        removeInterestFromArray({id:newRecordId});
+        $scope.$apply(function(){
+          $scope.interestsList.push(record);
+          $scope.interestsResponse = {type:"success", message: messages.interestsData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.interestsResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    $scope.newInterest = undefined;
+  };
+
+  $scope.removeInterest = function(record) {
+    currentResumeDoc.collection("interests").doc(record.id).delete().then(function() {
+      $scope.$apply(function(){
+        removeInterestFromArray(record);
+      });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  };
+
+  removeInterestFromArray = function(record) {
+    $scope.interestsList.some(function(element, index) {
+      if(element.id === record.id){
+        $scope.interestsList.splice(index,1);
       }
       return (element.id === record.id)
     });
