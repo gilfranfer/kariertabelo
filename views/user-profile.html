@@ -4,7 +4,7 @@
   <!-- Welcome -->
   <article id="" class="px-4 py-4 bg-success" style="background-color:{{customs.baseColor}}!important">
     <div id="picture-container" class="text-center">
-      <img src="../resources/img/picture.png" class="card-img-top rounded-circle">
+      <img id="profile-picture" src="../resources/img/picture.png" class="card-img-top rounded-circle">
     </div>
     <h1 class="display-4 text-center text-light" ng-if="!currentSession.userData.firstname">Welcome</h1>
     <h1 class="display-4 text-center text-light" ng-if="currentSession.userData.firstname">

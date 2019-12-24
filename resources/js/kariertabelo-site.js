@@ -227,6 +227,19 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     });
 
+    //Get profile picture
+    userDocument.then(function(userDoc) {
+      let resumeId = userDoc.data().resumeId;
+      let storageRef = firebase.storage().ref();
+      let imageRef = storageRef.child('users').child(user.uid).child("pics").child(resumeId+".jpg");
+      imageRef.getDownloadURL().then(function(url) {
+        var img = document.getElementById('profile-picture');
+        img.src = url;
+      }).catch(function(error) {
+        console.log(error);
+      });
+    });
+
   });
 
   $scope.pathRegex = new RegExp("^[a-zA-Z0-9]{3,}$");
@@ -903,6 +916,16 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
   };
 
   loadResumeData = function (userId, resumeId) {
+    //Get image
+    var storageRef = firebase.storage().ref();
+    var imageRef = storageRef.child('users').child(userId).child("pics").child(resumeId+".jpg");
+    imageRef.getDownloadURL().then(function(url) {
+      var img = document.getElementById('profile-picture');
+      img.src = url;
+    }).catch(function(error) {
+      console.log(error);
+    });
+
     let resumeReference = usersCollection.doc(userId).collection("resumes").doc(resumeId);
     let resumeDoc = resumeReference.get();
     let educationCollection = resumeReference.collection("education").get();
