@@ -4,7 +4,14 @@
   <!-- Welcome -->
   <article id="" class="px-4 py-4 bg-success" style="background-color:{{customs.baseColor}}!important">
     <div id="picture-container" class="text-center">
-      <img id="profile-picture" src="../resources/img/picture.png" class="card-img-top rounded-circle">
+      <img id="profile-picture" src="../resources/img/picture.png" class="card-img-top rounded-circle clickable" ng-click="selectFile()">
+      <input type="file" id="fileElem" accept="image/*" style="display:none" onchange="angular.element(this).scope().uploadImage(this.files)">
+      <!-- <input type="file" id="fileElem" accept="image/*" style="display:none" onchange="handleProfilePicFile(this.files)"> -->
+    </div>
+    <div class="text-center mt-3">
+      <span class="text-light font-italic m-auto" role="alert" >
+        {{imageResponse.message}}
+      </span>
     </div>
     <h1 class="display-4 text-center text-light" ng-if="!currentSession.userData.firstname">Welcome</h1>
     <h1 class="display-4 text-center text-light" ng-if="currentSession.userData.firstname">

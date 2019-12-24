@@ -47,6 +47,10 @@ const messages = {
     working:"Saving Interests...",
     success:"Interests saved!"
   },
+  imageUpload:{
+    working:"Saving Picture...",
+    success:"Picture saved!"
+  },
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
@@ -218,6 +222,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     userDocument.then(function(userDoc) {
       if (!userDoc.exists) return null;
       $scope.resumeId = userDoc.data().resumeId;
+      loadImage(user.uid,$scope.resumeId);
       currentResumeDoc = usersCollection.doc(user.uid).collection("resumes").doc(userDoc.data().resumeId);
       return currentResumeDoc.get();
     })
@@ -227,20 +232,48 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     });
 
-    //Get profile picture
-    userDocument.then(function(userDoc) {
-      let resumeId = userDoc.data().resumeId;
+  });
+
+  loadImage = function(userId, resumeId) {
+    let storageRef = firebase.storage().ref();
+    let imageRef = storageRef.child('users').child(userId).child("pics").child(resumeId+".jpg");
+    imageRef.getDownloadURL().then(function(url) {
+      console.log(url);
+      var img = document.getElementById('profile-picture');
+      img.src = url;
+    }).catch(function(error) {
+      console.log(error);
+    });
+  };
+
+  $scope.uploadImage = function(files) {
+    if(files[0]){
+      $scope.$apply(function(){
+        $scope.imageResponse = {type:"info", message: messages.imageUpload.working };
+      });
+      let userId = $rootScope.currentSession.authUser.uid;
+      let resumeId = $scope.resumeId;
+
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('users').child(user.uid).child("pics").child(resumeId+".jpg");
-      imageRef.getDownloadURL().then(function(url) {
-        var img = document.getElementById('profile-picture');
-        img.src = url;
+      let imageRef = storageRef.child('users').child(userId).child("pics").child(resumeId+".jpg");
+      imageRef.put(files[0]).then(function(snapshot) {
+        loadImage(userId, resumeId);
+        $scope.$apply(function(){
+          $scope.imageResponse = {type:"info", message: messages.imageUpload.success };
+        });
       }).catch(function(error) {
         console.log(error);
+        $scope.$apply(function(){
+          $scope.imageResponse = {type:"danger", message: messages.generic.dbError };
+        });
       });
-    });
+    }
+  };
 
-  });
+  $scope.selectFile = function() {
+    fileElem = document.getElementById("fileElem");
+    fileElem.click();
+  };
 
   $scope.pathRegex = new RegExp("^[a-zA-Z0-9]{3,}$");
 
