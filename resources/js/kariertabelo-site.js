@@ -856,8 +856,6 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
   let usersCollection = firebase.firestore().collection("users");
   let pathsCollection = firebase.firestore().collection("paths");
   $firebaseAuth().$onAuthStateChanged(function(user) {
-    if(!user)return;
-
     //Resume viewers would normally enter this way
     if($routeParams.pathId){
       /* In the path document we have the userId and the resumeId (doc id)  that we need to load the data */
