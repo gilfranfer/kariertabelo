@@ -39,6 +39,10 @@ const messages = {
     working:"Saving Skill...",
     success:"Skill saved!"
   },
+  languagesData:{
+    working:"Saving Language...",
+    success:"Language saved!"
+  },
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
@@ -614,6 +618,84 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.skillsList.some(function(element, index) {
       if(element.id === record.id){
         $scope.skillsList.splice(index,1);
+      }
+      return (element.id === record.id)
+    });
+  };
+
+  $scope.getLanguagesList = function(){
+    currentResumeDoc.collection("languages").get().then(function(data) {
+      let languagesList = new Array();
+      data.forEach(function(doc) {
+        let record = doc.data();
+        record.id = doc.id;
+        languagesList.push(record);
+      });
+      $scope.$apply(function() {
+        $scope.languagesList = languagesList;
+      });
+    });
+  };
+
+  $scope.editLanguage = function(record){
+    let newLanguage = {id:record.id, language:record.language, level:record.level};
+    $scope.newLanguage = newLanguage;
+  };
+
+  $scope.saveLanguage = function(){
+    $scope.languagesResponse = {type:"info", message: messages.languagesData.working };
+    let record = { language: $scope.newLanguage.language, level: $scope.newLanguage.level };
+
+    if(!$scope.newLanguage.id){
+      //Create new record
+      let newRecordId = currentResumeDoc.collection("languages").doc().id;
+      currentResumeDoc.collection("languages").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        $scope.$apply(function(){
+          $scope.languagesList.push(record);
+          $scope.languagesResponse = {type:"success", message: messages.languagesData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.languagesResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    //Updating existing record
+    else{
+      let newRecordId = $scope.newLanguage.id;
+      currentResumeDoc.collection("languages").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        removeLanguageFromArray({id:newRecordId});
+        $scope.$apply(function(){
+          $scope.languagesList.push(record);
+          $scope.languagesResponse = {type:"success", message: messages.languagesData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.languagesResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    $scope.newLanguage = undefined;
+  };
+
+  $scope.removeLanguage = function(record) {
+    currentResumeDoc.collection("languages").doc(record.id).delete().then(function() {
+      $scope.$apply(function(){
+        removeLanguageFromArray(record);
+      });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  };
+
+  removeLanguageFromArray = function(record) {
+    $scope.languagesList.some(function(element, index) {
+      if(element.id === record.id){
+        $scope.languagesList.splice(index,1);
       }
       return (element.id === record.id)
     });
