@@ -857,27 +857,25 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
     //Resume viewers would normally enter this way
     if($routeParams.pathId){
       /* In the path document we have the userId and the resumeId (doc id)  that we need to load the data */
-      console.log($routeParams.pathId);
       let pathDoc = undefined;
+      $scope.resumeFound = false;
       $scope.resumeNotFound = false;
 
+      $scope.resumeResponse = {type:"info", message: "messages.resumeView.searching" };
       pathsCollection.where("path", "==", $routeParams.pathId).limit(1).get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){ pathDoc = doc; });
         if(pathDoc && pathDoc.data()){
-          let resumeId = pathDoc.id;
-          let userId = pathDoc.data().userId;
-          // console.log(resumeId,userId);
-
           $scope.$apply(function(){
-            $scope.resumeNotFound = false;
+            $scope.resumeResponse = {type:"info", message: "messages.resumeView.loading" };
           });
+          loadResumeData(pathDoc.data().userId, pathDoc.id);
         }else{
           $scope.$apply(function(){
+            $scope.resumeResponse = {type:"danger", message: "Sorry. The resume does not exist." };
             $scope.resumeNotFound = true;
           });
         }
       });
-
     }
     else if($routeParams.resumeId){
       //Use resumeId to redirect to correct Path
@@ -891,6 +889,27 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
       });
     }
   });
+
+  loadResumeData = function (userId, resumeId) {
+    currentCustomsDoc = usersCollection.doc(userId).collection("customs").doc(resumeId).get();
+    currentCustomsDoc.then(function(customsDoc){
+      $scope.$apply(function(){
+        $scope.customs = customsDoc.data();
+        $scope.customs.textColor="#444";
+        $scope.customs.profileTextColor="#fff";
+        $scope.customs.profileLinkColor="#ddd";
+      });
+    });
+
+    currentResumeDoc = usersCollection.doc(userId).collection("resumes").doc(resumeId).get();
+    currentResumeDoc.then(function(resumeDoc){
+      $scope.$apply(function(){
+        $scope.resumeFound = true;
+        $scope.resumeData = resumeDoc.data();
+      });
+    });
+
+  };
 
 });
 
