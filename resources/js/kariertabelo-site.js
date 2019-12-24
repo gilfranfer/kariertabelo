@@ -797,15 +797,21 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
 
 app.controller('CustomizeCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
 
+  let usersCollection = firebase.firestore().collection("users");
   $firebaseAuth().$onAuthStateChanged(function(user) {
     if(!user)return;
-    //Load User's Customs
-    var customsRef = firebase.firestore().collection("customs").doc(user.uid);
-    customsRef.get().then(function(doc) {
-      if (doc.exists) {
+
+    let userDocument = usersCollection.doc(user.uid).get();
+    userDocument.then(function(userDoc) {
+      if (!userDoc.exists) return null;
+
+      $scope.resumeId = userDoc.data().resumeId;
+      return usersCollection.doc(user.uid).collection("customs").doc(userDoc.data().resumeId).get();
+    })
+    .then(function(customsDoc){
+      if (customsDoc.exists) {
         $scope.$apply(function(){
-          $scope.customs = doc.data();
-          // console.log($scope.customs);
+          $scope.customs = customsDoc.data();
         });
       }else{
         $scope.$apply(function(){
@@ -820,7 +826,7 @@ app.controller('CustomizeCtrl', function($rootScope, $scope, $location, $firebas
 
   $scope.saveCustoms = function(){
     $scope.customsResponse = {type:"info", message: messages.customs.working };
-    var customsRef = firebase.firestore().collection("customs").doc($rootScope.currentSession.authUser.uid);
+    var customsRef = usersCollection.doc($rootScope.currentSession.authUser.uid).collection("customs").doc($scope.resumeId);
     customsRef.update($scope.customs)
     .then(function() {
       $scope.$apply(function(){
