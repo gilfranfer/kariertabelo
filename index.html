@@ -47,10 +47,24 @@
           <a class="btn btn-outline-light my-2 my-sm-0" href="#!/login">Log in</a>
         </div>
         <div class="" ng-show="currentSession">
-          <a class="btn btn-outline-primary my-2 my-sm-0" href="#!/profile" data-toggle="tooltip" data-placement="bottom" title="Profile">
+          <!-- Collapsed -->
+          <a class="d-sm-none btn btn-outline-success my-2 my-sm-0" href="#!/view/{{resumeId}}" data-toggle="collapse" data-target="#appMenu" title="Resume">
+            <i class="fas fa-file-alt"></i>
+          </a>
+          <a class="d-sm-none btn btn-outline-light my-2 my-sm-0" href="#!/profile" data-toggle="collapse" data-target="#appMenu" title="Profile">
             <i class="fas fa-user-edit"></i>
           </a>
-          <button class="btn btn-outline-light my-2 my-sm-0" ng-click="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">
+          <button class="d-sm-none btn btn-outline-danger my-2 my-sm-0" ng-click="logout()" data-toggle="collapse" data-target="#appMenu"title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+          <!-- Expanded -->
+          <a class="d-none d-sm-inline-block btn btn-outline-success my-2 my-sm-0" href="#!/view/{{resumeId}}" data-toggle="tooltip" data-placement="bottom" title="Resume">
+            <i class="fas fa-file-alt"></i>
+          </a>
+          <a class="d-none d-sm-inline-block btn btn-outline-light my-2 my-sm-0" href="#!/profile" data-toggle="tooltip" data-placement="bottom" title="Profile">
+            <i class="fas fa-user-edit"></i>
+          </a>
+          <button class="d-none d-sm-inline-block btn btn-outline-danger my-2 my-sm-0" ng-click="logout()" data-toggle="tooltip" data-placement="bottom" title="Logout">
             <i class="fas fa-sign-out-alt"></i>
           </button>
         </div>
