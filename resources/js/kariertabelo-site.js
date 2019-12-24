@@ -31,6 +31,10 @@ const messages = {
     working:"Saving Work...",
     success:"Work saved!"
   },
+  projectData:{
+    working:"Saving Project...",
+    success:"Project saved!"
+  },
   customs:{
     working:"Saving preferences ...",
     success:"Preferences saved",
@@ -429,6 +433,99 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.workList.some(function(element, index) {
       if(element.id === record.id){
         $scope.workList.splice(index,1);
+      }
+      return (element.id === record.id)
+    });
+  };
+
+  $scope.getProjectList = function(){
+    currentResumeDoc.collection("projects").get().then(function(data) {
+      let projectsList = new Array();
+      data.forEach(function(doc) {
+        let record = doc.data();
+        record.id = doc.id;
+        projectsList.push(record);
+      });
+      $scope.$apply(function() {
+        $scope.projectsList = projectsList;
+      });
+    });
+  };
+
+  $scope.editProject = function(record){
+    let newProject = {id:record.id, name:record.name, date: new Date(record.date)};
+    if(record.url){
+      newProject.url = record.url;
+    }
+    if(record.description){
+      newProject.description = record.description;
+    }
+    $scope.newProject = newProject;
+  };
+
+  $scope.saveProject = function(){
+    $scope.projectResponse = {type:"info", message: messages.projectData.working };
+    let record = {
+      name: $scope.newProject.name,
+      date: $scope.newProject.date.getTime()
+    };
+    if($scope.newProject.description){
+      record.description = $scope.newProject.description;
+    }
+    if($scope.newProject.url){
+      record.url = $scope.newProject.url;
+    }
+
+    if(!$scope.newProject.id){
+      //Create new record
+      let newRecordId = currentResumeDoc.collection("projects").doc().id;
+      currentResumeDoc.collection("projects").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        $scope.$apply(function(){
+          $scope.projectsList.push(record);
+          $scope.projectResponse = {type:"success", message: messages.projectData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.projectResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    //Updating existing record
+    else{
+      let newRecordId = $scope.newProject.id;
+      currentResumeDoc.collection("projects").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        removeProjectFromArray({id:newRecordId});
+        $scope.$apply(function(){
+          $scope.projectsList.push(record);
+          $scope.projectResponse = {type:"success", message: messages.projectData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.projectResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    $scope.newProject = undefined;
+  };
+
+  $scope.removeProject = function(record) {
+    currentResumeDoc.collection("projects").doc(record.id).delete().then(function() {
+      $scope.$apply(function(){
+        removeProjectFromArray(record);
+      });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  };
+
+  removeProjectFromArray = function(record) {
+    $scope.projectsList.some(function(element, index) {
+      if(element.id === record.id){
+        $scope.projectsList.splice(index,1);
       }
       return (element.id === record.id)
     });

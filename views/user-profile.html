@@ -304,7 +304,7 @@
               ng-if="resumeProjectsExpanded" ng-click="expandSection('resumeProjects',false)"></i>
               <i class="clickable far fa-plus-square"
                data-toggle="collapse" data-target="#resumeProjects" aria-expanded="true" aria-controls="resumeProjects"
-              ng-if="!resumeProjectsExpanded" ng-click="expandSection('resumeProjects',true)"></i>
+              ng-if="!resumeProjectsExpanded" ng-click="expandSection('resumeProjects',true);getProjectList()"></i>
               Projects
             </h4>
             <div id="resumeProjects" class="collapse">
@@ -333,13 +333,13 @@
             <!-- Add Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
-                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="projectsForm.$invalid" ng-click="save()">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="projectsForm.$invalid" ng-click="saveProject()">
                   Save Project
                 </button>
               </div>
             </div>
             <!-- List -->
-            <div class="mb-3" ng-repeat="record in resumeData.projects | orderBy:'date':true track by record.id">
+            <div class="mb-3" ng-repeat="record in projectsList | orderBy:'date':true track by record.id">
               <div class="row">
                 <div class="col-7 col-sm-9 pl-4">
                   <span class="font-weight-bold">{{record.name}}</span><br>
@@ -347,13 +347,13 @@
                     {{record.url}}
                   </a><br>
                   <span class="font-weight-lighter">
-                    {{record.from |  date: 'dd MMM yyyy'}}
+                    {{record.date |  date: 'MMM yyyy'}}
                   </span>
                 </div>
                 <div class="col-5 col-sm-3 ">
-                  <button type="button" class="btn btn-outline-primary" ng-click="editProject(record.id)">
+                  <button type="button" class="btn btn-outline-primary" ng-click="editProject(record)">
                     <i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-outline-danger" ng-click="removeProject(record.id)">
+                  <button type="button" class="btn btn-outline-danger" ng-click="removeProject(record)">
                     <i class="fas fa-trash"></i></button>
                 </div>
               </div>
