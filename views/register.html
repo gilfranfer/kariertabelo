@@ -38,6 +38,11 @@
           <div class="alert alert-{{registerResponse.type}} my-2" role="alert" ng-show="registerResponse" >
             {{registerResponse.message}}
           </div>
+          <div class="form-row form-check">
+            <input id="privacyCheck" class="form-check-input" type="checkbox" ng-model="registration.isAgree" ng-required="true">
+            <label class="form-check-label" for="privacyCheck"> I have read, and agree with the </label>
+            <span class="clickable text-primary"  data-toggle="modal" data-target="#privacyModal">Privacy policy</span>
+          </div>
           <!-- Buttons row -->
           <div class="form-row my-2">
             <div class="form-group col">
@@ -53,3 +58,20 @@
     </div>
   </div>
 </article>
+
+<!-- Privcy Policy Modal -->
+<div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <article ng-include="'views/privacyPolicy.html'"></article>
+      </div>
+    </div>
+  </div>
+</div>
