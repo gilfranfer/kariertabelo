@@ -363,6 +363,9 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     if(record.to){
       newEducation.to = new Date(record.to);
     }
+    if(record.location){
+      newEducation.location = record.location;
+    }
     $scope.newEducation = newEducation;
     document.getElementById("educationTitle").focus();
   };
@@ -376,6 +379,9 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     };
     if($scope.newEducation.to){
       record.to = $scope.newEducation.to.getTime();
+    }
+    if($scope.newEducation.location){
+      record.location = $scope.newEducation.location;
     }
 
     if(!$scope.newEducation.id){

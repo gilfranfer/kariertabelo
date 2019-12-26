@@ -116,9 +116,14 @@
             <div class="mt-3" ng-repeat="record in educationList | orderBy:'from':true track by record.id">
               <span class="font-weight-bold">{{record.title}}</span><br>
               <span class="font-weight-light">{{record.school}}</span><br>
+              <span class="font-weight-light" ng-show="record.location">{{record.location}}<br></span>
               <span class="font-weight-lighter">
-                {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
-              </span><br>
+                {{record.from |  date: 'MMM yyyy'}}
+              </span>
+              <span class="font-weight-lighter" ng-show="record.to">
+                - {{record.to |  date: 'MMM yyyy'}}
+              </span>
+              <br>
             </div>
           </div>
         </article>
@@ -189,13 +194,16 @@
                 <!-- Period -->
                 <div class="col-md-4  text-md-right">
                   <span class="font-weight-light">
-                    {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
+                    {{record.from |  date: 'MMM yyyy'}}
+                  </span>
+                  <span class="font-weight-light" ng-show="record.to">
+                    - {{record.to |  date: 'MMM yyyy'}}
                   </span>
                 </div>
                 <!-- Company -->
                 <div class="col-12">
                   <span class="font-weight-light">
-                    {{record.employer}}, {{record.location}}
+                    {{record.employer}} - {{record.location}}
                   </span>
                 </div>
               </div>

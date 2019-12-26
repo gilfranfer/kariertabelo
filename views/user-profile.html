@@ -186,7 +186,7 @@
             </h4>
             <div id="resumeEducation" class="collapse">
             <!-- Add Education form -->
-            <div class="form-row row-cols-1 row-cols-sm-2">
+            <div class="form-row row-cols-1 row-cols-sm-3">
               <div class="col mt-2">
                 <label for="title">Title</label>
                 <input id="educationTitle" type="text" id="title" name="title" ng-model="newEducation.title" ng-required="true" class="form-control form-control-lg">
@@ -195,6 +195,12 @@
                 <label for="school">School</label>
                 <input type="text" id="school" name="school" ng-model="newEducation.school" ng-required="true" class="form-control form-control-lg">
               </div>
+              <div class="col mt-2">
+                <label for="location">Location</label>
+                <input type="text" id="edulocation" name="location" ng-model="newEducation.location" ng-required="false" class="form-control form-control-lg">
+              </div>
+            </div>
+            <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="edufrom">From</label>
                 <input type="month" id="edufrom" name="edufrom" ng-model="newEducation.from" ng-required="true" class="form-control form-control-lg">
@@ -221,6 +227,7 @@
               <div class="col-7 col-sm-9 pl-4">
                 <span class="font-weight-bold">{{record.title}}</span><br>
                 <span class="font-weight-light">{{record.school}}</span><br>
+                <span class="font-weight-light" ng-show="record.location">{{record.location}}<br></span>
                 <span class="font-weight-lighter">
                   {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
                 </span><br>
