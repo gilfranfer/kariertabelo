@@ -7,7 +7,10 @@ const values = {
 const messages = {
   registration:{
     error:"Error during User creation:",
-    working:"Registering User ..."
+    working:"Registering User ...",
+    settingPwd: "Updating Password...",
+    pwdSet: "Password has been set",
+    deletingAccount:"Deleting Account..."
   },
   login:{
     working:"Login in progress ...",
@@ -1115,7 +1118,6 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
   $scope.loginUser = function() {
     let email = $scope.login.email;
     let passwd = $scope.login.password;
-
     $scope.loginResponse = {type:"info", message: messages.login.working };
     $firebaseAuth().$signInWithEmailAndPassword(email,passwd).then(function(user){
       $location.path(values.paths.profile);
@@ -1134,6 +1136,85 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
       $scope.loginResponse = {type:"danger", message: errorMessage };
     });;
 
+  };
+
+  $scope.updatePassword = function(){
+    $scope.accountResponse = {type:"info", message: messages.registration.settingPwd };
+    let user = firebase.auth().currentUser;
+    let currentPwd = $scope.registration.oldPwd;
+    let newPassword = $scope.registration.newPwd;
+
+    let credential = firebase.auth.EmailAuthProvider.credential( firebase.auth().currentUser.email, currentPwd);
+    user.reauthenticateWithCredential(credential).then(function() {
+      // User re-authenticated.
+      // console.log(credential);
+      return user.updatePassword(newPassword);
+    }).then(function() {
+      // Update successful.
+      $scope.$apply(function(){
+        $scope.accountResponse = {type:"success", message: messages.registration.pwdSet };
+      });
+    }).catch(function(error) {
+      // An error happened.
+      console.log(error);
+      $scope.$apply(function(){
+        $scope.accountResponse = {type:"danger", message: error };
+      });
+    });
+  };
+
+  /* TODO: Currently the system allows users to only have 1 reesume. If we add the feature to allow multiple resumes,
+   then we will need to Iterate over each User Resume and:
+   1. Delete all paths associated to each resume
+   1. Delete all customs associated to each resume
+   1. Delete each resume
+  */
+  $scope.deleteAccount = function(){
+    $scope.delAccountResponse = {type:"info", message: messages.registration.deletingAccount };
+    let pathsCollection = firebase.firestore().collection("paths");
+    let usersCollection = firebase.firestore().collection("users");
+    let delPassword = $scope.registration.delPwd;
+    let user = firebase.auth().currentUser;
+    let userId = $rootScope.currentSession.authUser.uid;
+    let resumeId = undefined;
+
+    let credential = firebase.auth.EmailAuthProvider.credential( firebase.auth().currentUser.email, delPassword);
+    user.reauthenticateWithCredential(credential).then(function() {
+      resumeId = $rootScope.currentSession.userData.resumeId;
+      //Delete default Resume basic Data (TODO: child collection need to be iterated and delete each document)
+      let resumesCollection = usersCollection.doc(userId).collection("resumes");
+      return resumesCollection.doc(resumeId).delete();
+    })
+    //Delete Custom associated to the resumeId
+    .then(function() {
+      let customsCollection = usersCollection.doc(userId).collection("customs");
+      return customsCollection.doc(resumeId).delete();
+    })
+    //Delete the path associated to the resumeId
+    .then(function() {
+      return pathsCollection.doc(resumeId).delete();
+    })
+    //Delete Profile image
+    .then(function() {
+      let storageRef = firebase.storage().ref();
+      let imageRef = storageRef.child('users').child(userId).child("pics").child(resumeId+".jpg");
+      // Delete the file
+      return imageRef.delete();
+    })
+    //Mark the User document as softDeleted, and delete other data
+    .then(function() {
+      usersCollection.doc(userId).set({softDeleted:true});
+      return user.delete();
+    })
+    //Redirect to home
+    .then(function() {
+      jQuery('#deleteAccountModal').modal('hide');
+      $location.path(values.paths.home);
+    })
+    // An error happened.
+    .catch(function(error) {
+      console.log(error);
+    });
   };
 
 });
