@@ -282,6 +282,10 @@
                 </textarea>
               </div>
             </div>
+            <!-- Alert -->
+            <div class="alert alert-{{workResponse.type}} my-2" role="alert" ng-show="workResponse" >
+              {{workResponse.message}}
+            </div>
             <!-- Add Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
@@ -350,6 +354,10 @@
                 </textarea>
               </div>
             </div>
+            <!-- Alert -->
+            <div class="alert alert-{{projectResponse.type}} my-2" role="alert" ng-show="projectResponse" >
+              {{projectResponse.message}}
+            </div>
             <!-- Add Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
@@ -408,6 +416,10 @@
                 <input type="number" min="0" max="100" id="skill-level" name="skill-level" ng-model="newSkill.level" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
+            <!-- Alert -->
+            <div class="alert alert-{{skillsResponse.type}} my-2" role="alert" ng-show="skillsResponse" >
+              {{skillsResponse.message}}
+            </div>
             <!-- Save Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
@@ -453,6 +465,10 @@
                 <input type="text" id="language-level" name="language-level" ng-model="newLanguage.level" ng-required="true" class="form-control form-control-lg">
               </div>
             </div>
+            <!-- Alert -->
+            <div class="alert alert-{{languagesResponse.type}} my-2" role="alert" ng-show="languagesResponse" >
+              {{languagesResponse.message}}
+            </div>
             <!-- Save Button -->
             <div class="form-row mt-2 mb-5">
               <div class="col">
@@ -493,6 +509,10 @@
                 <label for="interest">Interest</label>
                 <input id="interestTitle" type="text" id="interest" name="interest" ng-model="newInterest.interest" ng-required="true" class="form-control form-control-lg">
               </div>
+            </div>
+            <!-- Alert -->
+            <div class="alert alert-{{interestsResponse.type}} my-2" role="alert" ng-show="interestsResponse" >
+              {{interestsResponse.message}}
             </div>
             <!-- Save Button -->
             <div class="form-row mt-2 mb-5">
