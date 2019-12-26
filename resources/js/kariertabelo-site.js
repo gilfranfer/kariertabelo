@@ -133,6 +133,7 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 
   let usersCollection = firebase.firestore().collection("users");
   $firebaseAuth().$onAuthStateChanged(function(user) {
+    $scope.expandSection(false);
     // console.debug("$onAuthStateChanged KariertabeloCtrl",user);
     if(user){
       $rootScope.currentSession = {authUser:user};
@@ -158,38 +159,44 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
       $location.path(route);
   }
 
-  $scope.resumeWorkExpanded = false;
-  $scope.resumeSkillsExpanded = false;
-  $scope.resumeProfileExpanded = false;
-  $scope.resumeInterstsExpanded = false;
-  $scope.resumeProjectsExpanded = false;
-  $scope.resumeLanguageExpanded = false;
-  $scope.resumeEducationExpanded = false;
-		$scope.expandSection = function(section, value) {
-			switch (section) {
-				case 'resumeWork':
-					$scope.resumeWorkExpanded = value;
-					break;
-				case 'resumeProfile':
-					$scope.resumeProfileExpanded = value;
-					break;
-				case 'resumeLanguage':
-					$scope.resumeLanguageExpanded = value;
-					break;
-          case 'resumeProjects':
-          $scope.resumeProjectsExpanded = value;
-					break;
-				case 'resumeSkills':
-					$scope.resumeSkillsExpanded = value;
-					break;
-				case 'resumeEducation':
-					$scope.resumeEducationExpanded = value;
-					break;
-				case 'resumeIntersts':
-					$scope.resumeInterstsExpanded = value;
-					break;
-			}
-		};
+	$scope.expandSection = function(section, value) {
+		switch (section) {
+			case 'all':
+      $scope.resumeWorkExpanded = value;
+      $scope.accountFormExpanded = value;
+      $scope.resumeSkillsExpanded = value;
+      $scope.resumeProfileExpanded = value;
+      $scope.resumeInterstsExpanded = value;
+      $scope.resumeProjectsExpanded = value;
+      $scope.resumeLanguageExpanded = value;
+      $scope.resumeEducationExpanded = value;
+				break;
+			case 'resumeWork':
+				$scope.resumeWorkExpanded = value;
+				break;
+			case 'accountForm':
+				$scope.accountFormExpanded = value;
+				break;
+			case 'resumeProfile':
+				$scope.resumeProfileExpanded = value;
+				break;
+			case 'resumeLanguage':
+				$scope.resumeLanguageExpanded = value;
+				break;
+        case 'resumeProjects':
+        $scope.resumeProjectsExpanded = value;
+				break;
+			case 'resumeSkills':
+				$scope.resumeSkillsExpanded = value;
+				break;
+			case 'resumeEducation':
+				$scope.resumeEducationExpanded = value;
+				break;
+			case 'resumeIntersts':
+				$scope.resumeInterstsExpanded = value;
+				break;
+		}
+	};
 });
 
 app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
