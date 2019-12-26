@@ -1,6 +1,5 @@
 <section>
-  <!-- <div class="bg-shapes-top"></div>
-  <div class="bg-shapes-top"></div> -->
+
   <!-- Welcome -->
   <article id="" class="px-4 py-4 bg-success" style="background-color:{{customs.baseColor}}!important">
     <div id="picture-container" class="text-center">
@@ -19,6 +18,7 @@
     </h1>
     <h5 class="text-center text-light">{{currentSession.authUser.email}}</h5>
   </article>
+
   <!-- Path -->
   <article id="path-container" class="row justify-content-center">
     <div class="col-11 col-lg-10">
@@ -67,6 +67,7 @@
       </div>
     </div>
   </article>
+
   <!-- Resume Data -->
   <article id="resumeData-container" class="row justify-content-center">
     <div class="col-11 col-lg-10">
@@ -195,12 +196,12 @@
                 <input type="text" id="school" name="school" ng-model="newEducation.school" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
-                <label for="from">From</label>
-                <input type="month" id="from" name="from" ng-model="newEducation.from" ng-required="true" class="form-control form-control-lg">
+                <label for="edufrom">From</label>
+                <input type="month" id="edufrom" name="edufrom" ng-model="newEducation.from" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
-                <label for="to">To</label>
-                <input type="month" id="to" name="to" ng-model="newEducation.to" ng-required="false" class="form-control form-control-lg">
+                <label for="eduto">To</label>
+                <input type="month" id="eduto" name="eduto" ng-model="newEducation.to" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
             <!-- Alert -->
@@ -256,21 +257,21 @@
               </div>
               <div class="col mt-2">
                 <label for="location">Location</label>
-                <input type="text" id="location" name="location" ng-model="newWork.location" ng-required="true" class="form-control form-control-lg">
+                <input type="text" id="worklocation" name="worklocation" ng-model="newWork.worklocation" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
-                <label for="from">From</label>
-                <input type="month" id="from" name="from" ng-model="newWork.from" ng-required="true" class="form-control form-control-lg">
+                <label for="workfrom">From</label>
+                <input type="month" id="workfrom" name="workfrom" ng-model="newWork.from" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
-                <label for="to">To</label>
-                <input type="month" id="to" name="to" ng-model="newWork.to" ng-required="false" class="form-control form-control-lg">
+                <label for="workto">To</label>
+                <input type="month" id="workto" name="workto" ng-model="newWork.to" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
             <div class="form-row row-cols-1">
               <div class="col mt-2">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" ng-model="newWork.description" ng-required="false" class="form-control form-control-lg">
+                <label for="work-description">Description</label>
+                <textarea id="work-description" name="work-description" ng-model="newWork.description" ng-required="false" class="form-control form-control-lg">
                 </textarea>
               </div>
             </div>
@@ -337,8 +338,8 @@
             </div>
             <div class="form-row row-cols-1">
               <div class="col mt-2">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" ng-model="newProject.description" ng-required="false" class="form-control form-control-lg">
+                <label for="project-description">Description</label>
+                <textarea id="project-description" name="project-description" ng-model="newProject.description" ng-required="false" class="form-control form-control-lg">
                 </textarea>
               </div>
             </div>
@@ -396,8 +397,8 @@
                 <input id="skillTitle" type="text" id="skill" name="skill" ng-model="newSkill.skill" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
-                <label for="level">Level</label>
-                <input type="number" min="0" max="100" id="level" name="level" ng-model="newSkill.level" ng-required="false" class="form-control form-control-lg">
+                <label for="skill-level">Level</label>
+                <input type="number" min="0" max="100" id="skill-level" name="skill-level" ng-model="newSkill.level" ng-required="false" class="form-control form-control-lg">
               </div>
             </div>
             <!-- Save Button -->
@@ -441,8 +442,8 @@
                 <input id="languageTitle" type="text" id="language" name="language" ng-model="newLanguage.language" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
-                <label for="level">Level</label>
-                <input type="text" id="level" name="level" ng-model="newLanguage.level" ng-required="true" class="form-control form-control-lg">
+                <label for="language-level">Level</label>
+                <input type="text" id="language-level" name="language-level" ng-model="newLanguage.level" ng-required="true" class="form-control form-control-lg">
               </div>
             </div>
             <!-- Save Button -->
@@ -512,6 +513,7 @@
       </div>
     </div>
   </article>
+
   <!-- Customize -->
   <article id="customize-container" class="row justify-content-center">
     <div class="col-11 col-lg-10">
@@ -533,6 +535,7 @@
       </div>
     </div>
   </article>
+
   <!-- View Resume -->
   <article id="register-container" class="row justify-content-center">
     <div class="col-11 col-lg-10">
