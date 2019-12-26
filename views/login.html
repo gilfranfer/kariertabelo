@@ -23,6 +23,9 @@
               <small class="form-text text-danger" ng-show="loginForm.password.$invalid && loginForm.password.$dirty">
                 Password must contain numbers, lower and upper case letters, and be 8+ characters.
               </small>
+              <small class="form-text text-primary clickable" ng-click="sendResetPwdEmail(loginForm)">
+                I forgort my password. Send me a reset email.
+              </small>
             </div>
           </div>
           <!-- Alert -->
@@ -37,6 +40,7 @@
               </button>
             </div>
           </div>
+
         </form>
       </div>
       <!-- When a user is already logged -->

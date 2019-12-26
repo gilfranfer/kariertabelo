@@ -1088,6 +1088,23 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
     });
   };
 
+  $scope.sendResetPwdEmail = function(form) {
+    if(form.email.$invalid){
+      $scope.loginResponse = {type:"danger", message:"Provide your email"};
+    }else{
+      let email = form.email.$modelValue;
+      firebase.auth().sendPasswordResetEmail(email).then(function(){
+        // Email sent.
+        $scope.$apply(function(){
+          $scope.loginResponse = {type:"success", message:"Reset email sent to:"+email};
+        });
+      }).catch(function(error) {
+        // An error happened.
+        $scope.loginResponse = {type:"danger", message:error};
+      });
+    }
+  };
+
   $scope.loginUser = function() {
     let email = $scope.login.email;
     let passwd = $scope.login.password;
