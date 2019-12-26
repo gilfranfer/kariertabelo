@@ -207,6 +207,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
   let pathsCollection = firebase.firestore().collection("paths");
   let usersCollection = firebase.firestore().collection("users");
   let currentResumeDoc = undefined;
+  $scope.expandSection("all",false);
 
   $firebaseAuth().$onAuthStateChanged(function(user) {
     if(!user)return;
