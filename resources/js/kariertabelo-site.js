@@ -353,6 +353,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       newEducation.to = new Date(record.to);
     }
     $scope.newEducation = newEducation;
+    document.getElementById("educationTitle").focus();
   };
 
   $scope.saveEducation = function(){
@@ -400,12 +401,14 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     }
     $scope.newEducation = undefined;
+    document.getElementById("educationTitle").focus();
   };
 
   $scope.removeEducation = function(record) {
     currentResumeDoc.collection("education").doc(record.id).delete().then(function() {
       $scope.$apply(function(){
         removeEducationFromArray(record);
+        document.getElementById("educationTitle").focus();
       });
     }).catch(function(error) {
         console.error("Error removing document: ", error);
@@ -441,6 +444,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       newWork.to = new Date(record.to);
     }
     $scope.newWork = newWork;
+    document.getElementById("workTitle").focus();
   };
 
   $scope.saveWork = function(){
@@ -492,12 +496,14 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     }
     $scope.newWork = undefined;
+    document.getElementById("workTitle").focus();
   };
 
   $scope.removeWork = function(record) {
     currentResumeDoc.collection("work").doc(record.id).delete().then(function() {
       $scope.$apply(function(){
         removeWorkFromArray(record);
+        document.getElementById("workTitle").focus();
       });
     }).catch(function(error) {
         console.error("Error removing document: ", error);
@@ -536,6 +542,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       newProject.description = record.description;
     }
     $scope.newProject = newProject;
+    document.getElementById("projectTitle").focus();
   };
 
   $scope.saveProject = function(){
@@ -585,12 +592,14 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     }
     $scope.newProject = undefined;
+    document.getElementById("projectTitle").focus();
   };
 
   $scope.removeProject = function(record) {
     currentResumeDoc.collection("projects").doc(record.id).delete().then(function() {
       $scope.$apply(function(){
         removeProjectFromArray(record);
+        document.getElementById("projectTitle").focus();
       });
     }).catch(function(error) {
         console.error("Error removing document: ", error);
@@ -626,6 +635,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       newSkill.level = record.level;
     }
     $scope.newSkill = newSkill;
+    document.getElementById("skillTitle").focus();
   };
 
   $scope.saveSkill = function(){
@@ -669,12 +679,14 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     }
     $scope.newSkill = undefined;
+    document.getElementById("skillTitle").focus();
   };
 
   $scope.removeSkill = function(record) {
     currentResumeDoc.collection("skills").doc(record.id).delete().then(function() {
       $scope.$apply(function(){
         removeSkillFromArray(record);
+        document.getElementById("skillTitle").focus();
       });
     }).catch(function(error) {
         console.error("Error removing document: ", error);
@@ -707,6 +719,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
   $scope.editLanguage = function(record){
     let newLanguage = {id:record.id, language:record.language, level:record.level};
     $scope.newLanguage = newLanguage;
+    document.getElementById("languageTitle").focus();
   };
 
   $scope.saveLanguage = function(){
@@ -747,12 +760,14 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     }
     $scope.newLanguage = undefined;
+    document.getElementById("languageTitle").focus();
   };
 
   $scope.removeLanguage = function(record) {
     currentResumeDoc.collection("languages").doc(record.id).delete().then(function() {
       $scope.$apply(function(){
         removeLanguageFromArray(record);
+        document.getElementById("languageTitle").focus();
       });
     }).catch(function(error) {
         console.error("Error removing document: ", error);
@@ -785,6 +800,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
   $scope.editInterest = function(record){
     let newInterest = {id:record.id, interest:record.interest};
     $scope.newInterest = newInterest;
+    document.getElementById("interestTitle").focus();
   };
 
   $scope.saveInterest = function(){
@@ -825,12 +841,14 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       });
     }
     $scope.newInterest = undefined;
+    document.getElementById("interestTitle").focus();
   };
 
   $scope.removeInterest = function(record) {
     currentResumeDoc.collection("interests").doc(record.id).delete().then(function() {
       $scope.$apply(function(){
         removeInterestFromArray(record);
+        document.getElementById("interestTitle").focus();
       });
     }).catch(function(error) {
         console.error("Error removing document: ", error);

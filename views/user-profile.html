@@ -188,7 +188,7 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title" ng-model="newEducation.title" ng-required="true" class="form-control form-control-lg">
+                <input id="educationTitle" type="text" id="title" name="title" ng-model="newEducation.title" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="school">School</label>
@@ -247,7 +247,7 @@
             <!-- Add Work form -->
             <div class="form-row row-cols-1 row-cols-sm-3">
               <div class="col mt-2">
-                <label for="title">Title</label>
+                <label id="workTitle" for="title">Title</label>
                 <input type="text" id="title" name="title" ng-model="newWork.title" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
@@ -324,7 +324,7 @@
             <div class="form-row row-cols-1 row-cols-sm-3">
               <div class="col mt-2">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" ng-model="newProject.name" ng-required="true" class="form-control form-control-lg">
+                <input id="projectTitle" type="text" id="name" name="name" ng-model="newProject.name" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="url">URL</label>
@@ -393,7 +393,7 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="skill">Skill</label>
-                <input type="text" id="skill" name="skill" ng-model="newSkill.skill" ng-required="true" class="form-control form-control-lg">
+                <input id="skillTitle" type="text" id="skill" name="skill" ng-model="newSkill.skill" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="level">Level</label>
@@ -438,7 +438,7 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="language">Language</label>
-                <input type="text" id="language" name="language" ng-model="newLanguage.language" ng-required="true" class="form-control form-control-lg">
+                <input id="languageTitle" type="text" id="language" name="language" ng-model="newLanguage.language" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="level">Level</label>
@@ -483,7 +483,7 @@
             <div class="form-row row-cols-1">
               <div class="col mt-2">
                 <label for="interest">Interest</label>
-                <input type="text" id="interest" name="interest" ng-model="newInterest.interest" ng-required="true" class="form-control form-control-lg">
+                <input id="interestTitle" type="text" id="interest" name="interest" ng-model="newInterest.interest" ng-required="true" class="form-control form-control-lg">
               </div>
             </div>
             <!-- Save Button -->
