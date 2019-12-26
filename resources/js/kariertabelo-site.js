@@ -1041,6 +1041,10 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
 
   };
 
+  $scope.expandResumeSection = function(sectionName){
+    jQuery('#'+sectionName).collapse('toggle');
+  };
+
 });
 
 app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAuth) {
