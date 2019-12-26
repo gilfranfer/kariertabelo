@@ -245,7 +245,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     let storageRef = firebase.storage().ref();
     let imageRef = storageRef.child('users').child(userId).child("pics").child(resumeId+".jpg");
     imageRef.getDownloadURL().then(function(url) {
-      console.log(url);
+      // console.log(url);
       var img = document.getElementById('profile-picture');
       img.src = url;
     }).catch(function(error) {
