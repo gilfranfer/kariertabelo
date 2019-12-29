@@ -253,7 +253,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       var img = document.getElementById('profile-picture');
       img.src = url;
     }).catch(function(error) {
-      if(error.code==404)return;
+      if(error.code=="storage/object-not-found")return;
       console.log(error);
     });
   };
