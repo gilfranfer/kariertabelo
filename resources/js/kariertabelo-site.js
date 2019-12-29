@@ -253,6 +253,7 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
       var img = document.getElementById('profile-picture');
       img.src = url;
     }).catch(function(error) {
+      if(error.code==404)return;
       console.log(error);
     });
   };
@@ -1181,40 +1182,50 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
    1. Delete each resume
   */
   $scope.deleteAccount = function(){
-    $scope.delAccountResponse = {type:"info", message: messages.registration.deletingAccount };
+    if(!$rootScope.currentSession.userData || !$rootScope.currentSession.userData.resumeId){
+      return;
+    }
+
     let pathsCollection = firebase.firestore().collection("paths");
     let usersCollection = firebase.firestore().collection("users");
     let delPassword = $scope.registration.delPwd;
     let user = firebase.auth().currentUser;
     let userId = $rootScope.currentSession.authUser.uid;
-    let resumeId = undefined;
+    let resumeId = $rootScope.currentSession.userData.resumeId;
+    $scope.delAccountResponse = {type:"info", message: messages.registration.deletingAccount };
 
     let credential = firebase.auth.EmailAuthProvider.credential( firebase.auth().currentUser.email, delPassword);
-    user.reauthenticateWithCredential(credential).then(function() {
-      resumeId = $rootScope.currentSession.userData.resumeId;
-      //Delete default Resume basic Data (TODO: child collection need to be iterated and delete each document)
-      let resumesCollection = usersCollection.doc(userId).collection("resumes");
-      return resumesCollection.doc(resumeId).delete();
-    })
-    //Delete Custom associated to the resumeId
-    .then(function() {
-      let customsCollection = usersCollection.doc(userId).collection("customs");
-      return customsCollection.doc(resumeId).delete();
-    })
-    //Delete the path associated to the resumeId
+    user.reauthenticateWithCredential(credential)
+    //Delete default Resume basic Data (TODO: child collection need to be iterated and delete each document)
+    // .then(function() {
+    //   resumeId = $rootScope.currentSession.userData.resumeId;
+    //   let resumesCollection = usersCollection.doc(userId).collection("resumes");
+    //   return resumesCollection.doc(resumeId).delete();
+    // })
+    // //Delete Custom associated to the resumeId
+    // .then(function() {
+    //   let customsCollection = usersCollection.doc(userId).collection("customs");
+    //   return customsCollection.doc(resumeId).delete();
+    // })
+    // 1. Delete the path associated to the resumeId
     .then(function() {
       return pathsCollection.doc(resumeId).delete();
     })
-    //Delete Profile image
+    // 2. Delete Profile image (if any) and Delete User Document
     .then(function() {
       let storageRef = firebase.storage().ref();
       let imageRef = storageRef.child('users').child(userId).child("pics").child(resumeId+".jpg");
-      // Delete the file
-      return imageRef.delete();
+      imageRef.delete().then(function(){})
+      .catch(function(error) {
+        if(error.code != "storage/object-not-found"){
+          console.log(error);
+        }
+      });
+      //Deleting the user Document will trigger the cloud function to remove the collections (resumes, customs)
+      return usersCollection.doc(userId).delete();
     })
-    //Mark the User document as softDeleted, and delete other data
+    //Delete User (Auth)
     .then(function() {
-      usersCollection.doc(userId).set({softDeleted:true});
       return user.delete();
     })
     //Redirect to home
