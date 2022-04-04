@@ -36,6 +36,14 @@
       </div>
       <div class="mt-2 mb-4">
         <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:#fff">
+          <i class="fas fa-book"></i>
+        </span>
+        <span class="text-uppercase" style="color:{{customs.baseColor}}">
+          {{customs.labels.training}}
+        </span>
+      </div>
+      <div class="mt-2 mb-4">
+        <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:#fff">
           <i class="fas fa-tools"></i>
         </span>
         <span class="text-uppercase" style="color:{{customs.baseColor}}">
@@ -95,7 +103,7 @@
               placeholder="" ng-model="customs.labels.education" ng-required="true"/>
           </div>
           <div class="col my-3">
-            <label for="trainingLbl" class="font-weight-normal">Education:</label> <br>
+            <label for="trainingLbl" class="font-weight-normal">Training:</label> <br>
             <input id="trainingLbl" type="text" name="trainingLbl" class="form-control form-control-lg"
               placeholder="" ng-model="customs.labels.training" ng-required="true"/>
           </div>
