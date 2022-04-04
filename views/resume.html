@@ -253,6 +253,36 @@
             </div>
             </div>
           </article>
+          <!-- Trainings -->
+          <article class="my-5" ng-if="trainingList.length>0">
+            <h5 class="card-title mb-5 clickable"  ng-click="expandResumeSection('profile-training')">
+              <span class="icon-circle" style="background-color:{{customs.baseColor}}!important; color:{{customs.profileTextColor}}">
+                <i class="fas fa-book"></i>
+              </span>
+              <span class="text-uppercase" style="color:{{customs.baseColor}}">
+                {{customs.labels.training}}
+              </span>
+            </h5>
+            <div id="profile-training" class="collapse show">
+            <div class="mb-4" ng-repeat="record in trainingList | orderBy:'from':true track by record.id" style="color:{{customs.textColor}}">
+              <div class="row mb-3">
+                <div class="col">
+                  <span class="font-weight-bold">
+                    {{record.title}}
+                  </span><br>
+                  <br>
+                  <span class="font-weight-lighter">
+                    {{record.from |  date: 'MMM yyyy'}}
+                  </span>
+                  <span class="font-weight-lighter" ng-show="record.to">
+                      - {{record.to |  date: 'MMM yyyy'}}
+                  </span>
+                </div>
+              </div>
+            </div>
+            </div>
+          </article>
+
           <!-- Skills -->
           <article class="my-5" ng-if="skillsList.length>0">
             <h5 class="card-title mb-5 clickable"  ng-click="expandResumeSection('profile-skills')">
