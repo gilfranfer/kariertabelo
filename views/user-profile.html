@@ -88,26 +88,26 @@
             <div id="resumeProfile" class="collapse">
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
-                <label for="firstname">Firstname</label><span class="text-danger">*</span>
-                <input placeholder="Fernando" type="text" id="firstname" name="firstname" ng-model="resumeData.profile.firstname" ng-required="true" class="form-control form-control-lg">
+                <label for="firstname">First name</label><span class="text-danger">*</span>
+                <input placeholder="" type="text" id="firstname" name="firstname" ng-model="resumeData.profile.firstname" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
-                <label for="lastname">Lastname</label><span class="text-danger">*</span>
-                <input placeholder="Gil" type="text" id="lastname" name="lastname" ng-model="resumeData.profile.lastname" ng-required="true" class="form-control form-control-lg">
+                <label for="lastname">Last name</label><span class="text-danger">*</span>
+                <input placeholder="" type="text" id="lastname" name="lastname" ng-model="resumeData.profile.lastname" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="position">Title</label><span class="text-danger">*</span>
-                <input placeholder="IT Manager" type="text" id="position" name="position" ng-model="resumeData.profile.position" ng-required="true" class="form-control form-control-lg">
+                <input placeholder="" type="text" id="position" name="position" ng-model="resumeData.profile.position" ng-required="true" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="location">Location</label><span class="text-danger">*</span>
-                <input placeholder="San Antonio Tx" type="text" id="location" name="location" ng-model="resumeData.profile.location" ng-required="true" class="form-control form-control-lg">
+                <input placeholder="" type="text" id="location" name="location" ng-model="resumeData.profile.location" ng-required="true" class="form-control form-control-lg">
               </div>
             </div>
             <div class="form-row">
               <div class="col mt-2">
                 <label for="bio">Biography</label>
-                <textarea placeholder="Some detaisl about myself" id="bio" name="bio" ng-model="resumeData.profile.bio" ng-required="false" class="form-control form-control-lg">
+                <textarea placeholder="Some details about you" id="bio" name="bio" ng-model="resumeData.profile.bio" ng-required="false" class="form-control form-control-lg">
                 </textarea>
               </div>
             </div>
@@ -116,7 +116,7 @@
             <div class="form-row row-cols-1 row-cols-sm-2">
               <div class="col mt-2">
                 <label for="email">Email</label>
-                <input placeholder="fernando.gil@kariertabelo.com" type="email" id="email" name="email" ng-model="resumeData.contact.email" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="my.email@domain.com" type="email" id="email" name="email" ng-model="resumeData.contact.email" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="phone">Phone</label>
@@ -127,7 +127,7 @@
               </div>
               <div class="col mt-2">
                 <label for="webpage">Webpage</label>
-                <input placeholder="gillab.netlify.com" type="text" id="webpage" name="webpage" ng-model="resumeData.contact.webpage" ng-required="false" class="form-control form-control-lg">
+                <input placeholder="mypage.com" type="text" id="webpage" name="webpage" ng-model="resumeData.contact.webpage" ng-required="false" class="form-control form-control-lg">
               </div>
               <div class="col mt-2">
                 <label for="github">Github</label>
@@ -236,6 +236,73 @@
                 <button type="button" class="btn btn-outline-primary" ng-click="editEducation(record)">
                   <i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-outline-danger" ng-click="removeEducation(record)">
+                  <i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+            </div>
+          </form>
+          <form name="trainingForm" novalidate>
+            <h4 class="mt-5 mb-3">
+              <i class="clickable far fa-minus-square"
+               data-toggle="collapse" data-target="#resumeTraining" aria-expanded="false" aria-controls="resumeTraining"
+              ng-if="resumeTrainingExpanded" ng-click="expandSection('resumeTraining',false)"></i>
+              <i class="clickable far fa-plus-square"
+               data-toggle="collapse" data-target="#resumeTraining" aria-expanded="true" aria-controls="resumeTraining"
+              ng-if="!resumeTrainingExpanded" ng-click="expandSection('resumeTraining',true);getTrainingList();"></i>
+              Training
+            </h4>
+            <div id="resumeTraining" class="collapse">
+            <!-- Add Training form -->
+            <div class="form-row row-cols-1 row-cols-sm-3">
+              <div class="col mt-2">
+                <label for="title">Title</label>
+                <input id="trainingTitle" type="text" id="title" name="title" ng-model="newTraining.title" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="school">School</label>
+                <input type="text" id="school" name="school" ng-model="newTraining.school" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="location">Location</label>
+                <input type="text" id="traininglocation" name="location" ng-model="newTraining.location" ng-required="false" class="form-control form-control-lg">
+              </div>
+            </div>
+            <div class="form-row row-cols-1 row-cols-sm-2">
+              <div class="col mt-2">
+                <label for="trainingfrom">From</label>
+                <input type="month" id="trainingfrom" name="trainingfrom" ng-model="newTraining.from" ng-required="true" class="form-control form-control-lg">
+              </div>
+              <div class="col mt-2">
+                <label for="trainingto">To</label>
+                <input type="month" id="trainingto" name="trainingto" ng-model="newTraining.to" ng-required="false" class="form-control form-control-lg">
+              </div>
+            </div>
+            <!-- Alert -->
+            <div class="alert alert-{{trainingResponse.type}} my-2" role="alert" ng-show="trainingResponse" >
+              {{trainingResponse.message}}
+            </div>
+            <!-- Add Button -->
+            <div class="form-row mt-2 mb-5">
+              <div class="col">
+                <button type="button" class="btn btn-lg btn-block btn-success clickable" role="button" ng-disabled="trainingForm.$invalid" ng-click="saveTraining()">
+                  Save Training
+                </button>
+              </div>
+            </div>
+            <!-- List -->
+            <div class="row mb-3" ng-repeat="record in trainingList | orderBy:'from':true track by record.id">
+              <div class="col-7 col-sm-9 pl-4">
+                <span class="font-weight-bold">{{record.title}}</span><br>
+                <span class="font-weight-light">{{record.school}}</span><br>
+                <span class="font-weight-light" ng-show="record.location">{{record.location}}<br></span>
+                <span class="font-weight-lighter">
+                  {{record.from |  date: 'MMM yyyy'}} - {{record.to |  date: 'MMM yyyy'}}
+                </span><br>
+              </div>
+              <div class="col-5 col-sm-3 ">
+                <button type="button" class="btn btn-outline-primary" ng-click="editTraining(record)">
+                  <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" ng-click="removeTraining(record)">
                   <i class="fas fa-trash"></i></button>
               </div>
             </div>

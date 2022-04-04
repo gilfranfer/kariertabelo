@@ -30,6 +30,10 @@ const messages = {
     working:"Saving Education...",
     success:"Education saved!"
   },
+  trainingData:{
+    working:"Saving Training...",
+    success:"Training saved!"
+  },
   workData:{
     working:"Saving Work...",
     success:"Work saved!"
@@ -173,6 +177,7 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
       $scope.resumeProjectsExpanded = value;
       $scope.resumeLanguageExpanded = value;
       $scope.resumeEducationExpanded = value;
+      $scope.resumeTrainingExpanded = value;
 				break;
 			case 'resumeWork':
 				$scope.resumeWorkExpanded = value;
@@ -194,6 +199,9 @@ app.controller('KariertabeloCtrl', function($rootScope, $scope, $location, $fire
 				break;
 			case 'resumeEducation':
 				$scope.resumeEducationExpanded = value;
+				break;
+			case 'resumeTraining':
+				$scope.resumeTrainingExpanded = value;
 				break;
 			case 'resumeIntersts':
 				$scope.resumeInterstsExpanded = value;
@@ -437,6 +445,104 @@ app.controller('UserProfileCtrl', function($rootScope, $scope, $location, $fireb
     $scope.educationList.some(function(element, index) {
       if(element.id === record.id){
         $scope.educationList.splice(index,1);
+      }
+      return (element.id === record.id)
+    });
+  };
+
+  $scope.getTrainingList = function(){
+    currentResumeDoc.collection("training").get().then(function(data) {
+      // console.log(data);
+      trainingList = new Array();
+      data.forEach(function(doc) {
+        let record = doc.data();
+        record.id = doc.id;
+        trainingList.push(record);
+      });
+      $scope.$apply(function() {
+        $scope.trainingList = trainingList;
+      });
+    });
+  };
+
+  $scope.editTraining = function(record){
+    let newTraining = {id:record.id, title:record.title, school:record.school, from:new Date(record.from)};
+    if(record.to){
+      newTraining.to = new Date(record.to);
+    }
+    if(record.location){
+      newTraining.location = record.location;
+    }
+    $scope.newTraining = newTraining;
+    document.getElementById("trainingTitle").focus();
+  };
+
+  $scope.saveTraining = function(){
+    $scope.trainingResponse = {type:"info", message: messages.trainingData.working };
+    let record = {
+      title: $scope.newTraining.title,
+      school: $scope.newTraining.school,
+      from: $scope.newTraining.from.getTime()
+    };
+    if($scope.newTraining.to){
+      record.to = $scope.newTraining.to.getTime();
+    }
+    if($scope.newTraining.location){
+      record.location = $scope.newTraining.location;
+    }
+
+    if(!$scope.newTraining.id){
+      //Create new record
+      let newRecordId = currentResumeDoc.collection("training").doc().id;
+      currentResumeDoc.collection("training").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        $scope.$apply(function(){
+          $scope.trainingList.push(record);
+          $scope.trainingResponse = {type:"success", message: messages.trainingData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.trainingResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    //Updating existing record
+    else{
+      let newRecordId = $scope.newTraining.id;
+      currentResumeDoc.collection("training").doc(newRecordId).set(record).then(function(){
+        record.id = newRecordId;
+        removeTrainingFromArray({id:newRecordId});
+        $scope.$apply(function(){
+          $scope.trainingList.push(record);
+          $scope.trainingResponse = {type:"success", message: messages.trainingData.success };
+        });
+      }).catch(function(error) {
+        $scope.$apply(function(){
+          $scope.trainingResponse = {type:"danger", message: messages.generic.dbError };
+        });
+        console.error("Error saving document:", error);
+      });
+    }
+    $scope.newTraining = undefined;
+    document.getElementById("trainingTitle").focus();
+  };
+
+  $scope.removeTraining = function(record) {
+    currentResumeDoc.collection("training").doc(record.id).delete().then(function() {
+      $scope.$apply(function(){
+        removeTrainingFromArray(record);
+        document.getElementById("trainingTitle").focus();
+      });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  };
+
+  removeTrainingFromArray = function(record) {
+    $scope.trainingList.some(function(element, index) {
+      if(element.id === record.id){
+        $scope.trainingList.splice(index,1);
       }
       return (element.id === record.id)
     });
@@ -998,6 +1104,7 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
     let resumeReference = usersCollection.doc(userId).collection("resumes").doc(resumeId);
     let resumeDoc = resumeReference.get();
     let educationCollection = resumeReference.collection("education").get();
+    let trainingCollection = resumeReference.collection("training").get();
     let interestsCollection = resumeReference.collection("interests").get();
     let languagesCollection = resumeReference.collection("languages").get();
     let projectsCollection = resumeReference.collection("projects").get();
@@ -1005,7 +1112,7 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
     let workCollection = resumeReference.collection("work").get();
     let customsDoc = usersCollection.doc(userId).collection("customs").doc(resumeId).get();
 
-    let promises =[customsDoc,resumeDoc,educationCollection,interestsCollection,
+    let promises =[customsDoc,resumeDoc,educationCollection, trainingCollection,interestsCollection,
         languagesCollection,projectsCollection,skillsCollection,workCollection];
 
     Promise.all(promises).then(function(values) {
@@ -1027,6 +1134,9 @@ app.controller('ResumeViewCtrl', function($rootScope, $scope, $location, $fireba
       });
       educationCollection.then(function(data){
         $scope.$apply(function(){ $scope.educationList = collectionToArray(data); });
+      });
+      trainingCollection.then(function(data){
+        $scope.$apply(function(){ $scope.trainingList = collectionToArray(data); });
       });
       interestsCollection.then(function(data){
         $scope.$apply(function(){ $scope.interestsList = collectionToArray(data); });
@@ -1089,7 +1199,7 @@ app.controller('SignUpCtrl', function($rootScope, $scope, $location, $firebaseAu
       customsCollection.doc(autoId).set({
         baseColor: "#007bff",
         order: {profile:1, resume:2 },
-        labels:{ education:"Education", interests:"Hobbies", languages:"Languages",
+        labels:{ education:"Education", training:"Training", interests:"Hobbies", languages:"Languages",
           projects:"Projects", skills:"Skills", summary:"Career Summary", work:"Work History"}
       }).then(function() {});
 
@@ -1292,6 +1402,7 @@ app.controller('ExampleResumeCtrl', function($scope) {
         bio:"#28a745",
         contact:"#28a745",
         education:"#28a745",
+        training:"#28a745",
         languages:"#28a745",
         interests:"#28a745",
         text:"#fff",
@@ -1312,6 +1423,7 @@ app.controller('ExampleResumeCtrl', function($scope) {
 
   $scope.labels = {
     education:"Educación",
+    education:"Entrenamientos",
     languages:"Idiomas",
     interests:"Intereses",
     summary:"Resumen de Carrera",
@@ -1342,6 +1454,10 @@ app.controller('ExampleResumeCtrl', function($scope) {
     education:[
       {order:1, degree:"Ingeniería de Software", school:"Universidad", period:"2008 - 2012"},
       {order:2, degree:"Administración de Software", school:"Universidad", period:"2017 - 2019"},
+    ],
+    training:[
+      {order:1, degree:"Programación Orientada a Objetos", school:"Universidad", period:"2008 - 2009"},
+      {order:2, degree:"Desarollo Web", school:"Universidad", period:"2017 - 2018"},
     ],
     languages:[
       {order:1, language:"Español", level:"Nativo"},
