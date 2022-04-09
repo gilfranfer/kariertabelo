@@ -298,7 +298,7 @@
             </h5>
             <div id="profile-skills" class="collapse show">
             <!-- Skills with bar -->
-            <div class="mb-4" ng-repeat="record in skillsList | orderBy:'id':true track by record.id" style="color:{{customs.textColor}}">
+            <div class="mb-4" ng-repeat="record in skillsList | orderBy:'level':true track by record.id" style="color:{{customs.textColor}}">
               <div class="row mb-3" ng-if="record.level">
                 <div class="col">
                   <span class="font-weight-normal">
